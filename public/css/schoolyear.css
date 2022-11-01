@@ -1,0 +1,70 @@
+.badge-success {
+  background-color: #d6f0e0;
+  color: #0d6832 !important;
+}
+
+.w-35 {
+  width: 35%;
+}
+
+.badge-remove {
+  background-color: #f6c8c8;
+  color: red !important;
+}
+
+.text-deco-n {
+  text-decoration: none !important;
+}
+
+a.select-sy:hover {
+  background-color: #c4f8c0;
+}
+
+.border-n {
+  border: none;
+}
+
+button.remove-sy:hover {
+  background-color: #c10000;
+  color: rgb(247, 245, 245) !important;
+}
+
+.border-1-add-sy {
+  border: rgb(92 179 218) 1px solid;
+  color: #a11252;
+  background-color: #99defb;
+}
+
+a.text-deco-n.py-3.px-5.border-1-add-sy:hover {
+  background-image: linear-gradient(to bottom right, rgb(153, 218, 243), #5151f3);
+  color: white;
+  cursor: pointer;
+}
+
+.border-t-1 {
+  border-top: 1px grey solid;
+}
+
+.height-with-scroll {
+  height: 70vh;
+  overflow: auto;
+}
+
+
+.bg-sy {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+
+  background-size: cover;
+}
+
+
+
+.bg-opacity {
+  background-color: rgba(0, 0, 0, 60%)
+}
+
+.ui-datepicker-calendar {
+  display: none;
+  }

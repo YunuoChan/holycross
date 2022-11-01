@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SchoolyearController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +23,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::group(array('prefix' => '/admin'), function () {
+
+    // SCHOOL YEAR
+    Route::get('/schoolyear/get', [SchoolyearController::class, 'index'])->name('fetch-schoolyear');
+    Route::post('/schoolyear/save', [SchoolyearController::class, 'create'])->name('save-schoolyear');
+
+
+});
