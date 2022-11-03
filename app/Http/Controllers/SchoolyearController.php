@@ -6,6 +6,8 @@ use App\Models\Schoolyear;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
+use Carbon\Carbon;
+
 class SchoolyearController extends Controller
 {
 
@@ -19,7 +21,7 @@ class SchoolyearController extends Controller
         try {
             $schoolyears = Schoolyear::with('user')
                                 ->where('status', 'ACT')
-                                ->orderBy('created_at')
+                                ->orderBy('sy_from', 'DESC')
                                 ->get();
 
             return response()->json([
@@ -45,16 +47,17 @@ class SchoolyearController extends Controller
 
             $from   = $request->syfrom;
             $to     = $request->syto;
-
-            if ($to  < $from ) {
-                $from   = $request->syto;
-                $to     = $request->syfrom;
-            }
+            $userId = auth()->user()->id;
+            // if ($to  < $from ) {
+            //     $from   = $request->syto;
+            //     $to     = $request->syfrom;
+            // }
             
             $schoolYear = new Schoolyear();
-            $schoolYear->sy_from = $from;
-            $schoolYear->sy_to = $to;
-            $schoolYear->user_id = auth()->user()->user_id;
+            $schoolYear->sy_from    = $from;
+            $schoolYear->sy_to      = $to;
+            $schoolYear->user_id    = $userId;
+            $schoolYear->created_at = Carbon::now();
             $schoolYear->save();
 
             return response()->json([
@@ -109,9 +112,30 @@ class SchoolyearController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // TRASH RECORD
+        try {
+            $id   = $request->id;
+            $userId = auth()->user()->id;
+        
+
+            $schoolYear = Schoolyear::find($id);
+            $schoolYear->updated_at = Carbon::now();
+            $schoolYear->status = 'INA';
+            $schoolYear->user_id = $userId;
+            $schoolYear->update();
+
+
+            return response()->json([
+                'status' => 0,
+            ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error'	=> $th
+            ], 500);
+        }
     }
 
     /**

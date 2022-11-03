@@ -30,6 +30,7 @@ Route::group(array('prefix' => '/admin'), function () {
     // SCHOOL YEAR
     Route::get('/schoolyear/get', [SchoolyearController::class, 'index'])->name('fetch-schoolyear');
     Route::post('/schoolyear/save', [SchoolyearController::class, 'create'])->name('save-schoolyear');
+    Route::post('/schoolyear/trash', [SchoolyearController::class, 'update'])->name('trash-schoolyear');
 
 
 });
