@@ -3,14 +3,14 @@
 @section('head')
     <title>HCC | School Year</title>
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"> --}}
-    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet"/>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+    {{-- <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet"/>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.css" rel="stylesheet"/> --}}
 @stop
 
 @section('content')
-<div class="bg-sy" style="background-image: url('/img/hcc.jpg');">
+<div class="bg-sy" style="background-image: url('/img/hcc-bg.jpg');">
   <div class="bg-opacity">
-    <div class="container pt-4">
+    <div class="container pt-4" style="height: 100vh;">
       {{-- ACTIVE SHOOLYEAR --}}
       <div id="activeSY">
       </div>
@@ -37,13 +37,12 @@
 
 @section('page-script')
     <script src="/js/schoolyear.js"></script>
-    {{-- <script src=" https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script> --}}
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
     
-   
+
     <script>
        $(document).ready(function() {
             loadSchoolyearRecord();

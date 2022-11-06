@@ -1,5 +1,5 @@
 
-<div class="modal fade" id="addSchoolYearRecord" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addSchoolYearRecord" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 140px">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
