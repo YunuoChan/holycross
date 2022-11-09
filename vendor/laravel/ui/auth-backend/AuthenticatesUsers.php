@@ -175,11 +175,6 @@ trait AuthenticatesUsers
             return $response;
         }
 
-        if (isset($_COOKIE['__schoolYear_selected'])) {
-            unset($_COOKIE['__schoolYear_selected']); 
-            setcookie('__schoolYear_selected', null, -1, '/'); 
-        } 
-
         return $request->wantsJson()
             ? new JsonResponse([], 204)
             : redirect('/');

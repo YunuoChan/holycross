@@ -35,12 +35,21 @@
                             <div class="d-flex justify-content-start flex-column mt-5">
                                 <form action="">
                                     <input type="search" required placeholder="Type your student ID Number">
-                                    <i class="fa fa-search search-icon"></i>
-                                    <a href="javascript:void(0)" id="clear-btn" class="clear-text">Clear</a>
+                                    <a><i class="fa fa-search search-icon"></i></a>
+                                    {{-- <a href="javascript:void(0)" id="clear-btn" class="clear-text">Clear</a> --}}
                                 </form>
                             </div>
-                            
-                               
+
+
+                            <div>
+                                <div class="d-flex justify-content-center">
+                                    <h1>Shedule Viewer</h1>
+                                </div>
+                                <iframe src="https://www.africau.edu/images/default/sample.pdf" width="100%" height="600px">
+                                </iframe>
+                            </div>
+                            <div>
+                            </div>
                         </div>
                     </div>
                 </div>

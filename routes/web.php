@@ -33,4 +33,8 @@ Route::group(array('prefix' => '/admin'), function () {
     Route::post('/schoolyear/trash', [SchoolyearController::class, 'update'])->name('trash-schoolyear');
 
 
+    // PROFESSOR
+    Route::get('/schoolyear/get', [SchoolyearController::class, 'index'])->name('fetch-schoolyear');
+
+
 });

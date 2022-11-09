@@ -57,6 +57,7 @@ form:hover .fa.search-icon,
 form:valid .fa.search-icon {
     background: #07051a;
     color: white;
+    cursor: pointer;
 }
 
 

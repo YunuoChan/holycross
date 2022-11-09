@@ -35,7 +35,7 @@
 <body>
     <div id="app">
         {{-- INCLUDE NAV --}}
-        @include('layouts/nav')
+        {{-- @include('layouts/nav') --}}
         <main style="height: 100vh; font-size: 1.6rem !important;">
             @yield('content')
         </main>
