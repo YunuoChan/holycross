@@ -19,7 +19,7 @@
                                 <div class="account-block rounded-right">
                                     <div class="overlay rounded-right"></div>
                                     <div class="account-testimonial">
-                                        <h4 class="text-white mb-4">LOREM IPSUM!</h4>
+                                        <h4 class="text-white mb-4">HCC </h4>
                                         <p class="lead text-white">"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."</p>
                                         <p>- HCC</p>
                                     </div>
