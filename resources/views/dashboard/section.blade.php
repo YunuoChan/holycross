@@ -52,7 +52,11 @@
         if (localStorage.getItem('current_page') == '') {
             selectDashboardMenu('dashboard')
         } else {
-            selectDashboardMenu(localStorage.getItem('current_page'))
+            if (localStorage.getItem('submenu') == null || localStorage.getItem('submenu') == 'null') {
+                selectDashboardMenu(localStorage.getItem('current_page'))
+            } else {
+                selectDashboardMenu(localStorage.getItem('current_page'), localStorage.getItem('submenu'))
+            }
         }
 
         loadSectionRecord();

@@ -89,9 +89,17 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        //
         try {
+            $schoolYearId = null;
+            if(isset($_COOKIE['__schoolYear_selected'])) {
+                $schoolYearId = $_COOKIE['__schoolYear_selected'];
+            } else {
+                return response()->json([
+                    'error'	=> 'Invalid Schoolyear!'
+                ], 500);
+            }
             $subjects = Subject::with('user')
+                                ->where('schoolyear_id', $schoolYearId)
                                 ->orderBy('status', 'ASC')
                                 ->orderBy('id', 'DESC')
                                 ->get();

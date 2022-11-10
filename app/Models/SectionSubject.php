@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Section extends Model
+class SectionSubject extends Model
 {
     use HasFactory;
-    protected 	$table 			= 'section';
+    protected 	$table 			= 'section_subject';
 	protected 	$primaryKey 	= 'id';
 	public 		$timestamps 	= false;
 
@@ -25,7 +25,12 @@ class Section extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function sectionSubjects() {
-        return $this->hasMany(SectionSubject::class);
+    public function section() {
+        return $this->belongsTo(Section::class, 'section_id', 'id');
     }
+
+    public function subject() {
+        return $this->belongsTo(Subject::class, 'subject_id', 'id');
+    }
+
 }

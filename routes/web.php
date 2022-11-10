@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SchoolyearController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SectionSubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,5 +51,11 @@ Route::group(array('prefix' => '/admin'), function () {
     Route::post('/section/trash', [SectionController::class, 'destroy'])->name('section.trash');
     Route::get('/section/edit', [SectionController::class, 'edit'])->name('section.edit');
     Route::post('/section/update', [SectionController::class, 'update'])->name('section.update');
+
+
+    // SECTION SUBJECT
+    Route::get('/section/subject/get', [SectionSubjectController::class, 'index'])->name('section.subject');
+    Route::get('/section/subject/show', [SectionSubjectController::class, 'show'])->name('section.subject.show');
+    Route::get('/section/subject/get/sectiondata', [SectionSubjectController::class, 'sectionData'])->name('section.subject.sectiondata');
 
 });

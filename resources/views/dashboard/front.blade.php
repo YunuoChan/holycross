@@ -2,6 +2,8 @@
 
 @section('head')
     <title>HCC | Dashboard</title>
+
+    <link href="{{ asset('/css/dashboard/front.css') }}" rel="stylesheet" type="text/css">
 @stop
 
 @section('content')
@@ -12,6 +14,7 @@
 
 @section('page-script')
    
+    <script src="/js/dashboard/front.js"></script>
     <script>
         $(document).ready(function() {
             if (localStorage.getItem('current_page') == '') {

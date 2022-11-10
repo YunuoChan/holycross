@@ -87,7 +87,17 @@ class SectionController extends Controller
     {
          //
          try {
+            $schoolYearId = null;
+            if(isset($_COOKIE['__schoolYear_selected'])) {
+                $schoolYearId = $_COOKIE['__schoolYear_selected'];
+            } else {
+                return response()->json([
+                    'error'	=> 'Invalid Schoolyear!'
+                ], 500);
+            }
+
             $sections = Section::with('user')
+                                ->where('schoolyear_id', $schoolYearId)
                                 ->orderBy('status', 'ASC')
                                 ->orderBy('id', 'DESC')
                                 ->get();

@@ -56,9 +56,12 @@
                             <li id="li-dashboard" name="dashboard-menu" class="active">
                                 <a href="{{ route('home') }}"  onclick="selectDashboardMenu('dashboard');">Dashboard</a>
                             </li>
+                            <li id="li-professor" name="dashboard-menu">
+                                <a href="#" onclick="selectDashboardMenu('professor');">Professor</a>
+                            </li>
                             {{-- <li>
-                                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                                <ul class="collapse list-unstyled" id="pageSubmenu">
+                                <a href="#Submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" onclick="openDropdown('prof')">Prof</a>
+                                <ul class="list-unstyled collapse" id="profSubmenu" style="">
                                     <li>
                                         <a href="#">Page 1</a>
                                     </li>
@@ -70,14 +73,22 @@
                                     </li>
                                 </ul>
                             </li> --}}
-                            <li id="li-professor" name="dashboard-menu">
-                                <a href="#" onclick="selectDashboardMenu('professor');">Professor</a>
-                            </li>
                             <li id="li-subject" name="dashboard-menu">
                                 <a href="{{ route('subject') }}" onclick="selectDashboardMenu('subject');">Subject</a>
                             </li>
                             <li id="li-section" name="dashboard-menu">
-                                <a href="{{ route('section') }}" onclick="selectDashboardMenu('section');">Section</a>
+                                <a onclick="openDropdown('section')" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Section</a>
+                                <ul class="collapse list-unstyled ml-3" id="sectionSubmenu">
+                                    <li id="li-section-list-submenu">
+                                        <a href="{{ route('section') }}" onclick="selectDashboardMenu('section', 'section-list');" class="white-color">Section List</a>
+                                    </li>
+                                    <li id="li-section-subject-submenu">
+                                        <a href="{{ route('section.subject') }}" onclick="selectDashboardMenu('section', 'section-subject');" class="white-color">Section Subject</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="white-color">Page 3</a>
+                                    </li>
+                                </ul>
                             </li>
                             <li name="dashboard-menu">
                                 <a href="#">Student</a>
@@ -158,7 +169,13 @@
         if (localStorage.getItem('current_page') == '') {
             selectDashboardMenu('dashboard')
         } else {
-            selectDashboardMenu(localStorage.getItem('current_page'))
+            if (localStorage.getItem('submenu') == null || localStorage.getItem('submenu') == 'null') {
+                selectDashboardMenu(localStorage.getItem('current_page'))
+            } else {
+                selectDashboardMenu(localStorage.getItem('current_page'), localStorage.getItem('submenu'))
+            }
         }
+
+
      </script>
 </html>

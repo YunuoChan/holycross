@@ -1,6 +1,6 @@
 
 
-function selectDashboardMenu(selected) {
+function selectDashboardMenu(selected, submenu = null) {
 
     $('li[name="dashboard-menu"]').each(function() {
         $(this).removeClass('active');
@@ -9,6 +9,12 @@ function selectDashboardMenu(selected) {
     $('#li-'+ selected).addClass('active');
 
     localStorage.setItem('current_page', selected);
+    localStorage.setItem('submenu', submenu);
+
+    if (submenu) {
+        $('#'+ selected +'Submenu').addClass('show');
+        $('li#li-'+ submenu +'-submenu').addClass('active-white');
+    }
 }
 
 
@@ -54,4 +60,15 @@ function successSave() {
         showHideTransition: 'slide',
         icon: 'success'
     })
+}
+
+
+function openDropdown(page) {
+
+    if ($('#'+ page +'Submenu').hasClass('show')) {
+        $('#'+ page +'Submenu').removeClass('show');
+        
+    } else {
+        $('#'+ page +'Submenu').addClass('show');
+    }
 }

@@ -89,14 +89,19 @@ a:focus {
 }
 
 #sidebar ul li a:hover {
-    color: #7386D5;
+    color: #191157 !important;
     background: #fff;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: #2f4bc4
+}
+
+#sidebar ul li.active-white>a {
+    color: #2f4bc4 !important;
+    background: #fff;
 }
 
 a[data-toggle="collapse"] {
@@ -175,4 +180,9 @@ a.article:hover {
 
 .white-color {
     color: white !important;
+}
+
+.collapsed-click {
+    color: #7386D5 !important;
+    background: #fff;
 }
