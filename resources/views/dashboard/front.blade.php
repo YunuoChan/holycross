@@ -14,7 +14,11 @@
    
     <script>
         $(document).ready(function() {
-
+            if (localStorage.getItem('current_page') == '') {
+                selectDashboardMenu('dashboard')
+            } else {
+                selectDashboardMenu(localStorage.setItem('current_page'))
+            }
         });
     </script>
   

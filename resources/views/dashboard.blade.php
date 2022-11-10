@@ -10,11 +10,21 @@
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet" type="text/css">
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-
+        <link href="{{ asset('/plugin/jquery-toast/jquery.toast.min.css') }}" rel="stylesheet" type="text/css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="/js/dashboard.js" type="text/javascript"></script>
+        <script src="/plugin/jquery-toast/jquery.toast.min.js" type="text/javascript"></script>
+        <script src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" type="text/javascript"></script>
+        <script src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js" type="text/javascript"></script>
+    
         
         <!-- Scripts -->
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
         @yield('head')
+
+    
     </head>
     <body>
         <main style="height: 100vh;">
@@ -44,7 +54,7 @@
                                 </ul>
                             </li> --}}
                             <li id="li-dashboard" name="dashboard-menu" class="active">
-                                <a href="#dashboard" onclick="selectDashboardMenu('dashboard'); return false;">Dashboard</a>
+                                <a href="{{ route('home') }}"  onclick="selectDashboardMenu('dashboard');">Dashboard</a>
                             </li>
                             {{-- <li>
                                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
@@ -60,32 +70,32 @@
                                     </li>
                                 </ul>
                             </li> --}}
-                            <li id="li-professor">
-                                <a href="{{ route('logout') }}" onclick="selectDashboardMenu('professor'); return false;">Professor</a>
+                            <li id="li-professor" name="dashboard-menu">
+                                <a href="#" onclick="selectDashboardMenu('professor');">Professor</a>
                             </li>
-                            <li>
-                                <a href="#">Subjects</a>
+                            <li id="li-subject" name="dashboard-menu">
+                                <a href="{{ route('subject') }}" onclick="selectDashboardMenu('subject');">Subject</a>
                             </li>
-                            <li>
+                            <li name="dashboard-menu">
                                 <a href="#">Section</a>
                             </li>
-                            <li>
+                            <li name="dashboard-menu">
                                 <a href="#">Student</a>
                             </li>
-                            <li>
+                            <li name="dashboard-menu">
                                 <a href="#">Schedule</a>
                             </li>
-                            <li>
+                            <li name="dashboard-menu">
                                 <a href="#">Generate Schedule</a>
                             </li>
                         </ul>
 
                         <ul class="list-unstyled components">
                             <h4 class="px-4 my-4">MAINTENANCE</h4>
-                            <li>
+                            <li name="dashboard-menu">
                                 <a href="#">Admin Accounts</a>
                             </li>
-                            <li>
+                            <li name="dashboard-menu">
                                 <a href="#">Switch School year</a>
                             </li>
                         </ul>
@@ -138,24 +148,17 @@
         {{-- INCLUDE FOOTER --}}
     </body>
     @include('components.modal')
-    @yield('page-script')
-    <script src="/js/dasboard.js"></script>
-    <script src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
 
-            if (localStorage.getItem('current_page') == '') {
-                selectDashboardMenu('dashboard')
-            } else {
-                selectDashboardMenu(localStorage.setItem('current_page'))
-            }
-            
+    @yield('page-script')
+    <script type="text/javascript">
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
         });
+
+        if (localStorage.getItem('current_page') == '') {
+            selectDashboardMenu('dashboard')
+        } else {
+            selectDashboardMenu(localStorage.getItem('current_page'))
+        }
      </script>
 </html>

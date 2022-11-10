@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SchoolyearController;
+use App\Http\Controllers\SubjectController;
 
 
 /*
@@ -34,7 +35,10 @@ Route::group(array('prefix' => '/admin'), function () {
 
 
     // PROFESSOR
-    Route::get('/schoolyear/get', [SchoolyearController::class, 'index'])->name('fetch-schoolyear');
-
+    Route::get('/subject/get', [SubjectController::class, 'index'])->name('subject');
+    Route::get('/subject/show', [SubjectController::class, 'show'])->name('subject.show');
+    Route::post('/subject/save', [SubjectController::class, 'store'])->name('subject.save');
+    Route::post('/subject/trash', [SubjectController::class, 'destroy'])->name('subject.trash');
+    Route::get('/subject/edit', [SubjectController::class, 'edit'])->name('subject.edit');
 
 });

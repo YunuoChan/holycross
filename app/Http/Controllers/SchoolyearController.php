@@ -48,10 +48,10 @@ class SchoolyearController extends Controller
             $from   = $request->syfrom;
             $to     = $request->syto;
             $userId = auth()->user()->id;
-            // if ($to  < $from ) {
-            //     $from   = $request->syto;
-            //     $to     = $request->syfrom;
-            // }
+            if ($to  < $from ) {
+                $from   = $request->syto;
+                $to     = $request->syfrom;
+            }
             
             $schoolYear = new Schoolyear();
             $schoolYear->sy_from    = $from;

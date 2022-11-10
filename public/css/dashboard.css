@@ -166,3 +166,13 @@ a.article:hover {
         display: none;
     }
 }
+
+
+.modal-header-custom {
+    background-color: #100b3a !important;
+    color: white !important;
+}
+
+.white-color {
+    color: white !important;
+}

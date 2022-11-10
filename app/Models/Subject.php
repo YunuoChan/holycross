@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Schoolyear extends Model
+class Subject extends Model
 {
     use HasFactory;
-    protected 	$table 			= 'schoolyears';
+    protected 	$table 			= 'subject';
 	protected 	$primaryKey 	= 'id';
 	public 		$timestamps 	= false;
 
-      /**
+     /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
@@ -25,7 +25,8 @@ class Schoolyear extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function subjects() {
-        return $this->hasMany(Subject::class);
+    public function schoolyear() {
+        return $this->belongsTo(Schoolyear::class);
     }
 }
+

@@ -45,4 +45,8 @@ class User extends Authenticatable
     public function schoolyears() {
         return $this->hasMany(Schoolyear::class);
     }
+
+    public function subjects() {
+        return $this->hasMany(Schoolyear::class);
+    }
 }

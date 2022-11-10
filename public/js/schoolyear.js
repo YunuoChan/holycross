@@ -28,7 +28,13 @@ function loadSchoolyearRecord() {
 
     }).fail(function(error) {
         console.log('Backend Error', error);
-       // showError('Something went wrong');
+        $.toast({
+            heading: 'Backend Error!',
+            text: 'Something went wrong. Please try again!',
+            showHideTransition: 'plain',
+            position: 'top-right',
+            icon: 'warning'
+        })
     });
 }
 
