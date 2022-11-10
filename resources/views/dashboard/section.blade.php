@@ -29,7 +29,7 @@
             <table class="table">
                 <thead class="thead-dark">
                   <tr>
-                    <th width="15%" scope="col" class="vertical-center">Section</th>
+                    <th width="15%" scope="col" class="vertical-center">Course</th>
                     <th width="10%"scope="col" class="vertical-center">Section Code</th>
                     <th width="10%" scope="col" class="vertical-center">Year Level</th>
                     <th width="10%" scope="col" class="vertical-center">Status</th>
