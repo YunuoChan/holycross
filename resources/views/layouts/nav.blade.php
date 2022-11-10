@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark mb-0" style="background-color: #100b3a;">
     <div class="container">
-        <a href="#" class="navbar-brand">HCCians</a>
+        <a href="#" class="navbar-brand">Holy Cross College</a>
         
         <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#main-nav">
             <span class="menu-icon-bar"></span>
