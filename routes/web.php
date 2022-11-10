@@ -54,8 +54,9 @@ Route::group(array('prefix' => '/admin'), function () {
 
 
     // SECTION SUBJECT
-    Route::get('/section/subject/get', [SectionSubjectController::class, 'index'])->name('section.subject');
-    Route::get('/section/subject/show', [SectionSubjectController::class, 'show'])->name('section.subject.show');
-    Route::get('/section/subject/get/sectiondata', [SectionSubjectController::class, 'sectionData'])->name('section.subject.sectiondata');
-
+    Route::get('/section/subject/get',              [SectionSubjectController::class, 'index'])->name('section.subject');
+    Route::get('/section/subject/show',             [SectionSubjectController::class, 'show'])->name('section.subject.show');
+    Route::get('/section/subject/get/sectiondata',  [SectionSubjectController::class, 'sectionData'])->name('section.subject.sectiondata');
+    Route::post('/section/subject/update',          [SectionSubjectController::class, 'update'])->name('section.subject.update');
+    Route::post('/section/subject/destroy',         [SectionSubjectController::class, 'destroy'])->name('section.subject.destroy');
 });

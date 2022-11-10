@@ -85,9 +85,6 @@
                                     <li id="li-section-subject-submenu">
                                         <a href="{{ route('section.subject') }}" onclick="selectDashboardMenu('section', 'section-subject');" class="white-color">Section Subject</a>
                                     </li>
-                                    <li>
-                                        <a href="#" class="white-color">Page 3</a>
-                                    </li>
                                 </ul>
                             </li>
                             <li name="dashboard-menu">

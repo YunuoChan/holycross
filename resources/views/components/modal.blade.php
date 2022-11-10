@@ -115,13 +115,13 @@
       <div class="modal-body">
         <form>
           <div class="d-flex justify-content-start">
-            <div class="form-group w-25 mr-3">
+            <div class="form-group w-25 mr-3 mb-0">
               <label for="sectionCode">Section Code</label>
               <input type="text" class="form-control" id="sectionCode" placeholder="Code" maxlength="10">
             </div>
             <div class="form-group w-75">
-              <label for="sectionName">Section</label>
-              <input type="text" class="form-control" id="sectionName" placeholder="Section Name" maxlength="35">
+              <label for="sectionName">Course</label>
+              <input type="text" class="form-control" id="sectionName" placeholder="Course" maxlength="35">
             </div>
           </div>
           <div class="form-group">
@@ -157,7 +157,6 @@
         <form>
           <div class="d-flex justify-content-start">
             <div class="form-group mr-3">
-              <label for="sectionCode">Section</label>
               <div id="addSectionSubjectSection">
                 <h3>Section</h3>
                 <p>Code</p>
@@ -166,19 +165,14 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="sectionYearlevel">Year Level</label>  
-            <div class="ml-3">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                  Default checkbox
-                </label>
-              </div>
+            <label><h4>Subjects</h4></label>  
+            <div class="ml-3" id="sectionSubjectPicker">
+              
             </div>
           </div>
         </form>
       </div>
-      <div class="modal-footer" id="sectionModalBtn">
+      <div class="modal-footer" id="sectionSubjecModalBtn">
       </div>
     </div>
   </div>

@@ -19,10 +19,10 @@ function yearCard(section, mark) {
 
         } 
             elm += ' <div class="card border-'+ mark +' my-3"> ';
-            elm += '     <div class="card-header"><h3>'+ section.section +'</h3>'+ section.section_code +'</div> ';
+            elm += '     <div class="card-header"><h3 class="mb-0">'+ section.section_code +'</h3>'+ section.section +'</div> ';
             elm += '     <div class="card-body text-'+ mark +'"> ';
             if (section.section_subjects.length > 0) {
-                elm += '     <h5 class="card-title">Subjects</h5> ';
+                // elm += '     <h5 class="card-title">Subjects</h5> ';
                
                 elm += ' <table class="table"> ';
                 elm += tableHead();    
@@ -31,9 +31,9 @@ function yearCard(section, mark) {
                     elm += '        <tr> ';
                     elm += '            <td>'+ subject.subject.subject_code +' - '+ subject.subject.subject +'</td> ';
                     elm += '             <td class="vertical-center"> ';
-                    elm += '                <div class=""> ';
-                    elm += '                    <button type="button" class="btn btn-success mx-1" id="viewSectionSubject-'+ subject.id +'"><i class="fas fa-eye"></i></button> ';
-                    elm += '                    <button type="button" class="btn btn-danger" id="trashSectionSubject-'+ subject.id +'"><i class="fas fa-trash"></i></i></button> ';
+                    elm += '                <div class="d-flex justify-content-center"> ';
+                    // elm += '                    <button type="button" class="btn btn-success mx-1" id="viewSectionSubject-'+ subject.id +'"><i class="fas fa-eye"></i></button> ';
+                    elm += '                    <button type="button" class="btn btn-danger" id="trashSectionSubject-'+ subject.subject_id +'-'+ subject.section_id +'"><i class="fas fa-trash"></i></i></button> ';
                     elm += '                </div> ';
                     elm += '            </td> ';
                     elm += '        </tr> ';
@@ -148,6 +148,12 @@ function loadSectionSubjectRecord() {
             } 
 
             callSubjectSectionAddModal(section.id)
+            if (section.section_subjects.length > 0) {
+                section.section_subjects.forEach(function(subject) {
+                    initRemoveSubject(subject.subject_id, section.id)
+                });
+            }
+            
              
         });
     }).fail(function(error) {
@@ -156,13 +162,57 @@ function loadSectionSubjectRecord() {
     });
 }
 
+function initRemoveSubject(subject, section) {
+    $('#trashSectionSubject-'+ subject +'-'+ section).on('click', function() {
+        bootbox.confirm({
+            title: "Remove Section?",
+            message: "Are you sure you want to remove subject to this section?",
+            buttons: {
+                cancel: {
+                    label: '<i class="fas fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fas fa-trash"></i> Yes, Please!'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    confirmRemoveSubject(subject, section)
+                }
+            }
+        });
+    });
+    
+}
+function confirmRemoveSubject(subject, section) {
+    // WEB SERVICE CALL 
+    $.ajax({
+        url:        '/admin/section/subject/destroy',
+        type:       'POST',
+        dataType:   'json',
+        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data:   {
+            section     : section,
+            subject     : subject
+        }
+    }).then(function(data) {
+        loadSectionSubjectRecord();
+        $('#addSectionSubjectRecord').modal('hide');
+
+        // TOASTER
+        successDelete();
+    }).fail(function(error) {
+        console.log('Backend Error', error);
+        internalServerError()
+    });
+}
 
 function callSubjectSectionAddModal(id) {
 
-    $('#addSectModalCallFirstYear-'+ id ).on('click', function() {
+    $('#addSectModalCallFirstYear-'+ id).on('click', function() {
         // WEB SERVICE CALL 
         $.ajax({
-            url:        '/admin/section/edit',
+            url:        '/admin/section/subject/get/sectiondata',
             type:       'GET',
             dataType:   'json',
             headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -172,14 +222,72 @@ function callSubjectSectionAddModal(id) {
         }).then(function(data) {
             console.log('fetchsection: ', data);
 
+            $('#addSectionSubjectSection').html(BLANK);
+            $('#addSectionSubjectSection').append('<h3 class="mb-0">'+ data.section[0].section_code +'</h3><p>'+ data.section[0].section +'</p>');
+            $('#sectionSubjectPicker').html(BLANK);
+            data.subjects.forEach(function(subject) {
+                $('#sectionSubjectPicker').append(subjectSectionElement(subject, data.section[0].id));
+            });
+            
+            if (data.section[0].section_subjects.length > 0) {
+                data.section[0].section_subjects.forEach(function(subsect) {
+                    $('#subject-'+ subsect.subject_id).prop('checked', true)
+                });
+            }
+            $('#sectionSubjecModalBtn').html(BLANK);
+            $('#sectionSubjecModalBtn').append(btnModalElement('saveSubjectSection-'+data.section[0].id, 'Save Section Subject'));
+            initSave(data.section[0].id)
+            $('#addSectionSubjectRecord').modal('toggle');
         }).fail(function(error) {
             console.log('Backend Error', error);
             internalServerError();
         });
     });
-    
-    // $('#addSectionSubjectSection').html(BLANK);
-    // $('#addSectionSubjectSection').append('<h3>'+ section.section +'</h3><p>'+ section.section_code+'</p>');
-    
-    // $('#addSectionSubjectRecord').modal('toggle');
+}
+
+function subjectSectionElement(subject, section) {
+
+    var elm = BLANK;
+        elm += ' <div class="form-check form-switch"> ';
+        elm += '     <input class="form-check-input" type="checkbox" name="subject-'+ section +'" id="subject-'+ subject.id +'" data-id="'+ subject.id +'"> ';
+        elm += '     <label class="form-check-label" for="subject-'+ subject.id +'">'+ subject.subject_code +' | '+ subject.subject +'</label> ';
+        elm += ' </div> ';
+
+    return elm;
+}
+
+
+
+/*---------------------------------
+
+-----------------------------------*/
+function initSave(id) {
+    $('#saveSubjectSection-'+ id).on('click', function () {
+
+        var sectionSelected = [];
+        $('input[name="subject-'+ id +'"]:checked').map( function(index, elm) {
+            sectionSelected.push($(elm).attr('data-id'));
+        });
+
+        // WEB SERVICE CALL 
+        $.ajax({
+            url:        '/admin/section/subject/update',
+            type:       'POST',
+            dataType:   'json',
+            headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data:   {
+                section             : id,
+                sectionSelected     : sectionSelected
+            }
+        }).then(function(data) {
+            loadSectionSubjectRecord();
+            $('#addSectionSubjectRecord').modal('hide');
+
+            // TOASTER
+            successSave();
+        }).fail(function(error) {
+            console.log('Backend Error', error);
+            internalServerError()
+        });
+    });
 }
