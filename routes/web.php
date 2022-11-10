@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SchoolyearController;
 use App\Http\Controllers\SubjectController;
-
+use App\Http\Controllers\SectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,11 +34,21 @@ Route::group(array('prefix' => '/admin'), function () {
     Route::post('/schoolyear/trash', [SchoolyearController::class, 'update'])->name('trash-schoolyear');
 
 
-    // PROFESSOR
+    // SUBJECT
     Route::get('/subject/get', [SubjectController::class, 'index'])->name('subject');
     Route::get('/subject/show', [SubjectController::class, 'show'])->name('subject.show');
     Route::post('/subject/save', [SubjectController::class, 'store'])->name('subject.save');
     Route::post('/subject/trash', [SubjectController::class, 'destroy'])->name('subject.trash');
     Route::get('/subject/edit', [SubjectController::class, 'edit'])->name('subject.edit');
+    Route::post('/subject/update', [SubjectController::class, 'update'])->name('subject.update');
+
+
+    // SECTION
+    Route::get('/section/get', [SectionController::class, 'index'])->name('section');
+    Route::get('/section/show', [SectionController::class, 'show'])->name('section.show');
+    Route::post('/section/save', [SectionController::class, 'store'])->name('section.save');
+    Route::post('/section/trash', [SectionController::class, 'destroy'])->name('section.trash');
+    Route::get('/section/edit', [SectionController::class, 'edit'])->name('section.edit');
+    Route::post('/section/update', [SectionController::class, 'update'])->name('section.update');
 
 });

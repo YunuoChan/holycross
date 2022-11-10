@@ -76,8 +76,8 @@
                             <li id="li-subject" name="dashboard-menu">
                                 <a href="{{ route('subject') }}" onclick="selectDashboardMenu('subject');">Subject</a>
                             </li>
-                            <li name="dashboard-menu">
-                                <a href="#">Section</a>
+                            <li id="li-section" name="dashboard-menu">
+                                <a href="{{ route('section') }}" onclick="selectDashboardMenu('section');">Section</a>
                             </li>
                             <li name="dashboard-menu">
                                 <a href="#">Student</a>

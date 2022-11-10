@@ -95,8 +95,47 @@
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" id="subjectModalBtn">
         <button type="button" class="btn btn-primary w-25" id="saveNewSubject">Add Subject</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="addSectionRecord" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 50px">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-custom">
+        <h5 class="modal-title">Add New Section</h5>
+        <button type="button" class="close white-color" data-dismiss="modal" aria-label="Close" data-bs-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="d-flex justify-content-start">
+            <div class="form-group w-25 mr-3">
+              <label for="sectionCode">Section Code</label>
+              <input type="text" class="form-control" id="sectionCode" placeholder="Code" maxlength="10">
+            </div>
+            <div class="form-group w-75">
+              <label for="sectionName">Section</label>
+              <input type="text" class="form-control" id="sectionName" placeholder="Section Name" maxlength="35">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sectionYearlevel">Year Level</label>
+            <select class="form-control" id="sectionYearlevel">
+              <option value="1">First year</option>
+              <option value="2">Second year</option>
+              <option value="3">Third year</option>
+              <option value="4">Fouth year</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" id="sectionModalBtn">
       </div>
     </div>
   </div>

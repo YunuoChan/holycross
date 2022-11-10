@@ -11,9 +11,7 @@ function loadSubjectRecord() {
         url:        '/admin/subject/show',
         type:       'GET',
         dataType:   'json',
-        // data:   {
-        
-        // }
+        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
     }).then(function(data) {
         console.log('fetchSubject: ', data);
         $('#subjectTable').html(BLANK);
@@ -26,55 +24,13 @@ function loadSubjectRecord() {
         }
     }).fail(function(error) {
         console.log('Backend Error', error);
-        $.toast({
-            heading: 'Backend Error!',
-            text: 'Something went wrong. Please try again!',
-            showHideTransition: 'plain',
-            position: 'top-right',
-            icon: 'warning'
-        })
+       internalServerError()
     });
 }
 
 
 
 
-/*---------------------------------
-
------------------------------------*/
-function editSubjectRecord(id) {
-    $('#editSubject-' + id).on('click', function() {
-        // WEB SERVICE CALL 
-        $.ajax({
-            url:        '/admin/subject/edit',
-            type:       'GET',
-            dataType:   'json',
-            data:   {
-                id : id
-            }
-        }).then(function(data) {
-            console.log('fetchSubject: ', data);
-            $('#subjectName').val(data.subject.subject);
-            $('#subjectCode').val(data.subject.subject_code);
-            $('#subjectDescription').val(data.subject.description);
-            $('#subjectUnit').val(data.subject.unit);
-            $('#subjectTime').val(data.subject.time_to_consume).trigger('change');
-            $('#subjectYearlevel').val(data.subject.year_level).trigger('change');
-
-            $('#addSubjectRecord').modal('toggle');
-
-        }).fail(function(error) {
-            console.log('Backend Error', error);
-            $.toast({
-                heading: 'Backend Error!',
-                text: 'Something went wrong. Please try again!',
-                showHideTransition: 'plain',
-                position: 'top-right',
-                icon: 'warning'
-            })
-        });
-    }); 
-}
 
 
 
@@ -125,6 +81,9 @@ function tableElement(subject) {
 $('#addSubjModalCall').on('click', function () {
     $('#subjectTime').val('00:15:00').trigger('change');
     $('#subjectYearlevel').val(1).trigger('change');
+    $('#subjectModalBtn').html(BLANK);
+    $('#subjectModalBtn').append(btnModalElement('saveNewSubject', 'Add New Subject'));
+    initAddSubject() 
     $('#addSubjectRecord').modal('toggle');
 })
 
@@ -132,36 +91,36 @@ $('#addSubjModalCall').on('click', function () {
 /*---------------------------------
 
 -----------------------------------*/
-$('#saveNewSubject').on('click', function () {
-    // WEB SERVICE CALL 
-    $.ajax({
-        url:        '/admin/subject/save',
-        type:       'POST',
-        dataType:   'json',
-        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        data:   {
-            subject             : $('#subjectName').val(),
-            subjectCode         : $('#subjectCode').val(),
-            subjectDescription  : $('#subjectDescription').val(),
-            subjectUnit         : $('#subjectUnit').val(),
-            subjectTime         : $('#subjectTime').val(),
-            subjectYearlevel    : $('#subjectYearlevel').val()
-        }
-    }).then(function(data) {
-        resetSubjectModal();
-        loadSubjectRecord();
-        $('#addSubjectRecord').modal('hide');
-        $.toast({
-            heading: 'Success!',
-            text: 'Record successfully saved!',
-            showHideTransition: 'slide',
-            icon: 'success'
-        })
-    }).fail(function(error) {
-        console.log('Backend Error', error);
-    // showError('Something went wrong');
+function initAddSubject() {
+    $('#saveNewSubject').on('click', function () {
+        // WEB SERVICE CALL 
+        $.ajax({
+            url:        '/admin/subject/save',
+            type:       'POST',
+            dataType:   'json',
+            headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data:   {
+                subject             : $('#subjectName').val(),
+                subjectCode         : $('#subjectCode').val(),
+                subjectDescription  : $('#subjectDescription').val(),
+                subjectUnit         : $('#subjectUnit').val(),
+                subjectTime         : $('#subjectTime').val(),
+                subjectYearlevel    : $('#subjectYearlevel').val()
+            }
+        }).then(function(data) {
+            resetSubjectModal();
+            loadSubjectRecord();
+            $('#addSubjectRecord').modal('hide');
+
+            // TOASTER
+            successSave();
+        }).fail(function(error) {
+            console.log('Backend Error', error);
+            internalServerError();
+        });
     });
-});
+}
+
 
 
 /*---------------------------------
@@ -214,15 +173,12 @@ function trashSubject(id) {
     }).then(function(data) {
         resetSubjectModal();
         loadSubjectRecord();
-        $.toast({
-            heading: 'Success!',
-            text: 'Record successfully deleted!',
-            showHideTransition: 'slide',
-            icon: 'success'
-        })
+        
+        // TOASTER
+        successDelete();
     }).fail(function(error) {
         console.log('Backend Error', error);
-    // showError('Something went wrong');
+        internalServerError();
     });
 }
 
@@ -231,7 +187,89 @@ function trashSubject(id) {
 /*---------------------------------
 
 -----------------------------------*/
-function initTimeSelect() {
-   
-    // $('#subjectTime').datetimepicker();
+function editSubjectRecord(id) {
+    $('#editSubject-' + id).on('click', function() {
+        // WEB SERVICE CALL 
+        $.ajax({
+            url:        '/admin/subject/edit',
+            type:       'GET',
+            dataType:   'json',
+            headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data:   {
+                id : id
+            }
+        }).then(function(data) {
+            console.log('fetchSubject: ', data);
+            $('#subjectName').val(data.subject.subject);
+            $('#subjectCode').val(data.subject.subject_code);
+            $('#subjectDescription').val(data.subject.description);
+            $('#subjectUnit').val(data.subject.unit);
+            $('#subjectTime').val(data.subject.time_to_consume).trigger('change');
+            $('#subjectYearlevel').val(data.subject.year_level).trigger('change');
+            $('#subjectModalBtn').html(BLANK);
+            $('#subjectModalBtn').append(btnModalElement('updateSubjectBtn-'+ id, 'Update Subject Info'));
+            initUpdateSubject(id);
+            $('#addSubjectRecord').modal('toggle');
+
+        }).fail(function(error) {
+            console.log('Backend Error', error);
+           internalServerError();
+        });
+    }); 
+}
+
+function initUpdateSubject(id) {
+    $('#updateSubjectBtn-'+ id).on('click', function() {
+        $('#addSubjectRecord').modal('hide');
+        bootbox.confirm({
+            title: "Update Subject Info?",
+            message: "Are you sure you want to update this record?",
+            buttons: {
+                cancel: {
+                    label: '<i class="fas fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fas fa-trash"></i> Yes, Please!'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    updateSubject(id)
+                }
+            }
+        });
+    });
+}
+
+
+function updateSubject(id) {
+    // WEB SERVICE CALL 
+    $.ajax({
+        url:        '/admin/subject/update',
+        type:       'POST',
+        dataType:   'json',
+        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data:   {
+            id                  : id,
+            subject             : $('#subjectName').val(),
+            subjectCode         : $('#subjectCode').val(),
+            subjectDescription  : $('#subjectDescription').val(),
+            subjectUnit         : $('#subjectUnit').val(),
+            subjectTime         : $('#subjectTime').val(),
+            subjectYearlevel    : $('#subjectYearlevel').val()
+        }
+    }).then(function(data) {
+        console.log('fetchsubject: ', data);
+
+        $('#addSubjectRecord').modal('hide');
+        resetSubjectModal();
+        loadSubjectRecord();
+
+        // TOASTER
+        successUpdate();
+    }).fail(function(error) {
+        console.log('Backend Error', error);
+        internalServerError();
+    });
+
 }

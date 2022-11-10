@@ -1,7 +1,7 @@
 @extends('dashboard')
 
 @section('head')
-    <title>HCC | Dashboard</title>
+    <title>HCC | Subject</title>
     {{-- <link href="{{ asset('/plugin/timeselector/timeselector.css') }}" rel="stylesheet" type="text/css"> --}}
     <link href="{{ asset('/css/dashboard/subject.css') }}" rel="stylesheet" type="text/css">
 @stop
