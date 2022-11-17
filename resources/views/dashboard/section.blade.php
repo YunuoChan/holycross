@@ -60,7 +60,7 @@
         }
 
         loadSectionRecord();
-
+        loadCourses('#coursePicker-section')
     });
 </script>
 @stop

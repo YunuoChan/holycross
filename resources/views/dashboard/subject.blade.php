@@ -30,9 +30,9 @@
             <table class="table">
                 <thead class="thead-dark">
                   <tr>
+                    <th width="10%"scope="col" class="vertical-center">Course</th>
+                    <th width="15%"scope="col" class="vertical-center">Subject Code</th>
                     <th width="15%" scope="col" class="vertical-center">Subject</th>
-                    <th width="10%"scope="col" class="vertical-center">Subject Code</th>
-                    <th width="20%"scope="col" class="vertical-center">Description</th>
                     <th width="7%"scope="col" class="vertical-center">Unit</th>
                     <th width="12%" scope="col" class="vertical-center">Time to Consume</th>
                     <th width="10%" scope="col" class="vertical-center">Year Level</th>
@@ -65,7 +65,7 @@
             }
 
             loadSubjectRecord();
-
+            loadCourses('#coursePicker-subject')
         });
     </script>
   

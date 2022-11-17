@@ -33,6 +33,36 @@ function loadSectionRecord() {
 
 
 
+/*---------------------------------
+
+-----------------------------------*/
+function loadCourses(id) {
+    // WEB SERVICE CALL 
+    $.ajax({
+        url:        '/admin/course/get',
+        type:       'GET',
+        dataType:   'json',
+        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        // data:   {
+        
+        // }
+    }).then(function(data) {
+        console.log('fetchCourse: ', data);
+        if (data.courses.length > 0) {
+            $(id).html(BLANK);
+            data.courses.forEach(function(course) {
+                $(id).append('<option value="'+ course.id +'">'+ course.course_code +'</option>');
+            })
+        } else {
+            $(id).append('<option value="0">No course found in redord</option>');
+        }
+    }).fail(function(error) {
+        console.log('Backend Error', error);
+        internalServerError();
+    });
+}
+
+
 
 /*---------------------------------
 
@@ -40,7 +70,7 @@ function loadSectionRecord() {
 function tableElement(data) {
     var elm = BLANK;
         elm += ' <tr> ';
-        elm += '     <td class="vertical-center">'+ data.section +'</th> ';
+        elm += '     <td class="vertical-center">'+ data.course.course_code +'</th> ';
         elm += '     <td class="vertical-center">'+ data.section_code +'</td> ';
         if (data.year_level == 1) {
             elm += '     <td class="vertical-center">First Year</td> ';
@@ -94,7 +124,7 @@ function initAdd() {
             dataType:   'json',
             headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             data:   {
-                section             : $('#sectionName').val(),
+                course              : $('#coursePicker-section').val(),
                 sectionCode         : $('#sectionCode').val(),
                 sectionYearlevel    : $('#sectionYearlevel').val()
             }
@@ -119,7 +149,7 @@ function initAdd() {
 
 -----------------------------------*/
 function resetSectionModal() {
-    $('#sectionName').val(BLANK);
+    // $('#sectionName').val(BLANK);
     $('#sectionCode').val(BLANK);
     $('#sectionYearlevel').val(1).trigger('change');
 }
@@ -187,9 +217,10 @@ function editSectionRecord(id) {
             }
         }).then(function(data) {
             console.log('fetchsection: ', data);
-            $('#sectionName').val(data.section.section);
             $('#sectionCode').val(data.section.section_code);
             $('#sectionYearlevel').val(data.section.year_level).trigger('change');
+            $('#coursePicker-section').val(data.section.course.id).trigger('change');
+           
             $('#sectionModalBtn').html(BLANK);
             $('#sectionModalBtn').append(btnModalElement('updateSectionBtn-'+ id, 'Update Section Info'));
             initUpdateSection(id);
@@ -235,7 +266,7 @@ function updateSection(id) {
         headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         data:   {
             id                  : id,
-            section             : $('#sectionName').val(),
+            course              : $('#coursePicker-section').val(),
             sectionCode         : $('#sectionCode').val(),
             sectionYearlevel    : $('#sectionYearlevel').val()
         }

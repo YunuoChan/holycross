@@ -59,8 +59,11 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="subjectDescription">Description</label>
-            <textarea class="form-control" id="subjectDescription" rows="3" placeholder="Description" maxlength="254"></textarea>
+            <label for="coursePicker-subject">Select Course</label>
+            <select class="form-control" id="coursePicker-subject">
+            </select>
+            {{-- <label for="subjectDescription">Description</label>
+            <textarea class="form-control" id="subjectDescription" rows="3" placeholder="Description" maxlength="254"></textarea> --}}
           </div>
           <div class="d-flex justify-content-start">
             <div class="form-group w-25 mr-3">
@@ -133,13 +136,14 @@
       <div class="modal-body">
         <form>
           <div class="d-flex justify-content-start">
-            <div class="form-group w-25 mr-3 mb-0">
+            <div class="form-group w-50 mr-3 mb-0">
               <label for="sectionCode">Section Code</label>
               <input type="text" class="form-control" id="sectionCode" placeholder="Code" maxlength="10">
             </div>
-            <div class="form-group w-75">
-              <label for="sectionName">Course</label>
-              <input type="text" class="form-control" id="sectionName" placeholder="Course" maxlength="35">
+            <div class="form-group w-50">
+              <label for="coursePicker-section">Select Course</label>
+              <select class="form-control" id="coursePicker-section">
+              </select>
             </div>
           </div>
           <div class="form-group">

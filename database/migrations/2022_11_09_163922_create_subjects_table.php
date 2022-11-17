@@ -18,7 +18,6 @@ return new class extends Migration
             
             $table->string('subject');
             $table->string('subject_code');
-            $table->string('description');
             $table->string('year_level');
             $table->string('unit');
             $table->string('time_to_consume');

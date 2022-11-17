@@ -49,17 +49,18 @@ class SectionController extends Controller
                 ], 500);
             }
 
-            $sectionName            = $request->section;
-            $sectionCode            = $request->sectionCode;
+            $sectionName            = $request->sectionCode;
+            $course                 = $request->course;
             $sectionYearlevel       = $request->sectionYearlevel;
             $userId                 = auth()->user()->id;
 
             
-            $section = new section();
+            $section = new Section();
             $section->section           = $sectionName;
-            $section->section_code      = $sectionCode;
+            $section->section_code      = $sectionName;
             $section->year_level        = $sectionYearlevel;
             $section->schoolyear_id     = $schoolYearId;
+            $section->course_id         =  $course;
             $section->user_id           = $userId;
             $section->created_at        = Carbon::now();
             $section->save();
@@ -96,7 +97,7 @@ class SectionController extends Controller
                 ], 500);
             }
 
-            $sections = Section::with('user')
+            $sections = Section::with('user')->with('course')
                                 ->where('schoolyear_id', $schoolYearId)
                                 ->orderBy('status', 'ASC')
                                 ->orderBy('id', 'DESC')
@@ -124,7 +125,9 @@ class SectionController extends Controller
     {
         try {
             $id = $request->id;
-            $section = Section::find($id);
+            $section = Section::with('course')
+                            ->where('id', $id)
+                            ->first();
 
             return response()->json([
 				'section' => $section
@@ -147,15 +150,16 @@ class SectionController extends Controller
     {
         try {
             $id                     = $request->id;
-            $sectionName            = $request->section;
+            $course                 = $request->course;
             $sectionCode            = $request->sectionCode;
             $sectionYearlevel       = $request->sectionYearlevel;
             $userId = auth()->user()->id;
         
             $section                    = Section::find($id);
             $section->updated_at        = Carbon::now();
-            $section->section           = $sectionName;
+            $section->section           = $sectionCode;
             $section->section_code      = $sectionCode;
+            $section->course_id         = $course;
             $section->year_level        = $sectionYearlevel;
             $section->user_id = $userId;
             $section->update();

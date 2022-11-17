@@ -28,4 +28,8 @@ class Section extends Model
     public function sectionSubjects() {
         return $this->hasMany(SectionSubject::class);
     }
+
+    public function course() {
+        return $this->belongsTo(Course::class, 'course_id');
+    }
 }

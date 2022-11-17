@@ -13,11 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-
-        Schema::table('subject', function (Blueprint $table) {
-            $table->smallInteger('availability_per_week')->default(1);
+        Schema::table('section', function (Blueprint $table) {
+            $table->unsignedBigInteger('course_id');
+            $table->foreign('course_id')->references('id')->on('course');
         });
 
+        Schema::table('subject', function (Blueprint $table) {
+            $table->unsignedBigInteger('course_id');
+            $table->foreign('course_id')->references('id')->on('course');
+        });
+
+        
     }
 
     /**
@@ -27,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('additional_column_subject_and_subj_sect');
+        //
     }
 };

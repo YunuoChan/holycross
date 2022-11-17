@@ -77,7 +77,8 @@
                                 <a href="{{ route('subject') }}" onclick="selectDashboardMenu('subject');">Subject</a>
                             </li>
                             <li id="li-section" name="dashboard-menu">
-                                <a onclick="openDropdown('section')" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Section</a>
+                                <a href="{{ route('section') }}" onclick="selectDashboardMenu('section', 'section-list');">Section</a>
+                                {{-- <a onclick="openDropdown('section')" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Section</a>
                                 <ul class="collapse list-unstyled ml-3" id="sectionSubmenu">
                                     <li id="li-section-list-submenu">
                                         <a href="{{ route('section') }}" onclick="selectDashboardMenu('section', 'section-list');" class="white-color">Section List</a>
@@ -88,7 +89,7 @@
                                     <li id="li-section-schedule-submenu">
                                         <a href="#" onclick="selectDashboardMenu('section', 'section-schedule');" class="white-color">Generate Section Schedule</a>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </li>
                             <li name="dashboard-menu">
                                 <a href="#">Student</a>
@@ -96,8 +97,8 @@
                             <li name="dashboard-menu">
                                 <a href="#">Schedule</a>
                             </li>
-                            <li name="dashboard-menu">
-                                <a href="#">Generate Schedule</a>
+                            <li id="li-generate-schedule" name="dashboard-menu">
+                                <a href="{{ route('generate.schedule') }}" onclick="selectDashboardMenu('generate-schedule');" >Generate Schedule</a>
                             </li>
                         </ul>
 

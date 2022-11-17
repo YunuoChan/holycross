@@ -6,7 +6,8 @@ use App\Http\Controllers\SchoolyearController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SectionSubjectController;
-
+use App\Http\Controllers\GenerateScheduleController;
+use App\Http\Controllers\CourseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,4 +60,13 @@ Route::group(array('prefix' => '/admin'), function () {
     Route::get('/section/subject/get/sectiondata',  [SectionSubjectController::class, 'sectionData'])->name('section.subject.sectiondata');
     Route::post('/section/subject/update',          [SectionSubjectController::class, 'update'])->name('section.subject.update');
     Route::post('/section/subject/destroy',         [SectionSubjectController::class, 'destroy'])->name('section.subject.destroy');
+
+    // COURSE
+    Route::get('/course/get',                       [CourseController::class, 'show'])->name('course');
+
+    
+    // GENERATE SCHEDULE
+    Route::get('/schedule/generate/get',              [GenerateScheduleController::class, 'index'])->name('generate.schedule');
+    Route::get('/schedule/generate/show',             [GenerateScheduleController::class, 'show'])->name('generate.schedule.show');
+    Route::get('/schedule/generate/data',        [GenerateScheduleController::class, 'generateSched'])->name('generate.schedule.data');
 });

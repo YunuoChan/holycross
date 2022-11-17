@@ -51,23 +51,23 @@ class SubjectController extends Controller
 
             $subjectName            = $request->subject;
             $subjectCode            = $request->subjectCode;
-            $subjectDescription     = $request->subjectDescription;
             $subjectTime            = $request->subjectTime;
             $subjectUnit            = $request->subjectUnit;
             $subjectYearlevel       = $request->subjectYearlevel;
             $subjectAvailability    = $request->subjectAvailability;
+            $course                 = $request->course;
             $userId                 = auth()->user()->id;
 
             
             $subject = new Subject();
             $subject->subject           = $subjectName;
             $subject->subject_code      = $subjectCode;
-            $subject->description       = $subjectDescription;
             $subject->year_level        = $subjectYearlevel;
             $subject->availability_per_week = $subjectAvailability;
             $subject->unit              = $subjectUnit;
             $subject->time_to_consume   = $subjectTime;
             $subject->schoolyear_id     = $schoolYearId;
+            $subject->course_id         = $course;
             $subject->user_id           = $userId;
             $subject->created_at        = Carbon::now();
             $subject->save();
@@ -101,6 +101,7 @@ class SubjectController extends Controller
                 ], 500);
             }
             $subjects = Subject::with('user')
+                                ->with('course')
                                 ->where('schoolyear_id', $schoolYearId)
                                 ->orderBy('status', 'ASC')
                                 ->orderBy('id', 'DESC')
@@ -126,7 +127,11 @@ class SubjectController extends Controller
     {
         try {
             $id = $request->id;
-            $subject = Subject::find($id);
+
+            $subject = Subject::with('user')
+                            ->with('course')
+                            ->where('id', $id)
+                            ->first();
 
             return response()->json([
 				'subject' => $subject,
@@ -152,19 +157,19 @@ class SubjectController extends Controller
             $subjectName            = $request->subject;
             $subjectCode            = $request->subjectCode;
             $subjectYearlevel       = $request->subjectYearlevel;
-            $subjectDescription     = $request->subjectDescription;
             $subjectUnit            = $request->subjectUnit;
             $subjectTime            = $request->subjectTime;
+            $course                 = $request->course;
             $userId                 = auth()->user()->id;
         
             $subject                    = Subject::find($id);
             $subject->updated_at        = Carbon::now();
             $subject->subject           = $subjectName;
             $subject->subject_code      = $subjectCode;
-            $subject->description       = $subjectDescription;
             $subject->year_level        = $subjectYearlevel;
             $subject->unit              = $subjectUnit;
             $subject->time_to_consume   = $subjectTime;
+            $subject->course_id         = $course;
             $subject->user_id = $userId;
             $subject->update();
 

@@ -32,6 +32,37 @@ function loadSubjectRecord() {
 
 
 
+/*---------------------------------
+
+-----------------------------------*/
+function loadCourses(id) {
+    // WEB SERVICE CALL 
+    $.ajax({
+        url:        '/admin/course/get',
+        type:       'GET',
+        dataType:   'json',
+        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        // data:   {
+        
+        // }
+    }).then(function(data) {
+        console.log('fetchCourse: ', data);
+        if (data.courses.length > 0) {
+            $(id).html(BLANK);
+            data.courses.forEach(function(course) {
+                $(id).append('<option value="'+ course.id +'">'+ course.course_code +'</option>');
+            })
+        } else {
+            $(id).append('<option value="0">No course found in redord</option>');
+        }
+    }).fail(function(error) {
+        console.log('Backend Error', error);
+        internalServerError();
+    });
+}
+
+
+
 
 
 
@@ -42,9 +73,9 @@ function loadSubjectRecord() {
 function tableElement(subject) {
     var elm = BLANK;
         elm += ' <tr> ';
-        elm += '     <td class="vertical-center">'+ subject.subject +'</th> ';
+        elm += '     <td class="vertical-center">'+ subject.course.course_code +'</td> ';
         elm += '     <td class="vertical-center">'+ subject.subject_code +'</td> ';
-        elm += '     <td class="vertical-center">'+ subject.description +'</td> ';
+        elm += '     <td class="vertical-center">'+ subject.subject +'</th> ';
         elm += '     <td class="vertical-center">'+ subject.unit +'</td> ';
         elm += '     <td class="vertical-center">'+ subject.time_to_consume +'</td> ';
         if (subject.year_level == 1) {
@@ -104,11 +135,11 @@ function initAddSubject() {
             data:   {
                 subject             : $('#subjectName').val(),
                 subjectCode         : $('#subjectCode').val(),
-                subjectDescription  : $('#subjectDescription').val(),
                 subjectUnit         : $('#subjectUnit').val(),
                 subjectTime         : $('#subjectTime').val(),
                 subjectYearlevel    : $('#subjectYearlevel').val(),
-                subjectAvailability : $('#subjectAvailability').val()
+                subjectAvailability : $('#subjectAvailability').val(),
+                course              : $('#coursePicker-subject').val()
             }
         }).then(function(data) {
             resetSubjectModal();
@@ -206,11 +237,11 @@ function editSubjectRecord(id) {
             console.log('fetchSubject: ', data);
             $('#subjectName').val(data.subject.subject);
             $('#subjectCode').val(data.subject.subject_code);
-            $('#subjectDescription').val(data.subject.description);
             $('#subjectUnit').val(data.subject.unit);
             $('#subjectTime').val(data.subject.time_to_consume).trigger('change');
             $('#subjectYearlevel').val(data.subject.year_level).trigger('change');
             $('#subjectAvailability').val(data.subject.availability_per_week).trigger('change');
+            $('#coursePicker-subject').val(data.subject.course.id).trigger('change');
             $('#subjectModalBtn').html(BLANK);
             $('#subjectModalBtn').append(btnModalElement('updateSubjectBtn-'+ id, 'Update Subject Info'));
             initUpdateSubject(id);
@@ -258,10 +289,10 @@ function updateSubject(id) {
             id                  : id,
             subject             : $('#subjectName').val(),
             subjectCode         : $('#subjectCode').val(),
-            subjectDescription  : $('#subjectDescription').val(),
             subjectUnit         : $('#subjectUnit').val(),
             subjectTime         : $('#subjectTime').val(),
-            subjectYearlevel    : $('#subjectYearlevel').val()
+            subjectYearlevel    : $('#subjectYearlevel').val(),
+            course              : $('#coursePicker-subject').val()
         }
     }).then(function(data) {
         console.log('fetchsubject: ', data);

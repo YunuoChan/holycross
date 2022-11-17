@@ -23,6 +23,12 @@ return new class extends Migration
 
             $table->unsignedBigInteger('section_id');
             $table->foreign('section_id')->references('id')->on('section');
+
+            $table->unsignedBigInteger('schoolyear_id');
+            $table->foreign('schoolyear_id')->references('id')->on('schoolyears');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
