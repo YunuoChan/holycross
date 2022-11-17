@@ -85,6 +85,9 @@
                                     <li id="li-section-subject-submenu">
                                         <a href="{{ route('section.subject') }}" onclick="selectDashboardMenu('section', 'section-subject');" class="white-color">Section Subject</a>
                                     </li>
+                                    <li id="li-section-schedule-submenu">
+                                        <a href="#" onclick="selectDashboardMenu('section', 'section-schedule');" class="white-color">Generate Section Schedule</a>
+                                    </li>
                                 </ul>
                             </li>
                             <li name="dashboard-menu">

@@ -79,11 +79,13 @@ function tableElement(subject) {
 
 -----------------------------------*/
 $('#addSubjModalCall').on('click', function () {
-    $('#subjectTime').val('00:15:00').trigger('change');
-    $('#subjectYearlevel').val(1).trigger('change');
+    resetSubjectModal();
+    // $('#subjectTime').val('00:15:00').trigger('change');
+    // $('#subjectYearlevel').val(1).trigger('change');
     $('#subjectModalBtn').html(BLANK);
     $('#subjectModalBtn').append(btnModalElement('saveNewSubject', 'Add New Subject'));
     initAddSubject() 
+    
     $('#addSubjectRecord').modal('toggle');
 })
 
@@ -105,7 +107,8 @@ function initAddSubject() {
                 subjectDescription  : $('#subjectDescription').val(),
                 subjectUnit         : $('#subjectUnit').val(),
                 subjectTime         : $('#subjectTime').val(),
-                subjectYearlevel    : $('#subjectYearlevel').val()
+                subjectYearlevel    : $('#subjectYearlevel').val(),
+                subjectAvailability : $('#subjectAvailability').val()
             }
         }).then(function(data) {
             resetSubjectModal();
@@ -133,6 +136,7 @@ function resetSubjectModal() {
     $('#subjectUnit').val(BLANK);
     $('#subjectTime').val('00:15:00').trigger('change');
     $('#subjectYearlevel').val(1).trigger('change');
+    $('#subjectAvailability').val(1).trigger('change');
     
 }
 
@@ -206,6 +210,7 @@ function editSubjectRecord(id) {
             $('#subjectUnit').val(data.subject.unit);
             $('#subjectTime').val(data.subject.time_to_consume).trigger('change');
             $('#subjectYearlevel').val(data.subject.year_level).trigger('change');
+            $('#subjectAvailability').val(data.subject.availability_per_week).trigger('change');
             $('#subjectModalBtn').html(BLANK);
             $('#subjectModalBtn').append(btnModalElement('updateSubjectBtn-'+ id, 'Update Subject Info'));
             initUpdateSubject(id);
