@@ -1,6 +1,39 @@
 const BLANK = '';
 
-
+const DAYS        	= {
+    days: [
+        {
+            id	: 'monday',
+            day	: 'Monday',
+            limit : 8,
+        },
+        {
+            id	: 'tuesday',
+            day	: 'Tuesday',
+            limit : 8,
+        },
+        {
+            id	: 'wednesday',
+            day	: 'Wednesday',
+            limit : 8,
+        }, 
+        {
+            id	: 'thursday',
+            day	: 'Thursday',
+            limit : 8,
+        },
+        {
+            id	: 'friday',
+            day	: 'Friday',
+            limit : 8,
+        },
+        {
+            id	: 'saturday',
+            day	: 'Saturday',
+            limit : 8,
+        }
+    ]
+};
 
 /*---------------------------------
 
@@ -157,6 +190,73 @@ $('#generateSchedFirstYear').on('click', function () {
     }).then(function(data) {
         console.log('loadSectionSubjectRecord: ', data);
 
+    }).fail(function(error) {
+        console.log('Backend Error', error);
+        internalServerError();
+    });
+});
+
+
+$('#generater').on('click', function (){
+    // WEB SERVICE CALL 
+    $.ajax({
+        url:        '/admin/schedule/generate/gets',
+        type:       'GET',
+        dataType:   'json',
+        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        // data: {
+        //     courseId : $('#coursePicker-generate-sched').val(),
+        //     yearLevel: 1
+        // }
+    }).then(function(data) {
+        console.log('loadSectionSubjectRecord GETE: ', data);
+
+        var arr = [];
+
+        data.sectionSubjs.forEach(function(subject) {
+            data = {
+                id : subject.id,
+                time : subject.subject.time_to_consume
+            }
+
+            arr.push(data)
+        });
+        
+        
+        DAYS.days.forEach(function(day, index) {
+
+            limit = day.limit;
+            day.subjects = [];
+            for(var i = 0; i < arr.length; i++) {
+                console.log(arr[i]);
+                var limitation = (day.limit - arr[i].time)
+                if (limitation >= 1) {
+                    console.log('A');
+                    day.subjects.push(arr[i]); 
+                    day.limit = (day.limit - arr[i].time);
+                    arr.splice(i, 1);
+                } else {
+                    console.log('B');
+                    break;
+                }
+            }
+        });
+
+        $.ajax({
+            url:        '/admin/schedule/generate/save',
+            type:       'POST',
+            dataType:   'json',
+            headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data: {
+                days : DAYS
+            }
+        }).then(function(data) {
+            console.log('SAVE DATA: ', data);
+
+        }).fail(function(error) {
+            console.log('Backend Error', error);
+            internalServerError();
+        });
     }).fail(function(error) {
         console.log('Backend Error', error);
         internalServerError();

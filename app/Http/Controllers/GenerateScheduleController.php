@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GenerateSchedule;
+use App\Models\GeneratedSchedule;
 use Illuminate\Http\Request;
 use App\Models\Section;
 use App\Models\Subject;
@@ -39,13 +39,53 @@ class GenerateScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $schoolYearId = null;
+            if(isset($_COOKIE['__schoolYear_selected'])) {
+                $schoolYearId = $_COOKIE['__schoolYear_selected'];
+            } else {
+                return response()->json([
+                    'error'	=> 'Invalid Schoolyear!'
+                ], 500);
+            }
+
+            $data         = $request->days;
+            $userId     = auth()->user()->id;
+
+            foreach($data['days'] as $day) {
+                if (array_key_exists('subjects', $day)) {
+                    foreach($day['subjects'] as $subj) {
+                        $genSched = new GeneratedSchedule();
+                        $genSched->section_subject_id = $subj['id'];
+                        $genSched->day = $day['day'];
+                        $genSched->schoolyear_id = $schoolYearId;
+                        $genSched->user_id = $userId;
+                        $genSched->created_at = Carbon::now();
+                        $genSched->save();
+                    }
+                }
+            }
+
+            $generatedScheds = GeneratedSchedule::where('status', 'ACT')
+                            ->where('schoolyear_id', $schoolYearId)
+                            ->get();
+
+
+            return response()->json([
+				'generatedScheds' => $generatedScheds,
+			], 200);
+        } catch (\Throwable $th) {
+			return response()->json([
+				'error'	=> $th
+			], 500);
+		}
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\GenerateSchedule  $generateSchedule
+     * @param  \App\Models\GeneratedSchedule  $generatedSchedule
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
@@ -92,10 +132,10 @@ class GenerateScheduleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\GenerateSchedule  $generateSchedule
+     * @param  \App\Models\GeneratedSchedule  $generatedSchedule
      * @return \Illuminate\Http\Response
      */
-    public function edit(GenerateSchedule $generateSchedule)
+    public function edit(GeneratedSchedule $generatedSchedule)
     {
         //
     }
@@ -104,10 +144,10 @@ class GenerateScheduleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\GenerateSchedule  $generateSchedule
+     * @param  \App\Models\GeneratedSchedule  $generatedSchedule
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GenerateSchedule $generateSchedule)
+    public function update(Request $request, GeneratedSchedule $generatedSchedule)
     {
         //
     }
@@ -115,10 +155,10 @@ class GenerateScheduleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\GenerateSchedule  $generateSchedule
+     * @param  \App\Models\GeneratedSchedule  $generatedSchedule
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GenerateSchedule $generateSchedule)
+    public function destroy(GeneratedSchedule $generatedSchedule)
     {
         //
     }
@@ -128,7 +168,7 @@ class GenerateScheduleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\GenerateSchedule  $generateSchedule
+     * @param  \App\Models\GeneratedSchedule  $generatedSchedule
      * @return \Illuminate\Http\Response
      */
     public function generateSched(Request $request)
@@ -196,4 +236,29 @@ class GenerateScheduleController extends Controller
 			], 500);
 		}
     }
+
+      /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\GeneratedSchedule  $generatedSchedule
+     * @return \Illuminate\Http\Response
+     */
+    public function get(Request $request)
+    {
+        try {
+          
+            $sectionSubj = SectionSubject::where('status', 'ACT')->with('subject')->get();
+
+
+            return response()->json([
+				'sectionSubjs' => $sectionSubj,
+			], 200);
+        } catch (\Throwable $th) {
+			return response()->json([
+				'error'	=> $th
+			], 500);
+		}
+    }
+
 }

@@ -28,4 +28,8 @@ class Schoolyear extends Model
     public function subjects() {
         return $this->hasMany(Subject::class);
     }
+
+    public function generatedSchedules() {
+        return $this->hasMany(GeneratedSchedule::class);
+    }
 }

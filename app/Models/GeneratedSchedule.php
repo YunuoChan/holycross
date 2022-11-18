@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SectionSubject extends Model
+class GeneratedSchedule extends Model
 {
     use HasFactory;
-    protected 	$table 			= 'section_subject';
+
+    protected 	$table 			= 'generated_schedule';
 	protected 	$primaryKey 	= 'id';
 	public 		$timestamps 	= false;
 
-     /**
+      /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
@@ -25,16 +26,11 @@ class SectionSubject extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function section() {
-        return $this->belongsTo(Section::class, 'section_id', 'id');
+    public function sectionSubject() {
+        return $this->belongsTo(SectionSubject::class, 'section_subject_id');
     }
 
-    public function subject() {
-        return $this->belongsTo(Subject::class, 'subject_id', 'id');
+    public function schoolyear() {
+        return $this->belongsTo(Schoolyear::class, 'schoolyear_id');
     }
-
-    public function generatedSchedules() {
-        return $this->hasMany(GeneratedSchedule::class);
-    }
-
 }

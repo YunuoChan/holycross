@@ -138,7 +138,7 @@ function initAddSubject() {
                 subjectUnit         : $('#subjectUnit').val(),
                 subjectTime         : $('#subjectTime').val(),
                 subjectYearlevel    : $('#subjectYearlevel').val(),
-                subjectAvailability : $('#subjectAvailability').val(),
+                // subjectAvailability : $('#subjectAvailability').val(),
                 course              : $('#coursePicker-subject').val()
             }
         }).then(function(data) {
@@ -167,7 +167,7 @@ function resetSubjectModal() {
     $('#subjectUnit').val(BLANK);
     $('#subjectTime').val('00:15:00').trigger('change');
     $('#subjectYearlevel').val(1).trigger('change');
-    $('#subjectAvailability').val(1).trigger('change');
+    // $('#subjectAvailability').val(1).trigger('change');
     
 }
 
@@ -240,7 +240,7 @@ function editSubjectRecord(id) {
             $('#subjectUnit').val(data.subject.unit);
             $('#subjectTime').val(data.subject.time_to_consume).trigger('change');
             $('#subjectYearlevel').val(data.subject.year_level).trigger('change');
-            $('#subjectAvailability').val(data.subject.availability_per_week).trigger('change');
+            // $('#subjectAvailability').val(data.subject.availability_per_week).trigger('change');
             $('#coursePicker-subject').val(data.subject.course.id).trigger('change');
             $('#subjectModalBtn').html(BLANK);
             $('#subjectModalBtn').append(btnModalElement('updateSubjectBtn-'+ id, 'Update Subject Info'));

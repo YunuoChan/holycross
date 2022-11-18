@@ -69,4 +69,6 @@ Route::group(array('prefix' => '/admin'), function () {
     Route::get('/schedule/generate/get',              [GenerateScheduleController::class, 'index'])->name('generate.schedule');
     Route::get('/schedule/generate/show',             [GenerateScheduleController::class, 'show'])->name('generate.schedule.show');
     Route::get('/schedule/generate/data',        [GenerateScheduleController::class, 'generateSched'])->name('generate.schedule.data');
+    Route::get('/schedule/generate/gets',        [GenerateScheduleController::class, 'get'])->name('generate.schedule.get');
+    Route::post('/schedule/generate/save',           [GenerateScheduleController::class, 'store'])->name('generate.schedule.save');
 });

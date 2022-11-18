@@ -81,7 +81,31 @@
             </div>
           </div>
 
-          <label for="subjectAvailability">Schedule Availability</label>
+          <div class="form-group w-50">
+            <label for="subjectTime">Time to Consume</label>
+            <select class="form-control" id="subjectTime">
+              <option selected disabled>Time to Consume</option>
+              <option value="0.25">15mins</option>
+              <option value="0.5">30mins</option>
+              <option value=".75">45mins</option>
+              <option value="1">1hr</option>
+              <option value="1.5">1hr 30mins</option>
+              <option value="2">2hrs</option>
+              <option value="2.5">2hrs 30mins</option>
+              <option value="3">3hrs</option>
+              <option value="3.5">3hrs 30mins</option>
+              <option value="4">4hrs</option>
+              <option value="4.5">4hrs 30mins</option>
+              <option value="5">5hrs</option>
+              <option value="5.5">5hrs 30mins</option>
+              <option value="6">6hrs</option>
+              <option value="6.5">6hrs 30mins</option>
+              <option value="7">7hrs</option>
+              <option value="7.5">7hrs 30mins</option>
+              <option value="8">8hrs</option>
+            </select>
+          </div>
+          {{-- <label for="subjectAvailability">Schedule Availability</label>
           <div class="p-3 card">
             <div class="d-flex justify-content-start">
               <div class="form-group w-50 mr-3">
@@ -96,23 +120,9 @@
                   <option value="7">7</option>
                 </select>
               </div>
-              <div class="form-group w-50">
-                <label for="subjectTime">Time to Consume per Day</label>
-                <select class="form-control" id="subjectTime">
-                  <option selected disabled>Time to Consume</option>
-                  <option value="00:15:00">15mins</option>
-                  <option value="00:30:00">30mins</option>
-                  <option value="00:45:00">45mins</option>
-                  <option value="01:00:00">1h</option>
-                  <option value="02:00:00">2h</option>
-                  <option value="03:00:00">3h</option>
-                  <option value="04:00:00">4h</option>
-                  <option value="05:00:00">5h</option>
-                  <option value="24:00:00">1d</option>
-                </select>
-              </div>
+             
             </div>
-          </div>
+          </div> --}}
           
         </form>
       </div>

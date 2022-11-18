@@ -54,7 +54,7 @@ class SubjectController extends Controller
             $subjectTime            = $request->subjectTime;
             $subjectUnit            = $request->subjectUnit;
             $subjectYearlevel       = $request->subjectYearlevel;
-            $subjectAvailability    = $request->subjectAvailability;
+            // $subjectAvailability    = $request->subjectAvailability;
             $course                 = $request->course;
             $userId                 = auth()->user()->id;
 
@@ -63,7 +63,7 @@ class SubjectController extends Controller
             $subject->subject           = $subjectName;
             $subject->subject_code      = $subjectCode;
             $subject->year_level        = $subjectYearlevel;
-            $subject->availability_per_week = $subjectAvailability;
+            // $subject->availability_per_week = $subjectAvailability;
             $subject->unit              = $subjectUnit;
             $subject->time_to_consume   = $subjectTime;
             $subject->schoolyear_id     = $schoolYearId;

@@ -26,7 +26,8 @@
                     <div class="card-header py-3">
                         <div class="d-flex justify-content-between">
                             <h3 class="d-flex justify-content-center flex-column mb-0">First Year</h3>  
-                            <button type="button" class="btn btn-outline-primary btn-lg" id="generateSchedFirstYear">Generate Schedule</button>        
+                            <button type="button" class="btn btn-outline-primary btn-lg" id="generateSchedFirstYear">Generate Schedule</button>   
+                            <button type="button" class="btn btn-outline-primary btn-lg" id="generater">TRYe</button>         
                         </div>
                     </div>
                     <div class="row mx-3" id="firstYearSectionDiv">
