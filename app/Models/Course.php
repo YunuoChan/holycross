@@ -12,6 +12,11 @@ class Course extends Model
 	protected 	$primaryKey 	= 'id';
 	public 		$timestamps 	= false;
 
+    protected $fillable = [
+        'course_code'
+    ];
+
+
       /**
      * The attributes that should be cast.
      *
