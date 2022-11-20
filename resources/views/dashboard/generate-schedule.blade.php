@@ -8,17 +8,20 @@
 
 @section('content')
     <div id="viewport">
-            <div class="mr-4 d-flex justify-content-center flex-column mb-3">
-                <h1 class="d-flex justify-content-center flex-column mb-0">GENERATE SCHEDULE</h1>
+            <div class="mr-4 d-flex mb-3">
+                <div class="mr-4 d-flex justify-content-center flex-column">
+                    <h1 class="d-flex justify-content-center mb-0">GENERATE SCHEDULE</h1>
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-lg" id="generateSchedFirstYear">Generate Schedule</button>   
             </div>
             {{-- COURSE PICKER --}}
-            <div class="d-flex justify-content-end">
+            {{-- <div class="d-flex justify-content-end">
                 <div class="form-group w-25">
                     <label for="coursePicker-generate-sched">Select Course</label>
                     <select class="form-control" id="coursePicker-generate-sched">
                     </select>
                 </div>  
-            </div>
+            </div> --}}
             
             <div>
                 {{-- FIRST YEAR --}}
@@ -26,8 +29,6 @@
                     <div class="card-header py-3">
                         <div class="d-flex justify-content-between">
                             <h3 class="d-flex justify-content-center flex-column mb-0">First Year</h3>  
-                            <button type="button" class="btn btn-outline-primary btn-lg" id="generateSchedFirstYear">Generate Schedule</button>   
-                            <button type="button" class="btn btn-outline-primary btn-lg" id="generater">Try Generate</button>         
                         </div>
                     </div>
                     <div class="row mx-3" id="firstYearSectionDiv">
@@ -57,7 +58,6 @@
                     <div class="card-header py-3">
                         <div class="d-flex justify-content-between">
                             <h3 class="d-flex justify-content-center flex-column mb-0">Second Year</h3>  
-                            <button type="button" class="btn btn-outline-primary btn-lg" id="generateSchedSecondYear">Generate Schedule</button>    
                         </div>
                     </div>
                     <div class="row mx-3" id="secondYearSectionDiv">
@@ -87,7 +87,6 @@
                     <div class="card-header py-3">
                         <div class="d-flex justify-content-between">
                             <h3 class="d-flex justify-content-center flex-column mb-0">Third Year</h3>  
-                            <button type="button" class="btn btn-outline-primary btn-lg" id="generateSchedThirdYear">Generate Schedule</button>    
                         </div>
                     </div>
                     <div class="row mx-3" id="thirdYearSectionDiv">
@@ -116,7 +115,6 @@
                     <div class="card-header py-3">
                         <div class="d-flex justify-content-between">
                             <h3 class="d-flex justify-content-center flex-column mb-0">Fourth Year</h3>  
-                            <button type="button" class="btn btn-outline-primary btn-lg" id="generateSchedFourthYear">Generate Schedule</button>    
                         </div>
                     </div>
                     <div class="row mx-3" id="fourthYearSectionDiv">
@@ -164,7 +162,6 @@
             loadCourses('#coursePicker-generate-sched');
 
             loadSectionSubjectRecord();
-            courseOnchange();
 
         });
     </script>

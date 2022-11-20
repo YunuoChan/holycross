@@ -209,3 +209,40 @@
     </div>
   </div>
 </div>
+
+
+
+<div class="modal fade" id="generateScheduleModal" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 50px">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-custom">
+        <h5 class="modal-title">Generate Scheduler</h5>
+        <button type="button" class="close white-color" data-dismiss="modal" aria-label="Close" data-bs-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="d-flex justify-content-start">
+            <div class="form-group mr-3 w-100">
+                <label for="coursePicker-generate-sched">Select Course</label>
+                <select class="form-control" id="coursePicker-generate-sched">
+                </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="generateSchedYearlevel">Year Level</label>
+            <select class="form-control" id="generateSchedYearlevel">
+              <option value="1">First year</option>
+              <option value="2">Second year</option>
+              <option value="3">Third year</option>
+              <option value="4">Fouth year</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" id="generateScheduleBtnDiv">
+      </div>
+    </div>
+  </div>
+</div>

@@ -64,41 +64,55 @@ function loadCourses(id) {
 
 
 
+
+function tableHead() {
+    var elm = BLANK;
+        elm += ' <thead class="thead-dark"> ';
+        elm += '     <tr> ';
+        elm += '         <th width="20%" scope="col" class="vertical-center">Subject</th> ';
+        elm += '         <th width="20%"scope="col" class="vertical-center">Schedule Day</th> ';
+        elm += '         <th width="30%"scope="col" class="vertical-center">Time</th> ';
+        elm += '         <th width="20%"scope="col" class="vertical-center">Professor</th> ';
+        elm += '         <th width="10%"scope="col" class="vertical-center">Room</th> ';
+        elm += '     </tr> ';
+        elm += ' </thead> ';
+    return elm;
+}
+
 function yearCard(section, mark) {
     var elm = BLANK;
-        elm += ' <div class="col col-lg-4"> ';
+        elm += ' <div class="col col-lg-6"> ';
         if (section.year_level == 1) {
 
         } 
             elm += ' <div class="card border-'+ mark +' my-3"> ';
-            elm += '     <div class="card-header"><h3 class="mb-0">'+ section.section_code +'</h3>'+ section.section +'</div> ';
-            elm += '     <div class="card-body text-'+ mark +'"> ';
-            // if (section.section_subjects.length > 0) {
-            //     // elm += '     <h5 class="card-title">Subjects</h5> ';
-               
-            //     elm += ' <table class="table"> ';
-            //     elm += tableHead();    
-            //     elm += '    <tbody> ';
-            //     section.section_subjects.forEach(function(subject) {
-            //         elm += '        <tr> ';
-            //         elm += '            <td>'+ subject.subject.subject_code +' - '+ subject.subject.subject +'</td> ';
-            //         elm += '             <td class="vertical-center"> ';
-            //         elm += '                <div class="d-flex justify-content-center"> ';
-            //         // elm += '                    <button type="button" class="btn btn-success mx-1" id="viewSectionSubject-'+ subject.id +'"><i class="fas fa-eye"></i></button> ';
-            //         elm += '                    <button type="button" class="btn btn-danger" id="trashSectionSubject-'+ subject.subject_id +'-'+ subject.section_id +'"><i class="fas fa-trash"></i></i></button> ';
-            //         elm += '                </div> ';
-            //         elm += '            </td> ';
-            //         elm += '        </tr> ';
-            //     });
-            //     elm += '    </tbody> ';
-            //     elm += ' </table> ';
-            //         // elm += '         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card content.</p> ';    
+            elm += '     <div class="card-header"><h3 class="mb-0">'+ section.section_code +'</h3>'+ section.course.course_code +'</div> ';
+            elm += '     <div class="card-body text-'+ mark +' p-1"> ';
+            if (section.section_subjects.length > 0) {               
+                elm += ' <table class="table"> ';
+                elm += tableHead();    
+                elm += '    <tbody> ';
+                section.section_subjects.forEach(function(subject) {
+                    elm += '        <tr> ';
+                    elm += '            <td>'+ subject.subject.subject_code +'</td> ';
+                    if (subject.generated_schedules.length > 0) {
+                        elm += '            <td class="vertical-center">'+ subject.generated_schedules[0].day +' </td> ';
+                    } else {
+                        elm += '            <td class="vertical-center">TBA </td> ';
+                    }
+                    elm += '            ';
+                    elm += '            <td class="vertical-center">'+ subject.generated_schedules[0].from +' - '+ subject.generated_schedules[0].to +'</td> ';
+                    elm += '            <td class="vertical-center">TBA </td> ';
+                    elm += '            <td class="vertical-center">TBA </td> ';
+                    elm += '        </tr> ';
+                });
+                elm += '    </tbody> ';
+                elm += ' </table> ';
               
-            // } else {
-                elm += '         <h5 class="card-title">No schedule generated yet</h5> ';
-            // }
+            } else {
+                elm += '         <h5 class="card-title ml-3">No schedule generated yet</h5> ';
+            }
             elm += '     </div> ';
-            // elm += '     <div class="card-footer bg-transparent border-'+ mark +' d-flex justify-content-end"><button type="button" class="btn btn-outline-primary btn-lg" id="addSectModalCallFirstYear-'+ section.id +'"><i class="fas fa-edit mr-2"></i> Edit</button></div> ';
             elm += ' </div> ';
         elm += ' </div> ';
 
@@ -137,14 +151,6 @@ function loadSectionSubjectRecord() {
             } else if (section.year_level == 4) {
                 $('#fourthYearSectionDiv').append(yearCard(section, 'success'));
             } 
-
-            // callSubjectSectionAddModal(section.id)
-            // if (section.section_subjects.length > 0) {
-            //     section.section_subjects.forEach(function(subject) {
-            //         initRemoveSubject(subject.subject_id, section.id)
-            //     });
-            // }
-            
              
         });
     }).fail(function(error) {
@@ -162,42 +168,66 @@ $('#coursePicker-generate-sched').on('change', function() {
 
 function courseOnchange() {
     if ($.isNumeric($('#coursePicker-generate-sched').val())) {
-        $('#generateSchedFirstYear').show();
-        $('#generateSchedSecondYear').show();
-        $('#generateSchedThirdYear').show();
-        $('#generateSchedFourthYear').show();
+        $('#generateScheduleBtn').prop('disabled', false);
     } else {
-        $('#generateSchedFirstYear').hide();
-        $('#generateSchedSecondYear').hide();
-        $('#generateSchedThirdYear').hide();
-        $('#generateSchedFourthYear').hide();
+        $('#generateScheduleBtn').prop('disabled', true);
     }
 }
 
 
+/*---------------------------------
 
+-----------------------------------*/
 $('#generateSchedFirstYear').on('click', function () {
-     // WEB SERVICE CALL 
-     $.ajax({
-        url:        '/admin/schedule/generate/data',
-        type:       'GET',
-        dataType:   'json',
-        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        data: {
-            courseId : $('#coursePicker-generate-sched').val(),
-            yearLevel: 1
-        }
-    }).then(function(data) {
-        console.log('loadSectionSubjectRecord: ', data);
 
-    }).fail(function(error) {
-        console.log('Backend Error', error);
-        internalServerError();
-    });
+    $('#generateScheduleBtnDiv').append(btnModalElement('generateScheduleBtn', 'Generate Schedule'));
+    initGenerateSchedule();
+    courseOnchange();
+    $('#generateScheduleModal').modal('toggle');
 });
 
 
-$('#generater').on('click', function (){
+
+
+/*---------------------------------
+
+-----------------------------------*/
+function initGenerateSchedule() {
+    $('#generateScheduleBtn').on('click', function () {
+        if (!$.isNumeric($('#coursePicker-generate-sched').val())) {
+            $('#generateScheduleBtn').prop('disabled', true);
+            customToaster('Fields incomplete!', 'Please select course.', 'warning')
+            $('#generateScheduleModal').modal('hide');
+            return false;
+        }
+        $('#generateScheduleBtn').prop('disabled', true);
+        $('#generateScheduleModal').modal('hide');
+        customToaster('Please Wait!', 'Generating schedule...', 'info')
+        // WEB SERVICE CALL 
+        $.ajax({
+            url:        '/admin/schedule/generate/data',
+            type:       'GET',
+            dataType:   'json',
+            headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data: {
+                courseId : $('#coursePicker-generate-sched').val(),
+                yearLevel: $('#generateSchedYearlevel').val()
+            }
+        }).then(function(data) {
+            console.log('loadSectionSubjectRecord: ', data);
+
+            setTimeout(function() {   
+                designateSectionAndSchedule();
+            }, 1000);
+
+        }).fail(function(error) {
+            console.log('Backend Error', error);
+            internalServerError();
+        });
+    });
+}
+
+function designateSectionAndSchedule() {
     // WEB SERVICE CALL 
     $.ajax({
         url:        '/admin/schedule/generate/gets',
@@ -228,19 +258,35 @@ $('#generater').on('click', function (){
             limit = day.limit;
             day.subjects = [];
             for(var i = 0; i < arr.length; i++) {
-                console.log(arr[i]);
                 var limitation = (day.limit - arr[i].time)
                 if (limitation >= 1) {
-                    console.log('A');
                     day.subjects.push(arr[i]); 
                     day.limit = (day.limit - arr[i].time);
                     arr.splice(i, 1);
                 } else {
-                    console.log('B');
                     break;
                 }
             }
         });
+
+
+        DAYS.days.forEach(function(day, index) {
+            if (day.subjects.length > 0) {
+                var startTime = '7:00:00';
+                day.subjects.forEach(function(subj, index) {
+
+                    subj.from = moment(startTime, 'HH:mm:ss').format('LT');;
+                    toMinute = (parseFloat(subj.time) / 0.25);
+                    minute = (toMinute * 15)
+                    startTime = moment(startTime, 'HH:mm:ss').add(minute, 'minutes').format('LT');
+                    subj.to = startTime;
+                })
+            }
+           
+        });
+
+        console.log(DAYS);
+        debugger
 
         $.ajax({
             url:        '/admin/schedule/generate/save',
@@ -252,13 +298,15 @@ $('#generater').on('click', function (){
             }
         }).then(function(data) {
             console.log('SAVE DATA: ', data);
-
+            customToaster('Success!', 'Schedule generated successfully.', 'success');
+            loadSectionSubjectRecord();
         }).fail(function(error) {
             console.log('Backend Error', error);
             internalServerError();
         });
+        
     }).fail(function(error) {
         console.log('Backend Error', error);
         internalServerError();
     });
-});
+}

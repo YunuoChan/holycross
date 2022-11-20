@@ -40,6 +40,7 @@ function successUpdate() {
         heading: 'Update Success!',
         text: 'Record successfully updated!',
         showHideTransition: 'slide',
+        position: 'top-right',
         icon: 'success'
     })
 }
@@ -49,6 +50,7 @@ function successDelete() {
         heading: 'Delete Success!',
         text: 'Record successfully deleted!',
         showHideTransition: 'slide',
+        position: 'top-right',
         icon: 'success'
     })
 }
@@ -58,7 +60,19 @@ function successSave() {
         heading: 'Save Success!',
         text: 'Record successfully saved!',
         showHideTransition: 'slide',
+        position: 'top-right',
         icon: 'success'
+    })
+}
+
+
+function customToaster(heading, text, icon) {
+    $.toast({
+        heading: heading,
+        text: text,
+        showHideTransition: 'slide',
+        position: 'top-right',
+        icon: icon
     })
 }
 

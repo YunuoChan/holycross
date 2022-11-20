@@ -60,6 +60,8 @@ class GenerateScheduleController extends Controller
                         $genSched->day = $day['day'];
                         $genSched->schoolyear_id = $schoolYearId;
                         $genSched->user_id = $userId;
+                        $genSched->from = $subj['from'];
+                        $genSched->to = $subj['to'];
                         $genSched->created_at = Carbon::now();
                         $genSched->save();
                     }
@@ -113,6 +115,17 @@ class GenerateScheduleController extends Controller
                                         return $filter->where('id', $id);
                                     }); 
                                 })
+                                ->with(['sectionSubjects' => function($course) use ($schoolYearId) {
+                                    $course->where('status', 'ACT')
+                                        ->with(['generatedSchedules' => function($course) use ($schoolYearId) {
+                                            $course->where('status', 'ACT')
+                                                ->where('schoolyear_id', $schoolYearId);
+                                        }])
+                                        ->with(['subject' => function($course) use ($schoolYearId) {
+                                            $course->where('status', 'ACT')
+                                                ->where('schoolyear_id', $schoolYearId);
+                                        }]);
+                                }])
                                 ->where('schoolyear_id', $schoolYearId)
                                 ->where('status', 'ACT')
                                 ->orderBy('status', 'ASC')
