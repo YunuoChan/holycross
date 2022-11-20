@@ -10,16 +10,18 @@
         <link href="{{ asset('/css/landing.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/css/footer.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/css/search-schedule.css') }}" rel="stylesheet" type="text/css">
-      
+        <link href="{{ asset('/plugin/jquery-toast/jquery.toast.min.css') }}" rel="stylesheet" type="text/css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-
+        <script src="/js/welcome.js"></script>
+        <script src="/plugin/jquery-toast/jquery.toast.min.js" type="text/javascript"></script>
+        
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     </head>
     <body class="antialiased">
@@ -33,20 +35,33 @@
                     <div class="bg-opacity">
                         <div class="container" style="height: 100vh; background-color: rgb(223 222 222 / 70%);">
                             <div class="d-flex justify-content-start flex-column mt-5">
-                                <form action="">
-                                    <input type="search" required placeholder="Type your student ID Number">
-                                    <a><i class="fa fa-search search-icon"></i></a>
-                                    {{-- <a href="javascript:void(0)" id="clear-btn" class="clear-text">Clear</a> --}}
+                                <form>
+                                    <input type="search" id="studentIdNo" required placeholder="Type your student ID Number">
+                                    <a onclick="checkSched();"><i class="fa fa-search search-icon"></i></a>
                                 </form>
                             </div>
 
 
                             <div>
-                                <div class="d-flex justify-content-center">
+                                <div class="d-flex justify-content-center mb-3">
                                     <h1>Shedule Viewer</h1>
                                 </div>
-                                <iframe src="https://www.africau.edu/images/default/sample.pdf" width="100%" height="600px">
-                                </iframe>
+                                <div class="d-flex justify-content-center mb-5">
+                                    <table class="table w-75">
+                                        <thead class="sched-head">
+                                          <tr>
+                                            <th width="13%" scope="col" class="vertical-center uppercase">Subject Code</th>
+                                            <th width="15%" scope="col" class="vertical-center uppercase">Section</th>
+                                            <th width="10%" scope="col" class="vertical-center uppercase">Days</th>
+                                            <th width="18%"scope="col" class="vertical-center uppercase">Time</th>
+                                            <th width="15%" scope="col" class="vertical-center uppercase">Professor</th>
+                                            <th width="10%" scope="col" class="vertical-center uppercase">Room</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="studentScheduleTable">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div>
                             </div>
@@ -59,8 +74,9 @@
         {{-- INCLUDE FOOTER --}}
         @include('layouts/footer')
     </body>
+
     <script>
-        jQuery(function($) {
+        $(document).ready(function() {
             $(window).on('scroll', function() {
                 if ($(this).scrollTop() >= 200) {
                     $('.navbar').addClass('fixed-top');
@@ -99,9 +115,14 @@
             const input = document.getElementsByTagName("input")[0];
                 input.value = "";
             }
+        })
+    </script>
+    <script>
+        jQuery(function($) {
+           
 
-            const clearBtn = document.getElementById("clear-btn");
-            clearBtn.addEventListener("click", clearInput);
+            // const clearBtn = document.getElementById("clear-btn");
+            // clearBtn.addEventListener("click", clearInput);
 
 
         });

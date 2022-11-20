@@ -47,8 +47,8 @@ function loadCourses(id) {
         // }
     }).then(function(data) {
         console.log('fetchCourse: ', data);
+        $(id).html(BLANK);
         if (data.courses.length > 0) {
-            $(id).html(BLANK);
             data.courses.forEach(function(course) {
                 $(id).append('<option value="'+ course.id +'">'+ course.course_code +'</option>');
             })

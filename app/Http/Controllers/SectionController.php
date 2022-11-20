@@ -115,6 +115,48 @@ class SectionController extends Controller
 		}
     }
 
+      /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Section  $section
+     * @return \Illuminate\Http\Response
+     */
+    public function showSpecific(Request $request)
+    {
+         //
+         try {
+            $schoolYearId = null;
+            if(isset($_COOKIE['__schoolYear_selected'])) {
+                $schoolYearId = $_COOKIE['__schoolYear_selected'];
+            } else {
+                return response()->json([
+                    'error'	=> 'Invalid Schoolyear!'
+                ], 500);
+            }
+            $course = $request->courseId;
+            $yrLvl  = $request->yearLevel;
+
+            $sections = Section::with('user')->with('course')
+                                ->where('schoolyear_id', $schoolYearId)
+                                ->where('course_id',  $course)
+                                ->where('year_level', $yrLvl)
+                                ->orderBy('status', 'ASC')
+                                ->orderBy('section_code', 'ASC')
+                                ->orderBy('id', 'DESC')
+                                ->get();
+
+            return response()->json([
+				'sections' => $sections,
+			], 200);
+        } catch (\Throwable $th) {
+            Log::debug('Section.show');
+            Log::debug($th);
+			return response()->json([
+				'error'	=> $th
+			], 500);
+		}
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

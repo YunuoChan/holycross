@@ -1,4 +1,5 @@
 
+{{-- SCHOOLYEAR --}}
 <div class="modal fade" id="addSchoolYearRecord" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 140px">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -37,6 +38,7 @@
 </div>
 
 
+{{-- SUBJECT --}}
 <div class="modal fade" id="addSubjectRecord" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 50px">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -105,25 +107,6 @@
               <option value="8">8hrs</option>
             </select>
           </div>
-          {{-- <label for="subjectAvailability">Schedule Availability</label>
-          <div class="p-3 card">
-            <div class="d-flex justify-content-start">
-              <div class="form-group w-50 mr-3">
-                <label for="subjectAvailability">Day/s Need to Take per Week</label>
-                <select class="form-control" id="subjectAvailability">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                </select>
-              </div>
-             
-            </div>
-          </div> --}}
-          
         </form>
       </div>
       <div class="modal-footer" id="subjectModalBtn">
@@ -134,6 +117,7 @@
 </div>
 
 
+{{-- SECTION --}}
 <div class="modal fade" id="addSectionRecord" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 50px">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -175,7 +159,7 @@
 
 
 
-
+{{-- SECTION SUBJETC --}}
 <div class="modal fade" id="addSectionSubjectRecord" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 50px">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -211,7 +195,7 @@
 </div>
 
 
-
+{{-- GENERATE SCHEDULE --}}
 <div class="modal fade" id="generateScheduleModal" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 50px">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -242,6 +226,60 @@
         </form>
       </div>
       <div class="modal-footer" id="generateScheduleBtnDiv">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{{-- STUDENT --}}
+<div class="modal fade" id="addStudentRecord" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 50px">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-custom">
+        <h5 class="modal-title">Add Student Record</h5>
+        <button type="button" class="close white-color" data-dismiss="modal" aria-label="Close" data-bs-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="d-flex justify-content-start">
+            <div class="form-group w-50 mr-3">
+              <label for="studentIdNo">Student Id Number</label>
+              <input type="text" class="form-control" id="studentIdNo" placeholder="Id Number" maxlength="10">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="studentName">Student Name</label>
+            <input type="text" class="form-control" id="studentName" placeholder="Student Name" maxlength="35">
+          </div>
+          <div class="d-flex justify-content-start">
+            <div class="form-group w-50 mr-3">
+              <label for="coursePicker-student">Select Course</label>
+              <select class="form-control" id="coursePicker-student">
+              </select>
+            </div>
+            <div class="form-group w-50">
+              <label for="studentYearlevel">Year Level</label>
+              <select class="form-control" id="studentYearlevel">
+                <option value="1">First year</option>
+                <option value="2">Second year</option>
+                <option value="3">Third year</option>
+                <option value="4">Fouth year</option>
+              </select>
+             
+            </div>
+          </div>
+          <div class="form-group w-50"  id="studentSectionDiv">
+            <label for="studentSection">Section</label>
+              <select class="form-control" id="studentSection">
+              </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" id="studentModalBtn">
       </div>
     </div>
   </div>

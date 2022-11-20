@@ -330,3 +330,22 @@ p {
 .bg-opacity {
   background-color: rgba(0, 0, 0, 60%)
 }
+
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+
+.sched-head {
+  background-color: #100b3a;
+  color: white;
+}
+
+tr.bg-color-cust {
+  background-color: #a5bbfe
+}
+
+.vertical-center {
+  vertical-align: middle !important;
+}

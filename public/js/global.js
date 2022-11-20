@@ -7,4 +7,4 @@ function setCookie(name,value,days) {
         expires = "; expires=" + date.toUTCString();
     }
     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
- }
+}

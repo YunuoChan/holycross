@@ -92,8 +92,8 @@
                                     </li>
                                 </ul> --}}
                             </li>
-                            <li name="dashboard-menu">
-                                <a href="#">Student</a>
+                            <li  id="li-student" name="dashboard-menu">
+                                <a href="{{ route('student') }}" onclick="selectDashboardMenu('student');" >Student</a>
                             </li>
                             <li name="dashboard-menu">
                                 <a href="#">Schedule</a>

@@ -8,6 +8,8 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SectionSubjectController;
 use App\Http\Controllers\GenerateScheduleController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StudentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,6 +55,8 @@ Route::group(array('prefix' => '/admin'), function () {
     Route::get('/section/edit', [SectionController::class, 'edit'])->name('section.edit');
     Route::post('/section/update', [SectionController::class, 'update'])->name('section.update');
 
+    Route::get('/section/show/specific', [SectionController::class, 'showSpecific'])->name('section.show.specific');
+
 
     // SECTION SUBJECT
     Route::get('/section/subject/get',              [SectionSubjectController::class, 'index'])->name('section.subject');
@@ -71,4 +75,21 @@ Route::group(array('prefix' => '/admin'), function () {
     Route::get('/schedule/generate/data',        [GenerateScheduleController::class, 'generateSched'])->name('generate.schedule.data');
     Route::get('/schedule/generate/gets',        [GenerateScheduleController::class, 'get'])->name('generate.schedule.get');
     Route::post('/schedule/generate/save',           [GenerateScheduleController::class, 'store'])->name('generate.schedule.save');
+
+
+    // STUDENT 
+    Route::get('/student/get',              [StudentController::class, 'index'])->name('student');
+    Route::get('/student/show',             [StudentController::class, 'show'])->name('student.show');
+    Route::post('/student/save',            [StudentController::class, 'store'])->name('student.save');
+    Route::post('/section/trash',           [SectionController::class, 'destroy'])->name('section.trash');
+    Route::get('/section/edit',             [SectionController::class, 'edit'])->name('section.edit');
+    Route::post('/section/update',          [SectionController::class, 'update'])->name('section.update');
+
+});
+
+
+
+Route::group(array('prefix' => '/student'), function () {
+    Route::get('/schedule/get',              [StudentController::class, 'getSchedule'])->name('student.schedule');
+
 });

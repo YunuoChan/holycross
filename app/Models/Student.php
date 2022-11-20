@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Section extends Model
+class Student extends Model
 {
     use HasFactory;
-    protected 	$table 			= 'section';
-	protected 	$primaryKey 	= 'id';
+    protected 	$table 			= 'student';
+	protected 	$primaryKey 	= 'student_id_no';
 	public 		$timestamps 	= false;
 
      /**
@@ -18,23 +18,19 @@ class Section extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'created_at' => 'datetime:M d, Y'
+        'created_at' => 'datetime:M d, Y',
+        'student_id_no' => 'string'
     ];
-     
+
     public function user() {
         return $this->belongsTo(User::class);
-    }
-
-    public function sectionSubjects() {
-        return $this->hasMany(SectionSubject::class);
     }
 
     public function course() {
         return $this->belongsTo(Course::class, 'course_id');
     }
 
-    public function students() {
-        return $this->hasMany(Student::class);
+    public function section() {
+        return $this->belongsTo(Section::class, 'section_id');
     }
-
 }
