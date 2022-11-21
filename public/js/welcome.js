@@ -74,7 +74,7 @@ function tableDataElement(subject, section) {
         //     elm += '     <td class="vertical-center">First Year</td> ';
         // }
         elm += '     <td class="vertical-center">TBA</td> ';
-        elm += '     <td class="vertical-center">TBA</td> ';
+        elm += '     <td class="vertical-center">'+ subject.subject.room_no +'</td> ';
         // elm += '     <td class="vertical-center"> ';
         // elm += '        <div class="d-flex justify-content-center">'
         // if (data.status == 'ACT') {
