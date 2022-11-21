@@ -252,7 +252,8 @@ class StudentController extends Controller
                                             ->with(['subject' => function($subject) {
                                                 $subject->where('status', 'ACT');
                                             }]);
-                                    }]);
+                                    }])
+                                    ->with('schoolyear');
                             }])
                             ->whereHas('course', function($query) {
                                 $query->where('status', 'ACT');

@@ -37,4 +37,7 @@ class Section extends Model
         return $this->hasMany(Student::class);
     }
 
+    public function schoolyear() {
+        return $this->belongsTo(Schoolyear::class, 'schoolyear_id');
+    }
 }

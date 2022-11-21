@@ -38,9 +38,24 @@ function loadScheduleRecord() {
         $('#studentScheduleTable').html(BLANK);
         if (data.students) {
             data.students.section.section_subjects.forEach(function(student) {
-                    $('#studentScheduleTable').append(tableDataElement(student, data.students.section));
-                // initTrashSections(section.id)
-                // editSectionRecord(section.id)
+                $('#studentScheduleTable').append(tableDataElement(student, data.students.section));
+                $('#studentName').text(data.students.name);
+                $('#studentNo').text(data.students.student_id_no);
+                var yrlvl = BLANK;
+                if (data.students.year_level == 1) {
+                    yrlvl = 'First Year';
+                } else  if (data.students.year_level == 2) {
+                    yrlvl = 'Second Year';
+                } else  if (data.students.year_level == 3) {
+                    yrlvl = 'Third Year';
+                } else  if (data.students.year_level == 4) {
+                    yrlvl = 'Fourth Year';
+                } else {
+                    yrlvl = 'First Year';
+                }
+                $('#studentCourse').text(data.students.course.course_code + ' - ' + yrlvl);
+
+                $('#schoolYear').text('S.Y. ' + data.students.section.schoolyear.sy_from +' - '+ data.students.section.schoolyear.sy_to);
             });
         } else {
             customToaster('No Record Found', 'We can\'t seems to find your record. Please try another ID number', 'warning')

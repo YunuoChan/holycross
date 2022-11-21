@@ -46,7 +46,20 @@
                                 <div class="d-flex justify-content-center mb-3">
                                     <h1>Shedule Viewer</h1>
                                 </div>
-                                <div class="d-flex justify-content-center mb-5">
+                                <div class="d-flex justify-content-center mb-5 mx-5">
+                                    <div class="mr-3 w-25">
+                                        <div class="card">
+                                            <div class="d-flex justify-content-center my-5">
+                                                <img class="card-img-top w-50" src="/img/logo.jpg" alt="Holy Cross Student" height="auto">
+                                            </div>
+                                            <div class="card-body py-0 px-4 pb-5">
+                                                <p class="card-title font-35-rem mb-0"><strong><span id="studentName">John Doe</span></strong></p>
+                                                <p class="card-text mb-0"><strong><span id="schoolYear">S.Y. 2022 - 2023</span></strong></p>
+                                                <p class="card-text mb-0">Student No: <strong><span id="studentNo">John Doe</span></strong></p>
+                                                <p class="card-text mb-0"><strong><span id="studentCourse">BCSS</span></strong></p>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <table class="table w-75">
                                         <thead class="sched-head">
                                           <tr>

@@ -349,3 +349,12 @@ tr.bg-color-cust {
 .vertical-center {
   vertical-align: middle !important;
 }
+
+.w-80 {
+  width: 80%;
+}
+
+
+.font-35-rem {
+  font-size: 3.5rem;
+}
