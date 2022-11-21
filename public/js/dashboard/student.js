@@ -6,7 +6,7 @@ const BLANK = '';
 -----------------------------------*/
 $('#addStudentModalCall').on('click', function () {
 
-    $('#studentModalBtn').html(BLANK);
+    // $('#studentModalBtn').html(BLANK);
     $('#studentModalBtn').append(btnModalElement('addStudentBtn', 'Add Student'));
     studentCoursePickOnChange();
     initAddStudent();
@@ -152,8 +152,7 @@ function loadStudentRecord() {
         if (data.students.length > 0) {
             data.students.forEach(function(student) {
                 $('#studentTable').append(tableElement(student));
-                // initTrashSections(section.id)
-                // editSectionRecord(section.id)
+                initTrashStudents(student.id)
             });
         }
     }).fail(function(error) {
@@ -195,4 +194,83 @@ function tableElement(data) {
         elm += '     </td> ';
         elm += ' </tr> ';
     return elm;
+}
+
+
+/*---------------------------------
+    TRASH SECTION
+-----------------------------------*/
+function initTrashStudents(id) {
+    $('#trashStudent-'+ id).on('click', function() {
+        bootbox.confirm({
+            title: "Trash Student Record?",
+            message: "Are you sure you want to delete this record?",
+            buttons: {
+                cancel: {
+                    label: '<i class="fas fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fas fa-trash"></i> Yes, Please!'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    trashStudent(id)
+                }
+            }
+        });
+    });
+}
+
+function trashStudent(id) {
+    $.ajax({
+        url:        '/admin/student/trash',
+        type:       'POST',
+        dataType:   'json',
+        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data:   {
+            id : id
+        }
+    }).then(function(data) {
+        loadStudentRecord();
+
+        // TOASTER
+        successDelete();
+    }).fail(function(error) {
+        console.log('Backend Error', error);
+        internalServerError();
+    });
+}
+
+
+/*---------------------------------
+
+-----------------------------------*/
+function editSectionRecord(id) {
+    $('#editSection-' + id).on('click', function() {
+        // WEB SERVICE CALL 
+        $.ajax({
+            url:        '/admin/section/edit',
+            type:       'GET',
+            dataType:   'json',
+            headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data:   {
+                id : id
+            }
+        }).then(function(data) {
+            console.log('fetchsection: ', data);
+            $('#sectionCode').val(data.section.section_code);
+            $('#sectionYearlevel').val(data.section.year_level).trigger('change');
+            $('#coursePicker-section').val(data.section.course.id).trigger('change');
+           
+            $('#sectionModalBtn').html(BLANK);
+            $('#sectionModalBtn').append(btnModalElement('updateSectionBtn-'+ id, 'Update Section Info'));
+            initUpdateSection(id);
+            $('#addSectionRecord').modal('toggle');
+
+        }).fail(function(error) {
+            console.log('Backend Error', error);
+            internalServerError();
+        });
+    }); 
 }

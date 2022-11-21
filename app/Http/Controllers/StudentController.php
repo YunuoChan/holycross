@@ -147,9 +147,27 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy(Request $request, Student $student)
     {
-        //
+        try {
+            $id   = $request->id;
+            $userId = auth()->user()->id;
+        
+            $student = Student::find($id);
+            $student->updated_at = Carbon::now();
+            $student->status = 'INA';
+            $student->user_id = $userId;
+            $student->update();
+
+            return response()->json([
+                'status' => 0,
+            ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error'	=> $th
+            ], 500);
+        }
     }
 
 

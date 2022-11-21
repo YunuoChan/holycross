@@ -68,5 +68,15 @@
         loadStudentRecord();
         studentCoursePickOnChange();
     });
+
+    function validation() {
+        if ($('#studentIdNo').val() == '') {
+            alert('student id is blank');
+        }
+
+        if ($('#studentName').val() == '') {
+            alert('student name is blank');
+        }
+    }
 </script>
 @stop
