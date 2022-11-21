@@ -37,8 +37,8 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-         // SAVE SECTION
-         try {
+        // SAVE SECTION
+        try {
             $schoolYearId = null;
             if(isset($_COOKIE['__schoolYear_selected'])) {
                 $schoolYearId = $_COOKIE['__schoolYear_selected'];
@@ -124,9 +124,23 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function edit(Student $student)
+    public function edit(Request $request, Student $student)
     {
-        //
+        try {
+            $id = $request->id;
+            $student = Student::with('course')
+                            ->with('section')
+                            ->where('id', $id)
+                            ->first();
+
+            return response()->json([
+				'student' => $student
+			], 200);
+        } catch (\Throwable $th) {
+			return response()->json([
+				'error'	=> $th
+			], 500);
+		}
     }
 
     /**
@@ -138,7 +152,48 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        // SAVE SECTION
+        try {
+            $schoolYearId = null;
+            if(isset($_COOKIE['__schoolYear_selected'])) {
+                $schoolYearId = $_COOKIE['__schoolYear_selected'];
+            } else {
+                return response()->json([
+                    'error'	=> 'Invalid Schoolyear!'
+                ], 500);
+            }
+
+            $id                     = $request->id;
+            $name                   = $request->name;
+            $studentId              = $request->studentId;
+            $course                 = $request->course;
+            $section                = $request->section;
+            $yearlevel              = $request->yearlevel;
+            $fromAdmin              = $request->fromAdmin;
+            $userId                 = auth()->user()->id;
+
+            
+            $student = Student::find($id);
+            $student->name              = $name;
+            $student->student_id_no     = $studentId;
+            $student->year_level        = $yearlevel;
+            $student->section_id        = $section;
+            $student->course_id         = $course;
+            $student->user_id           = $userId;
+            $student->updated_at        = Carbon::now();
+            $student->update();
+
+            return response()->json([
+				'status' => 0,
+			], 200);
+
+        } catch (\Throwable $th) {
+            Log::debug('Student.store');
+            Log::debug($th);
+			return response()->json([
+				'error'	=> $th
+			], 500);
+		}
     }
 
     /**
