@@ -103,7 +103,7 @@ function yearCard(section, mark) {
                     elm += '            ';
                     elm += '            <td class="vertical-center">'+ subject.generated_schedules[0].from +' - '+ subject.generated_schedules[0].to +'</td> ';
                     elm += '            <td class="vertical-center">TBA </td> ';
-                    elm += '            <td class="vertical-center">TBA </td> ';
+                    elm += '            <td class="vertical-center">'+ subject.subject.room_no +' </td> ';
                     elm += '        </tr> ';
                 });
                 elm += '    </tbody> ';

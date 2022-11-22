@@ -76,6 +76,7 @@ function tableElement(subject) {
         elm += '     <td class="vertical-center">'+ subject.course.course_code +'</td> ';
         elm += '     <td class="vertical-center">'+ subject.subject_code +'</td> ';
         elm += '     <td class="vertical-center">'+ subject.subject +'</th> ';
+        elm += '     <td class="vertical-center">'+ subject.room_no +'</th> ';
         elm += '     <td class="vertical-center">'+ subject.unit +'</td> ';
         elm += '     <td class="vertical-center">'+ subject.time_to_consume +'</td> ';
         if (subject.year_level == 1) {
@@ -139,7 +140,8 @@ function initAddSubject() {
                 subjectTime         : $('#subjectTime').val(),
                 subjectYearlevel    : $('#subjectYearlevel').val(),
                 // subjectAvailability : $('#subjectAvailability').val(),
-                course              : $('#coursePicker-subject').val()
+                course              : $('#coursePicker-subject').val(),
+                subjectRoomNo       :  $('#subjectRoomNo').val()
             }
         }).then(function(data) {
             resetSubjectModal();
@@ -242,6 +244,7 @@ function editSubjectRecord(id) {
             $('#subjectYearlevel').val(data.subject.year_level).trigger('change');
             // $('#subjectAvailability').val(data.subject.availability_per_week).trigger('change');
             $('#coursePicker-subject').val(data.subject.course.id).trigger('change');
+            $('#subjectRoomNo').val(data.subject.room_no)
             $('#subjectModalBtn').html(BLANK);
             $('#subjectModalBtn').append(btnModalElement('updateSubjectBtn-'+ id, 'Update Subject Info'));
             initUpdateSubject(id);
@@ -292,7 +295,8 @@ function updateSubject(id) {
             subjectUnit         : $('#subjectUnit').val(),
             subjectTime         : $('#subjectTime').val(),
             subjectYearlevel    : $('#subjectYearlevel').val(),
-            course              : $('#coursePicker-subject').val()
+            course              : $('#coursePicker-subject').val(),
+            subjectRoomNo       :  $('#subjectRoomNo').val()
         }
     }).then(function(data) {
         console.log('fetchsubject: ', data);

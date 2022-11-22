@@ -82,8 +82,8 @@ Route::group(array('prefix' => '/admin'), function () {
     Route::get('/student/show',             [StudentController::class, 'show'])->name('student.show');
     Route::post('/student/save',            [StudentController::class, 'store'])->name('student.save');
     Route::post('/student/trash',           [StudentController::class, 'destroy'])->name('student.trash');
-    Route::get('/section/edit',             [SectionController::class, 'edit'])->name('section.edit');
-    Route::post('/section/update',          [SectionController::class, 'update'])->name('section.update');
+    Route::get('/student/edit',             [StudentController::class, 'edit'])->name('student.edit');
+    Route::post('/student/update',          [StudentController::class, 'update'])->name('student.update');
 
 });
 

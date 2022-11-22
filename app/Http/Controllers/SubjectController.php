@@ -54,6 +54,7 @@ class SubjectController extends Controller
             $subjectTime            = $request->subjectTime;
             $subjectUnit            = $request->subjectUnit;
             $subjectYearlevel       = $request->subjectYearlevel;
+            $subjectRoomNo          = $request->subjectRoomNo;
             // $subjectAvailability    = $request->subjectAvailability;
             $course                 = $request->course;
             $userId                 = auth()->user()->id;
@@ -68,6 +69,7 @@ class SubjectController extends Controller
             $subject->time_to_consume   = $subjectTime;
             $subject->schoolyear_id     = $schoolYearId;
             $subject->course_id         = $course;
+            $subject->room_no           = $subjectRoomNo;
             $subject->user_id           = $userId;
             $subject->created_at        = Carbon::now();
             $subject->save();
@@ -161,6 +163,7 @@ class SubjectController extends Controller
             $subjectTime            = $request->subjectTime;
             $course                 = $request->course;
             $userId                 = auth()->user()->id;
+            $subjectRoomNo          = $request->subjectRoomNo;
         
             $subject                    = Subject::find($id);
             $subject->updated_at        = Carbon::now();
@@ -170,6 +173,7 @@ class SubjectController extends Controller
             $subject->unit              = $subjectUnit;
             $subject->time_to_consume   = $subjectTime;
             $subject->course_id         = $course;
+            $subject->room_no           = $subjectRoomNo;
             $subject->user_id = $userId;
             $subject->update();
 

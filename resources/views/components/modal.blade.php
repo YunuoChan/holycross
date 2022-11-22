@@ -83,30 +83,37 @@
             </div>
           </div>
 
-          <div class="form-group w-50">
-            <label for="subjectTime">Time to Consume</label>
-            <select class="form-control" id="subjectTime">
-              <option selected disabled>Time to Consume</option>
-              <option value="0.25">15mins</option>
-              <option value="0.5">30mins</option>
-              <option value=".75">45mins</option>
-              <option value="1">1hr</option>
-              <option value="1.5">1hr 30mins</option>
-              <option value="2">2hrs</option>
-              <option value="2.5">2hrs 30mins</option>
-              <option value="3">3hrs</option>
-              <option value="3.5">3hrs 30mins</option>
-              <option value="4">4hrs</option>
-              <option value="4.5">4hrs 30mins</option>
-              <option value="5">5hrs</option>
-              <option value="5.5">5hrs 30mins</option>
-              <option value="6">6hrs</option>
-              <option value="6.5">6hrs 30mins</option>
-              <option value="7">7hrs</option>
-              <option value="7.5">7hrs 30mins</option>
-              <option value="8">8hrs</option>
-            </select>
+          <div class="d-flex justify-content-start">
+            <div class="form-group w-50 mr-3">
+              <label for="subjectTime">Time to Consume</label>
+              <select class="form-control" id="subjectTime">
+                <option selected disabled>Time to Consume</option>
+                <option value="0.25">15mins</option>
+                <option value="0.5">30mins</option>
+                <option value=".75">45mins</option>
+                <option value="1">1hr</option>
+                <option value="1.5">1hr 30mins</option>
+                <option value="2">2hrs</option>
+                <option value="2.5">2hrs 30mins</option>
+                <option value="3">3hrs</option>
+                <option value="3.5">3hrs 30mins</option>
+                <option value="4">4hrs</option>
+                <option value="4.5">4hrs 30mins</option>
+                <option value="5">5hrs</option>
+                <option value="5.5">5hrs 30mins</option>
+                <option value="6">6hrs</option>
+                <option value="6.5">6hrs 30mins</option>
+                <option value="7">7hrs</option>
+                <option value="7.5">7hrs 30mins</option>
+                <option value="8">8hrs</option>
+              </select>
+            </div>
+            <div class="form-group w-50">
+              <label for="subjectRoomNo">Room</label>
+              <input type="text" class="form-control" id="subjectRoomNo" placeholder="Room No" maxlength="10">
+            </div>
           </div>
+          
         </form>
       </div>
       <div class="modal-footer" id="subjectModalBtn">

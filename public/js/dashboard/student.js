@@ -6,10 +6,12 @@ const BLANK = '';
 -----------------------------------*/
 $('#addStudentModalCall').on('click', function () {
 
-    // $('#studentModalBtn').html(BLANK);
+    $('#studentModalBtn').html(BLANK);
     $('#studentModalBtn').append(btnModalElement('addStudentBtn', 'Add Student'));
+    resetStudentModal();
     studentCoursePickOnChange();
     initAddStudent();
+   
     $('#addStudentRecord').modal('toggle');
     
 })
@@ -39,6 +41,9 @@ function initAddStudent() {
             console.log('STUDENT ADDED');
             successSave();
             $('#addStudentRecord').modal('hide');
+            resetStudentModal();
+            loadStudentRecord();
+
         }).fail(function(error) {
             console.log('Backend Error', error);
             internalServerError()
@@ -124,10 +129,10 @@ $('#studentYearlevel').on('change', function () {
 
 function studentCoursePickOnChange() {
     if ($.isNumeric($('#coursePicker-student').val())) {
-        $('#studentSectionDiv').show();
         loadSectionRecord('#studentSection', $('#coursePicker-student').val(), $('#studentYearlevel').val())
     } else {
-        $('#studentSectionDiv').hide();
+        $('#studentSection').html(BLANK);
+        $('#studentSection').append('<option value="0">No course found in redord</option>');
         $('#addStudentBtn').prop('disabled', true);
     }
 }
@@ -153,6 +158,7 @@ function loadStudentRecord() {
             data.students.forEach(function(student) {
                 $('#studentTable').append(tableElement(student));
                 initTrashStudents(student.id)
+                editStudentRecord(student.id) 
             });
         }
     }).fail(function(error) {
@@ -243,14 +249,23 @@ function trashStudent(id) {
 }
 
 
+function resetStudentModal() {
+    $('#studentIdNo').val(BLANK);
+    $('#studentName').val(BLANK);
+    $('#coursePicker-student').val('All');
+    $('#studentYearlevel').val(1).trigger('change');
+    $('#studentSection').html(BLANK);
+    $('#studentSection').append('<option value="0">No course found in redord</option>');
+}
+
 /*---------------------------------
 
 -----------------------------------*/
-function editSectionRecord(id) {
-    $('#editSection-' + id).on('click', function() {
+function editStudentRecord(id) {
+    $('#editStudent-' + id).on('click', function() {
         // WEB SERVICE CALL 
         $.ajax({
-            url:        '/admin/section/edit',
+            url:        '/admin/student/edit',
             type:       'GET',
             dataType:   'json',
             headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -258,19 +273,83 @@ function editSectionRecord(id) {
                 id : id
             }
         }).then(function(data) {
-            console.log('fetchsection: ', data);
-            $('#sectionCode').val(data.section.section_code);
-            $('#sectionYearlevel').val(data.section.year_level).trigger('change');
-            $('#coursePicker-section').val(data.section.course.id).trigger('change');
-           
-            $('#sectionModalBtn').html(BLANK);
-            $('#sectionModalBtn').append(btnModalElement('updateSectionBtn-'+ id, 'Update Section Info'));
-            initUpdateSection(id);
-            $('#addSectionRecord').modal('toggle');
+            console.log('fetchStudent: ', data);
+            resetStudentModal();
+            // APPEND DATA 
+            $('#studentIdNo').val(data.student.student_id_no);
+            $('#studentName').val(data.student.name);
+            $('#coursePicker-student').val(data.student.course.id);
+            $('#studentYearlevel').val(data.student.year_level).trigger('change');
+            setTimeout(function () {
+                $('#studentSection').val(data.student.section.id).trigger('change');
+            }, 1000);
+
+
+            $('#studentModalBtn').html(BLANK);
+            $('#studentModalBtn').append(btnModalElement('updateStudentBtn-'+ id, 'Update Student Info'));
+            initUpdateStudent(id);
+            $('#addStudentRecord').modal('toggle');
 
         }).fail(function(error) {
             console.log('Backend Error', error);
             internalServerError();
         });
     }); 
+}
+
+
+
+function initUpdateStudent(id) {
+    $('#updateStudentBtn-'+ id).on('click', function() {
+        $('#addStudentRecord').modal('hide');
+        bootbox.confirm({
+            title: "Update Section Info?",
+            message: "Are you sure you want to update this record?",
+            buttons: {
+                cancel: {
+                    label: '<i class="fas fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fas fa-trash"></i> Yes, Please!'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    updateStudent(id)
+                }
+            }
+        });
+    });
+}
+
+
+function updateStudent(id) {
+    // WEB SERVICE CALL 
+    $.ajax({
+        url:        '/admin/student/update',
+        type:       'POST',
+        dataType:   'json',
+        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data:   {
+            id                : id,
+            name              : $('#studentName').val(),
+            studentId         : $('#studentIdNo').val(),
+            course            : $('#coursePicker-student').val(),
+            section           : $('#studentSection').val(),
+            yearlevel         : $('#studentYearlevel').val(),
+            fromAdmin         : 1, // IF ADDED ON ADMIN SIDE
+        }
+    }).then(function(data) {
+        console.log('fetchsection: ', data);
+
+        $('#addStudentRecord').modal('hide');
+        resetStudentModal()
+       loadStudentRecord()
+
+        // TOASTER
+        successUpdate();
+    }).fail(function(error) {
+        console.log('Backend Error', error);
+        internalServerError();
+    });
 }
