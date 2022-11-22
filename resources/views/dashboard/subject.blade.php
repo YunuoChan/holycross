@@ -71,22 +71,20 @@
 
         function validation() {
         if ($('#subjectCode').val() == '') {
-            alert('Subject Code is blank');
+            alert('Subject Code is required');
         }
 
         if ($('#subjectName').val() == '') {
-            alert('Subject Name is blank');
+            alert('Subject Name is required');
         }
         if ($('#subjectUnit').val() == '') {
-            alert('Subject Unit is blank');
+            alert('Subject Unit is required');
+         
+        if ($('#subjectRoomNo').val() == '') {
+            alert('Room Number is required');
         }
     }
-
-
-
-
-
-
+        }
 
 
     </script>
