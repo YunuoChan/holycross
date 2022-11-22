@@ -203,7 +203,7 @@ function tableElement(data) {
 function initTrashStudents(id) {
     $('#trashStudent-'+ id).on('click', function() {
         bootbox.confirm({
-            title: "Trash Student Record?",
+            title: "Delete Student Record?",
             message: "Are you sure you want to delete this record?",
             buttons: {
                 cancel: {

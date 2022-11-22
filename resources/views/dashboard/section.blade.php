@@ -62,5 +62,15 @@
         loadSectionRecord();
         loadCourses('#coursePicker-section')
     });
+
+    function validation() {
+        if ($('#sectionCode').val() == '') {
+            alert('section code is blank');
+        }
+
+      
+    }
+
+
 </script>
 @stop

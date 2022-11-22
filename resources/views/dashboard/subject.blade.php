@@ -67,6 +67,27 @@
             loadSubjectRecord();
             loadCourses('#coursePicker-subject')
         });
+
+        function validation() {
+        if ($('#subjectCode').val() == '') {
+            alert('Subject Code is blank');
+        }
+
+        if ($('#subjectName').val() == '') {
+            alert('Subject Name is blank');
+        }
+        if ($('#subjectUnit').val() == '') {
+            alert('Subject Unit is blank');
+        }
+    }
+
+
+
+
+
+
+
+
     </script>
   
 @stop
