@@ -2,6 +2,7 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use GuzzleHttp\Cookie\SetCookie;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -173,6 +174,11 @@ trait AuthenticatesUsers
 
         if ($response = $this->loggedOut($request)) {
             return $response;
+        }
+
+        if (isset($_COOKIE['__schoolYear_selected'])) {
+            unset($_COOKIE['__schoolYear_selected']);
+            setCookie('__schoolYear_selected', null, -1, '/');
         }
 
         return $request->wantsJson()
