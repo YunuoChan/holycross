@@ -25,7 +25,6 @@
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
         @yield('head')
 
-    
     </head>
     <body>
         <main style="height: 100vh;">
@@ -44,7 +43,6 @@
                                 <a href="{{ route('home') }}"  onclick="selectDashboardMenu('dashboard');">Dashboard</a>
                             </li>
                             <li id="li-professor" name="dashboard-menu">
-                                {{-- <a href="{{ route('professor') }}" onclick="selectDashboardMenu('professor');">Professor</a> --}}
                                 <a onclick="openDropdown('professor')" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Professor</a>
                                 <ul class="collapse list-unstyled ml-3" id="professorSubmenu">
                                     <li id="li-professor-list-submenu">
@@ -56,43 +54,14 @@
 
                                 </ul>
                             </li>
-                            {{-- <li>
-                                <a href="#Submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" onclick="openDropdown('prof')">Prof</a>
-                                <ul class="list-unstyled collapse" id="profSubmenu" style="">
-                                    <li>
-                                        <a href="#">Page 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Page 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Page 3</a>
-                                    </li>
-                                </ul>
-                            </li> --}}
+                            <li  id="li-student" name="dashboard-menu">
+                                <a href="{{ route('student') }}" onclick="selectDashboardMenu('student');" >Student</a>
+                            </li>
                             <li id="li-subject" name="dashboard-menu">
                                 <a href="{{ route('subject') }}" onclick="selectDashboardMenu('subject');">Subject</a>
                             </li>
                             <li id="li-section" name="dashboard-menu">
                                 <a href="{{ route('section') }}" onclick="selectDashboardMenu('section', 'section-list');">Section</a>
-                                {{-- <a onclick="openDropdown('section')" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Section</a>
-                                <ul class="collapse list-unstyled ml-3" id="sectionSubmenu">
-                                    <li id="li-section-list-submenu">
-                                        <a href="{{ route('section') }}" onclick="selectDashboardMenu('section', 'section-list');" class="white-color">Section List</a>
-                                    </li>
-                                    <li id="li-section-subject-submenu">
-                                        <a href="{{ route('section.subject') }}" onclick="selectDashboardMenu('section', 'section-subject');" class="white-color">Section Subject</a>
-                                    </li>
-                                    <li id="li-section-schedule-submenu">
-                                        <a href="#" onclick="selectDashboardMenu('section', 'section-schedule');" class="white-color">Generate Section Schedule</a>
-                                    </li>
-                                </ul> --}}
-                            </li>
-                            <li  id="li-student" name="dashboard-menu">
-                                <a href="{{ route('student') }}" onclick="selectDashboardMenu('student');" >Student</a>
-                            </li>
-                            <li name="dashboard-menu">
-                                <a href="#">Schedule</a>
                             </li>
                             <li id="li-generate-schedule" name="dashboard-menu">
                                 <a href="{{ route('generate.schedule') }}" onclick="selectDashboardMenu('generate-schedule');" >Generate Schedule</a>
@@ -105,14 +74,13 @@
                                 <a href="#">Admin Accounts</a>
                             </li>
                             <li name="dashboard-menu">
-                                <a href="#">Switch School year</a>
+                                <a href="#">Manage School year</a>
                             </li>
                         </ul>
                     </nav>
             
                     <!-- Page Content  -->
                     <div id="content">
-            
                         <nav class="navbar navbar-expand-lg navbar-light bg-light">
                             <div class="container-fluid">
             

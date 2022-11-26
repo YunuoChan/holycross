@@ -67,4 +67,22 @@ a.text-deco-n.py-3.px-5.border-1-add-sy:hover {
 
 .ui-datepicker-calendar {
   display: none;
-  }
+}
+
+.bg-opacity {
+  background-color: rgba(0, 0, 0, 60%)
+}
+
+
+.bg-opacity-schoolyear {
+  background-color: rgb(20 58 205 / 55%);
+}
+
+.color-white {
+  color: white;
+}
+
+.tableFixHead {
+  overflow: auto;
+  height: 70vh
+}

@@ -39,42 +39,37 @@ function loadSchoolyearRecord() {
 }
 
 function syElement(data) {
-    var s = '';
-    if (data.is_active == 0) {
-        s +=    ' <div class="col-md-5 justify-content-center"> ';
-        s +=    '     <div class="m-2"> ';
-    } else {
-        s +=    ' <div class="d-flex justify-content-center"> ';
-        s +=    '     <div class="w-50 mx-2"> '; 
 
+    var s = '';
+    s +=    ' <div class="card border-success mb-3" style="max-width: 18rem;"> ';
+    s +=    '     <div class="card-header"> ';
+    s +=    '       <h3 class="mt-3 mb-0"><b>S.Y. '+ data.sy_from +' - '+ data.sy_to +'</b></h3> ';
+    if (data.is_active == 1) {
+    s +=    '       <p class="t text-success mb-0">Active</p> ';
     }
-    s +=    '         <div class="card"> ';
-        s +=    '         <div class="card-body"> ';
-        s +=    '             <div class="d-flex justify-content-between"> ';
-                    // {{-- SY INFO --}}
-        s +=    '             <div class="d-flex align-items-center"> ';
-        s +=    '                 <img src="/img/logo.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle"/> ';
-        s +=    '                 <div class="ms-3"> ';
-        s +=    '                 <h4 class="fw-bold mb-1"><b>S.Y. '+ data.sy_from +' - '+ data.sy_to +'</b></h4> ';
-        s +=    '                  <p class="text-muted mb-0">Created by '+ data.user.name +'</p> ';
-        s +=    '                 <small class="text-muted mb-0">'+ data.created_at +'</small> ';
-        s +=    '                 </div> ';
-        s +=    '             </div> ';
-                    // {{-- REMOVE SY --}}
-        s +=    '              <div class="d-flex justify-content-start flex-column"> ';
-        if (data.is_active == 0) {
-            s +=    '                 <button class="remove-sy border-n badge rounded-pill badge-remove" id="removeSYRecord-'+ data.id +'" data-id="'+ data.id +'"><i class="fas fa-trash-alt"></i></button> ';
-        } else {
-            s +=    '                 <span class="badge rounded-pill badge-success">Active</span> '; 
-        }
-        s +=    '             </div> ';
-        s +=    '             </div> ';
-        s +=    '         </div> ';
-                    // {{--SY  BUTTON--}}
-        s +=    '         <div class="card-footer border-0 bg-light p-2 d-flex justify-content-end"> ';
-        s +=    '             <a class="select-sy btn btn-link m-0 text-reset text-deco-n" role="button" data-ripple-color="primary" id="proceedSYRecord-'+ data.id +'" data-id="'+ data.id +'">Proceed <i class="fas fa-arrow-right"></i></a> ';
-        s +=    '         </div> ';
-    s +=    '         </div> ';
+    s +=    '     </div> ';
+    s +=    '     <div class="card-body text-success"> ';
+    s +=    '       <div class="d-flex mb-3">';
+    s +=    '           <div class="d-flex justify-content-center flex-column mr-3  ">';
+    s +=    '               <img src="/img/logo.jpg"  style="width: 100px; height: 100px" class="rounded-circle"/> ';
+    s +=    '           </div> ';
+    s +=    '           <div class="d-flex justify-content-center flex-column">';
+    s +=    '               <p class="text-muted mb-0">Created by <b>'+ data.user.name +'</b></p> ';
+    s +=    '               <small class="text-muted mb-0">'+ data.created_at +'</small> ';
+    s +=    '           </div> ';
+    s +=    '       </div> ';
+    if (data.is_active == 0) {
+        s +=    '       <div class="card-footer bg-transparent border-warning px-0 pb-0 text-right d-flex justify-content-between"> ';
+        s +=    '           <div class="d-flex justify-content-center flex-column"> ';
+        s +=    '               <button class="remove-sy border-n badge rounded-pill badge-remove" id="removeSYRecord-'+ data.id +'" data-id="'+ data.id +'"><i class="fas fa-trash-alt"></i> <span>Delete</span></button> ';
+        s +=    '           </div> ';
+        s +=    '                <a class="select-sy btn btn-link m-0 text-reset text-deco-n" role="button" data-ripple-color="primary" id="proceedSYRecord-'+ data.id +'" data-id="'+ data.id +'">Proceed <i class="fas fa-arrow-right"></i></a>';
+    } else {
+        s +=    '       <div class="card-footer bg-transparent border-warning px-0 pb-0 text-right d-flex justify-content-end"> ';
+        s +=    '           <a class="select-sy btn btn-link m-0 text-reset text-deco-n" role="button" data-ripple-color="primary" id="proceedSYRecord-'+ data.id +'" data-id="'+ data.id +'">Proceed <i class="fas fa-arrow-right"></i></a>';
+    }
+    
+    s +=    '       </div> ';
     s +=    '     </div> ';
     s +=    ' </div> ';
 

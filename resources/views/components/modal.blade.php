@@ -17,7 +17,7 @@
             </small>  
           </div>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label pt-0">School Year<span class="required-asterisk">*</span></label>
+            <label for="recipient-name" class="col-form-label pt-0">School Year</label>
             <div class="d-flex justify-content-between ml-3">
               <div class="d-flex justify-content-start w-50 mr-2">
                 <div class="d-flex justify-content-center flex-column">
