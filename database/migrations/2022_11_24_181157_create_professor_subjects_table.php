@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('professor_subject', function (Blueprint $table) {
             $table->id();
-            $table->string('professor_id_no');
-            $table->string('subject_id');
             $table->string('status')->default('ACT');
             $table->timestamps();
 
-            $table->unsignedBigInteger('course_id');
-            $table->foreign('course_id')->references('id')->on('course');
+            $table->unsignedBigInteger('generated_sched_id');
+            $table->foreign('generated_sched_id')->references('id')->on('generated_schedule');
+
+            $table->unsignedBigInteger('professor_id');
+            $table->foreign('professor_id')->references('id')->on('professor');
             
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

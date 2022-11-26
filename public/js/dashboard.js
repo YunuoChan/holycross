@@ -86,3 +86,28 @@ function openDropdown(page) {
         $('#'+ page +'Submenu').addClass('show');
     }
 }
+
+function showNoDataAvalable() {
+    
+    var s = BLANK;
+
+    s+= '<div class="d-flex justify-content-center">';  
+    s+= '<tr>';  
+	s+= '   <td colspan="100%">';
+	s+= '	    <div id="noRecordContainer">';
+	s+= '	    	<div class="d-flex flex-row justify-content-center">';
+	s+= '	    		<div style="font-size: 5em;">';
+	s+= '	    			<i class="fas fa-box-open"></i> ';
+	s+= '	    		</div>';
+	s+= '	    	</div>';
+	s+= '	    	<div class="d-flex flex-row justify-content-center">';
+	s+= '	    		<div> No record found...';
+	s+= '	    		</div>';
+	s+= '	    	</div>';
+	s+= '	    </div>';
+	s+= '   </td>';
+	s+=	'</tr>';
+    s+= '</div>';  
+
+    return s;
+}

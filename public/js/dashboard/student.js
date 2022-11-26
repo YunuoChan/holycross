@@ -39,6 +39,14 @@ function initAddStudent() {
             }
         }).then(function(data) {
             console.log('STUDENT ADDED');
+
+            if (data.status == 66) {
+                customToaster('Failed to Add!', data.message, 'warning')
+                resetStudentModal();
+                $('#addStudentRecord').modal('hide');
+                return false;
+            }
+
             successSave();
             $('#addStudentRecord').modal('hide');
             resetStudentModal();
@@ -303,7 +311,7 @@ function initUpdateStudent(id) {
     $('#updateStudentBtn-'+ id).on('click', function() {
         $('#addStudentRecord').modal('hide');
         bootbox.confirm({
-            title: "Update Section Info?",
+            title: "Update Student Info?",
             message: "Are you sure you want to update this record?",
             buttons: {
                 cancel: {
@@ -342,9 +350,15 @@ function updateStudent(id) {
     }).then(function(data) {
         console.log('fetchsection: ', data);
 
+        if (data.status == 66) {
+            customToaster('Failed to Update!', data.message, 'warning')
+            resetStudentModal();
+            return false;
+        }
+
         $('#addStudentRecord').modal('hide');
-        resetStudentModal()
-       loadStudentRecord()
+        resetStudentModal();
+        loadStudentRecord();
 
         // TOASTER
         successUpdate();

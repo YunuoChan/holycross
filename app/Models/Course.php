@@ -43,4 +43,8 @@ class Course extends Model
         return $this->hasMany(Student::class);
     }
 
+    public function professors() {
+        return $this->hasMany(Professor::class);
+    }
+
 }

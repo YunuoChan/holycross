@@ -40,25 +40,21 @@
             
                         <ul class="list-unstyled components">
                             <h4 class="px-4 my-4">RECORD</h4>
-                            {{-- <li class="active">
-                                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                                <ul class="collapse list-unstyled" id="homeSubmenu">
-                                    <li>
-                                        <a href="#">Home 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Home 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Home 3</a>
-                                    </li>
-                                </ul>
-                            </li> --}}
                             <li id="li-dashboard" name="dashboard-menu" class="active">
                                 <a href="{{ route('home') }}"  onclick="selectDashboardMenu('dashboard');">Dashboard</a>
                             </li>
                             <li id="li-professor" name="dashboard-menu">
-                                <a href="#" onclick="selectDashboardMenu('professor');">Professor</a>
+                                {{-- <a href="{{ route('professor') }}" onclick="selectDashboardMenu('professor');">Professor</a> --}}
+                                <a onclick="openDropdown('professor')" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Professor</a>
+                                <ul class="collapse list-unstyled ml-3" id="professorSubmenu">
+                                    <li id="li-professor-list-submenu">
+                                        <a href="{{ route('professor') }}" onclick="selectDashboardMenu('professor', 'professor-list');" class="white-color">Professor List</a>
+                                    </li>
+                                    <li id="li-professor-subject-submenu">
+                                        <a href="{{ route('professor.subject') }}" onclick="selectDashboardMenu('professor', 'professor-subject');" class="white-color">Assign Subject</a>
+                                    </li>
+
+                                </ul>
                             </li>
                             {{-- <li>
                                 <a href="#Submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" onclick="openDropdown('prof')">Prof</a>

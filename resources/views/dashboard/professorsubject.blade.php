@@ -13,7 +13,7 @@
                 <div class="mr-4 d-flex justify-content-center flex-column">
                     <h1 class="d-flex justify-content-center flex-column mb-0">ASSIGN SUBJECT FOR PROFESSOR</h1>
                 </div>
-                <button type="button" class="btn btn-outline-primary btn-lg mr-3" id="addProfessorSubjectModalCall">Assign Subject</button>    
+                {{-- <button type="button" class="btn btn-outline-primary btn-lg mr-3" id="addProfessorSubjectModalCall">Assign Subject</button>     --}}
             </div>
             {{-- SEARCH --}}
             <div class="d-flex justify-content-center flex-column mb-0">
@@ -30,10 +30,10 @@
                 <thead class="thead-dark">
                   <tr>
                     <th width="10%" scope="col" class="vertical-center">Prof ID No</th>
-                    <th width="15%" scope="col" class="vertical-center">Name</th>
-                    <th width="15%" scope="col" class="vertical-center">Subject Assigned</th>
-                    <th width="10%" scope="col" class="vertical-center">Status</th>
-                    <th width="15%"scope="col" class="vertical-center">Control</th>
+                    <th width="10%" scope="col" class="vertical-center">Name</th>
+                    <th width="30%" scope="col" class="vertical-center">Subject Assigned</th>
+                    <th width="8%" scope="col" class="vertical-center">Status</th>
+                    <th width="5%"scope="col" class="vertical-center">Control</th>
                   </tr>
                 </thead>
                 <tbody id="professorSubjectTable">
@@ -59,8 +59,8 @@
                 }
             }
     
-            loadCourses('#coursePicker-professorSubject');
-            loadProfessorRecord();
+            // loadCourses('#coursePicker-professorSubject');
+            loadProfessorSubjectRecord();
         });
     </script>
   

@@ -26,7 +26,11 @@ class ProfessorSubject extends Model
     }
 
     public function professor() {
-        return $this->belongsTo(Professor::class);
+        return $this->belongsTo(Professor::class, 'id', 'professor_id');
+    }
+
+    public function generatedSched() {
+        return $this->hasOne(GeneratedSchedule::class, 'id', 'generated_sched_id');
     }
 
     public function schoolyear() {

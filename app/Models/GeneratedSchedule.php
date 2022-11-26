@@ -33,4 +33,9 @@ class GeneratedSchedule extends Model
     public function schoolyear() {
         return $this->belongsTo(Schoolyear::class, 'schoolyear_id');
     }
+
+
+    public function professorSubject() {
+        return $this->belongsTo(ProfessorSubject::class);
+    }
 }

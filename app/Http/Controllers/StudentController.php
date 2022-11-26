@@ -56,7 +56,17 @@ class StudentController extends Controller
             $fromAdmin              = $request->fromAdmin;
             $userId                 = auth()->user()->id;
 
-            
+            $isExist =  Student::where('student_id_no',  $studentId)
+                        ->where('status', 'ACT')
+                        ->count();
+
+            if ($isExist > 0) {
+                return response()->json([
+                    'status' => 66,
+                    'message' => 'Student ID number already exist in the record'
+                ], 200);
+            }
+
             $student = new Student();
             $student->name              = $name;
             $student->student_id_no     = $studentId;
@@ -171,6 +181,18 @@ class StudentController extends Controller
             $yearlevel              = $request->yearlevel;
             $fromAdmin              = $request->fromAdmin;
             $userId                 = auth()->user()->id;
+
+            $isExist =  Student::where('student_id_no',  $studentId)
+                            ->where('id', '<>', $id)
+                            ->where('status', 'ACT')
+                            ->count();
+
+            if ($isExist > 0) {
+                return response()->json([
+                    'status' => 66,
+                    'message' => 'Student ID number already exist in the record'
+                ], 200);
+            }
 
             
             $student = Student::find($id);

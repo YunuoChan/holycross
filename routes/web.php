@@ -9,6 +9,8 @@ use App\Http\Controllers\SectionSubjectController;
 use App\Http\Controllers\GenerateScheduleController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ProfessorController;
+use App\Http\Controllers\ProfessorSubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +86,25 @@ Route::group(array('prefix' => '/admin'), function () {
     Route::post('/student/trash',           [StudentController::class, 'destroy'])->name('student.trash');
     Route::get('/student/edit',             [StudentController::class, 'edit'])->name('student.edit');
     Route::post('/student/update',          [StudentController::class, 'update'])->name('student.update');
+
+
+    // PROFESSOR 
+    Route::get('/professor/get',              [ProfessorController::class, 'index'])->name('professor');
+    Route::get('/professor/show',             [ProfessorController::class, 'show'])->name('professor.show');
+    Route::post('/professor/save',            [ProfessorController::class, 'store'])->name('professor.save');
+    Route::post('/professor/trash',           [ProfessorController::class, 'destroy'])->name('professor.trash');
+    Route::get('/professor/edit',             [ProfessorController::class, 'edit'])->name('professor.edit');
+    Route::post('/professor/update',          [ProfessorController::class, 'update'])->name('professor.update');
+
+
+    // PROFESSOR SUBJECT
+    Route::get('/professor/subject/get',              [ProfessorSubjectController::class, 'index'])->name('professor.subject');
+    Route::get('/professor/subject/show',             [ProfessorSubjectController::class, 'show'])->name('professor.subject.show');
+    Route::post('/professor/subject/save',            [ProfessorSubjectController::class, 'store'])->name('professor.subject.save');
+    Route::post('/professor/subject/trash',           [ProfessorSubjectController::class, 'destroy'])->name('professor.subject.trash');
+    Route::get('/professor/subject/edit',             [ProfessorSubjectController::class, 'edit'])->name('professor.subject.edit');
+    Route::post('/professor/subject/update',          [ProfessorSubjectController::class, 'update'])->name('professor.subject.update');
+    Route::get('/professor/subject/list',            [ProfessorSubjectController::class, 'showSubjectList'])->name('professor.subject.list');
 
 });
 

@@ -85,6 +85,8 @@ function initProceed(id) {
     $('#proceedSYRecord-'+ id).on('click', function() {
         localStorage.setItem('__schoolYear_selected', id);
         setCookie('__schoolYear_selected', id, 1);
+        localStorage.setItem('current_page', 'dashboard');
+        localStorage.setItem('submenu', BLANK);
         window.location.href = "/home";
     });
 }

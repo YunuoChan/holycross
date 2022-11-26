@@ -75,7 +75,6 @@
                                         <div class="mt-5 pt-3 d-flex justify-content-end">
                                             <div class="w-50">
                                                 <button type="submit" class="button login__submit justify-content-between">
-                                                   
                                                     <span class="button__text">{{ __('Login') }}</span>
                                                     <i class="button__icon fas fa-chevron-right"></i>
                                                 </button>

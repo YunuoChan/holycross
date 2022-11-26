@@ -11,18 +11,23 @@
       </div>
       <div class="modal-body">
         <form>
+          <div class="mb-3">
+            <small class="text-muted sub-title">
+              <strong>Note:</strong><em>All fields marked with an asterisk (<span class="required-asterisk">*</span>) are required.</em>
+            </small>  
+          </div>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label pt-0">School Year</label>
+            <label for="recipient-name" class="col-form-label pt-0">School Year<span class="required-asterisk">*</span></label>
             <div class="d-flex justify-content-between ml-3">
               <div class="d-flex justify-content-start w-50 mr-2">
                 <div class="d-flex justify-content-center flex-column">
-                  <label for="sySelectFromPicker" class="m-0 pr-2">From</label>
+                  <label for="sySelectFromPicker" class="m-0 pr-2">From<span class="required-asterisk">*</span></label>
                 </div>
                 <select class="form-control" id="sySelectFromPicker"></select>
               </div>
               <div class="d-flex justify-content-start w-50 ml-2">
                 <div class="d-flex justify-content-center flex-column">
-                  <label for="sySelectToPicker" class="m-0 pr-2">To</label>
+                  <label for="sySelectToPicker" class="m-0 pr-2">To<span class="required-asterisk">*</span></label>
                 </div>
                 <select class="form-control" id="sySelectToPicker"></select>
               </div>
@@ -43,25 +48,30 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header modal-header-custom">
-        <h5 class="modal-title">Add New Subject</h5>
+        <h5 class="modal-title">Add New Subject<span class="required-asterisk">*</span></h5>
         <button type="button" class="close white-color" data-dismiss="modal" aria-label="Close" data-bs-dismiss="modal">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form>
+          <div class="mb-3">
+            <small class="text-muted sub-title">
+              <strong>Note:</strong><em>All fields marked with an asterisk (<span class="required-asterisk">*</span>) are required.</em>
+            </small>  
+          </div>
           <div class="d-flex justify-content-start">
             <div class="form-group w-25 mr-3">
-              <label for="subjectCode">Subject Code</label>
+              <label for="subjectCode">Subject Code<span class="required-asterisk">*</span></label>
               <input type="text" class="form-control" id="subjectCode" placeholder="Code" maxlength="10">
             </div>
             <div class="form-group w-75">
-              <label for="subjectName">Subject</label>
+              <label for="subjectName">Subject<span class="required-asterisk">*</span></label>
               <input type="text" class="form-control" id="subjectName" placeholder="Subject Name" maxlength="35">
             </div>
           </div>
           <div class="form-group">
-            <label for="coursePicker-subject">Select Course</label>
+            <label for="coursePicker-subject">Select Course<span class="required-asterisk">*</span></label>
             <select class="form-control" id="coursePicker-subject">
             </select>
             {{-- <label for="subjectDescription">Description</label>
@@ -73,7 +83,7 @@
               <input type="number" class="form-control" id="subjectUnit" placeholder="Unit" min=".5">
             </div>
             <div class="form-group w-75">
-              <label for="subjectYearlevel">Year Level</label>
+              <label for="subjectYearlevel">Year Level<span class="required-asterisk">*</span></label>
               <select class="form-control" id="subjectYearlevel">
                 <option value="1">First year</option>
                 <option value="2">Second year</option>
@@ -85,7 +95,7 @@
 
           <div class="d-flex justify-content-start">
             <div class="form-group w-50 mr-3">
-              <label for="subjectTime">Time to Consume</label>
+              <label for="subjectTime">Time to Consume<span class="required-asterisk">*</span></label>
               <select class="form-control" id="subjectTime">
                 <option selected disabled>Time to Consume</option>
                 <option value="0.25">15mins</option>
@@ -136,19 +146,24 @@
       </div>
       <div class="modal-body">
         <form>
+          <div class="mb-3">
+            <small class="text-muted sub-title">
+              <strong>Note:</strong><em>All fields marked with an asterisk (<span class="required-asterisk">*</span>) are required.</em>
+            </small>  
+          </div>
           <div class="d-flex justify-content-start">
             <div class="form-group w-50 mr-3 mb-0">
-              <label for="sectionCode">Section Code</label>
+              <label for="sectionCode">Section Code<span class="required-asterisk">*</span></label>
               <input type="text" class="form-control" id="sectionCode" placeholder="Code" maxlength="10">
             </div>
             <div class="form-group w-50">
-              <label for="coursePicker-section">Select Course</label>
+              <label for="coursePicker-section">Select Course<span class="required-asterisk">*</span></label>
               <select class="form-control" id="coursePicker-section">
               </select>
             </div>
           </div>
           <div class="form-group">
-            <label for="sectionYearlevel">Year Level</label>
+            <label for="sectionYearlevel">Year Level<span class="required-asterisk">*</span></label>
             <select class="form-control" id="sectionYearlevel">
               <option value="1">First year</option>
               <option value="2">Second year</option>
@@ -214,15 +229,20 @@
       </div>
       <div class="modal-body">
         <form>
+          <div class="mb-3">
+            <small class="text-muted sub-title">
+              <strong>Note:</strong><em>All fields marked with an asterisk (<span class="required-asterisk">*</span>) are required.</em>
+            </small>  
+          </div>
           <div class="d-flex justify-content-start">
             <div class="form-group mr-3 w-100">
-                <label for="coursePicker-generate-sched">Select Course</label>
+                <label for="coursePicker-generate-sched">Select Course<span class="required-asterisk">*</span></label>
                 <select class="form-control" id="coursePicker-generate-sched">
                 </select>
             </div>
           </div>
           <div class="form-group">
-            <label for="generateSchedYearlevel">Year Level</label>
+            <label for="generateSchedYearlevel">Year Level<span class="required-asterisk">*</span></label>
             <select class="form-control" id="generateSchedYearlevel">
               <option value="1">First year</option>
               <option value="2">Second year</option>
@@ -252,24 +272,29 @@
       </div>
       <div class="modal-body">
         <form>
+          <div class="mb-3">
+            <small class="text-muted sub-title">
+              <strong>Note:</strong><em>All fields marked with an asterisk (<span class="required-asterisk">*</span>) are required.</em>
+            </small>  
+          </div>
           <div class="d-flex justify-content-start">
             <div class="form-group w-50 mr-3">
-              <label for="studentIdNo">Student Id Number</label>
+              <label for="studentIdNo">Student Id Number<span class="required-asterisk">*</span></label>
               <input type="text" class="form-control" id="studentIdNo" placeholder="Id Number" maxlength="10">
             </div>
           </div>
           <div class="form-group">
-            <label for="studentName">Student Name</label>
+            <label for="studentName">Student Name<span class="required-asterisk">*</span></label>
             <input type="text" class="form-control" id="studentName" placeholder="Student Name" maxlength="35">
           </div>
           <div class="d-flex justify-content-start">
             <div class="form-group w-50 mr-3">
-              <label for="coursePicker-student">Select Course</label>
+              <label for="coursePicker-student">Select Course<span class="required-asterisk">*</span></label>
               <select class="form-control" id="coursePicker-student">
               </select>
             </div>
             <div class="form-group w-50">
-              <label for="studentYearlevel">Year Level</label>
+              <label for="studentYearlevel">Year Level<span class="required-asterisk">*</span></label>
               <select class="form-control" id="studentYearlevel">
                 <option value="1">First year</option>
                 <option value="2">Second year</option>
@@ -280,13 +305,124 @@
             </div>
           </div>
           <div class="form-group w-50"  id="studentSectionDiv">
-            <label for="studentSection">Section</label>
+            <label for="studentSection">Section<span class="required-asterisk">*</span></label>
               <select class="form-control" id="studentSection">
               </select>
           </div>
         </form>
       </div>
       <div class="modal-footer" id="studentModalBtn">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{{-- PROFESSOR --}}
+<div class="modal fade" id="addProfessorRecord" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 50px">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-custom">
+        <h5 class="modal-title">Add Professor Record</h5>
+        <button type="button" class="close white-color" data-dismiss="modal" aria-label="Close" data-bs-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <small class="text-muted sub-title">
+              <strong>Note:</strong><em>All fields marked with an asterisk (<span class="required-asterisk">*</span>) are required.</em>
+            </small>  
+          </div>
+          <div class="d-flex justify-content-start">
+            <div class="form-group w-50 mr-3">
+              <label for="professorIdNo">Professor Id Number<span class="required-asterisk">*</span></label>
+              <input type="text" class="form-control" id="professorIdNo" placeholder="Id Number" maxlength="10">
+            </div>
+            <div class="form-group w-50 mr-3">
+              <label for="coursePicker-professor">Select Department</label>
+              <select class="form-control" id="coursePicker-professor">
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="professorName">Professor Name<span class="required-asterisk">*</span></label>
+            <input type="text" class="form-control" id="professorName" placeholder="Professor Name" maxlength="35">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" id="professorModalBtn">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{{-- SECTION SUBJETC --}}
+<div class="modal fade" id="addProfessorSubjectRecord" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 50px">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-specific">
+      <div class="modal-header modal-header-custom">
+        <h5 class="modal-title">Assign Subject for Professor</h5>
+        <button type="button" class="close white-color" data-dismiss="modal" aria-label="Close" data-bs-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="d-flex justify-content-start mb-3">
+            <div class="form-group mr-3">
+              <div class="d-flex">
+                <img class="card-img-top w-15 h-15" src="/img/logo.jpg" alt="Holy Cross Student" height="auto">
+                <div class="ml-3 d-flex justify-content-center flex-column">
+                  <div>
+                    <h3 id="profName"></h3>
+                    <div class="d-flex">
+                      <p class="mb-0">ID Number: </p> <span id="profIdNo"></span> 
+                    </div>
+                    <div class="d-flex">
+                      <p class="mb-0">Department: </p> <span id="deptName"></span> 
+                    </div>  
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+          </div>
+          <div class="tableFixHead form-group">
+
+            <h4>Choose Subject</h4>
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th width="10%" scope="col" class="vertical-center">Year Level</th>
+                  <th width="15%" scope="col" class="vertical-center">Course & Section</th>
+                  <th width="15%" scope="col" class="vertical-center">Subject</th>
+                  <th width="15%"scope="col" class="vertical-center">Day and Time</th>
+                </tr>
+              </thead>
+              <div>
+                <tbody id="appendSubjectTable">
+                </tbody>  
+              </div>
+            </table>
+          </div>
+
+          <div class="mt-4">
+            <h4>Selected Subject</h4>
+            <div class="list-group tableFixHead" id="toAssignSubject">
+              
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer" id="professorSubjectModalBtn">
       </div>
     </div>
   </div>
