@@ -7,6 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
     
         <title>ADMIN | Holy Cross College</title>
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])   
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet" type="text/css">
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -22,7 +23,7 @@
     
         
         <!-- Scripts -->
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+       
         @yield('head')
 
     </head>
@@ -73,9 +74,10 @@
                             <li name="dashboard-menu">
                                 <a href="#">Admin Accounts</a>
                             </li>
-                            <li name="dashboard-menu">
-                                <a href="#">Manage School year</a>
+                            <li  id="li-schoolyear" name="dashboard-menu">
+                                <a href="{{ route('schoolyear') }}" onclick="selectDashboardMenu('schoolyear');" >Manage School Year</a>
                             </li>
+                            
                         </ul>
                     </nav>
             

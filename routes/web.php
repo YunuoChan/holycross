@@ -39,6 +39,11 @@ Route::group(array('prefix' => '/admin'), function () {
     Route::post('/schoolyear/save', [SchoolyearController::class, 'create'])->name('save-schoolyear');
     Route::post('/schoolyear/trash', [SchoolyearController::class, 'update'])->name('trash-schoolyear');
 
+    // MANAGE SCHOOLYEAR
+    Route::get('/manage/schoolyear/get', [SchoolyearController::class, 'indexAdmin'])->name('schoolyear');
+    Route::post('/manage/schoolyear/trash', [SchoolyearController::class, 'destroyAdmin'])->name('schoolyear.trash');
+    Route::post('/manage/schoolyear/setactive', [SchoolyearController::class, 'setActiveSY'])->name('schoolyear.setactivesy');
+
 
     // SUBJECT
     Route::get('/subject/get', [SubjectController::class, 'index'])->name('subject');
