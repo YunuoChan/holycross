@@ -21,6 +21,22 @@ class StudentController extends Controller
         return view('dashboard.student');
     }
 
+
+    public function validateHeaderRow($headerRow)
+    {
+        $validate = false;
+
+        if( $headerRow[0] == 'user_id'
+            && $headerRow[1] == 'customer_name' 
+            && $headerRow[2] == 'date' )
+
+            {
+                $validate = true;
+            } 
+
+        return $validate;
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -28,55 +44,70 @@ class StudentController extends Controller
      */
     public function create(Request $request)
     {
-        //
-        $studentRecords = \Excel::toArray(new StudentImport, $request->file);
-    
-        // $array = $collection = (new StudentImport)->toCollection($request->file);
+        // SAVE SECTION
+        try {
+            if (!$request->file) {
+                Log::debug('Student.create');
+                return redirect()->route('student')->with('fail', 'No CSV File added');
+                // return response()->json([
+                // 	'error'	=> 'Internal Server Error'
+                // ], 500);
+            }
 
-        Log::debug($studentRecords[0]);
+            
+            //
+            $studentRecords = \Excel::toArray(new StudentImport, $request->file);
+        
+            // $array = $collection = (new StudentImport)->toCollection($request->file);
 
-
-        $alreadyExist = 0;
-        foreach($studentRecords[0] as $index => $record) {
-            if ($index > 0) {
-                $isStudentExist = Student::where('student_id_no', $record[0])
-                                    ->where('status', 'ACT')
-                                    ->count();
-
-                if ($isStudentExist) {
-                    $alreadyExist++;
-                }
-
-                $section = Section::where('section_code', $record[2])
-                                ->where('status', 'ACT')->first();
-                
-                $sectionId = null;
-                $courseId = null;
-                if ($section) {
-                    $sectionId = $section->id;
-                    $courseId = $section->course_id;
-                }
-
-                $userId                 = auth()->user()->id;
+            Log::debug($studentRecords[0]);
 
 
-                if ($isStudentExist < 1) {
-                    $student = new Student();
-                    $student->name              = $record[1];
-                    $student->student_id_no     = $record[0];
-                    $student->year_level        = 1;
-                    $student->section_id        = $sectionId;
-                    $student->course_id         = $courseId;
-                    $student->user_id           = $userId;
-                    $student->created_at        = Carbon::now();
-                    $student->save();
+            $alreadyExist = 0;
+            foreach($studentRecords[0] as $index => $record) {
+                if ($index > 0) {
+                    $isStudentExist = Student::where('student_id_no', $record[0])
+                                        ->where('status', 'ACT')
+                                        ->count();
+
+                    if ($isStudentExist) {
+                        $alreadyExist++;
+                    }
+
+                    $section = Section::where('section_code', $record[2])
+                                    ->where('status', 'ACT')->first();
+                    
+                    $sectionId = null;
+                    $courseId = null;
+                    if ($section) {
+                        $sectionId = $section->id;
+                        $courseId = $section->course_id;
+                    }
+
+                    $userId                 = auth()->user()->id;
+
+
+                    if ($isStudentExist < 1 && $section) {
+                        $student = new Student();
+                        $student->name              = $record[1];
+                        $student->student_id_no     = $record[0];
+                        $student->year_level        = 1;
+                        $student->section_id        = $sectionId;
+                        $student->course_id         = $courseId;
+                        $student->user_id           = $userId;
+                        $student->created_at        = Carbon::now();
+                        $student->save();
+                    }
                 }
             }
-        }
 
 
-        return redirect()->route('student')->with('success', 'User Imported Successfully!');
-
+            return redirect()->route('student')->with('success', 'User Imported Successfully!');
+        } catch (\Throwable $th) {
+            Log::debug('Student.store');
+            Log::debug($th);
+            return redirect()->route('student')->with('fail', 'CSV is Invalid!');
+		}
     }
 
 

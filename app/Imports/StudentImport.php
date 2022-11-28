@@ -21,4 +21,16 @@ class StudentImport implements ToModel
             'section_code'  => $row['sectionCode']
         ]);
     }
+
+     /**
+    * @return array
+    */
+    public function rules(): array
+    {
+        return [ // use indexes as variables
+            '0' => 'required|string',
+            '1' => 'required|integer',            //validate unsigned integer
+            '2' => 'required|integer'
+        ];
+    }
 }
