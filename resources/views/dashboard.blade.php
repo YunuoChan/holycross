@@ -34,8 +34,20 @@
                     <!-- Sidebar  -->
                     <nav id="sidebar">
                         <div class="sidebar-header">
-                            <h2>Holy Cross College</h2>
-                            <h4>S.Y. 2022 - 2023 </h4>
+                            {{--
+                            
+                            <small id="activeSYSidebarIndicator">Active</small> --}}
+                            <a type="button" href="{{ route('landing-welcome') }}" class="white-color" title="Holy Cross College">
+                            <div class="d-flex">
+                                <div class="mr-2">
+                                    <img src="/img/logo.jpg"  style="width: 100px; height: 100px" class="rounded-circle"/>
+                                </div>
+                                <div class="d-flex justify-content-center flex-column">
+                                    <h4>Holy Cross College</h4>
+                                </div>
+                            </div>
+                            </a>
+                            
                         </div>
             
                         <ul class="list-unstyled components">
@@ -43,8 +55,12 @@
                             <li id="li-dashboard" name="dashboard-menu" class="active">
                                 <a href="{{ route('home') }}"  onclick="selectDashboardMenu('dashboard');">Dashboard</a>
                             </li>
+                            <li id="li-course" name="dashboard-menu">
+                                <a href="#" onclick="selectDashboardMenu('course');">Course</a>
+                            </li>
                             <li id="li-professor" name="dashboard-menu">
-                                <a onclick="openDropdown('professor')" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Professor</a>
+                                <a href="{{ route('professor') }}"  onclick="selectDashboardMenu('professor');">Professor</a>
+                                {{-- <a onclick="openDropdown('professor')" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Professor</a>
                                 <ul class="collapse list-unstyled ml-3" id="professorSubmenu">
                                     <li id="li-professor-list-submenu">
                                         <a href="{{ route('professor') }}" onclick="selectDashboardMenu('professor', 'professor-list');" class="white-color">Professor List</a>
@@ -53,16 +69,26 @@
                                         <a href="{{ route('professor.subject') }}" onclick="selectDashboardMenu('professor', 'professor-subject');" class="white-color">Assign Subject</a>
                                     </li>
 
-                                </ul>
+                                </ul> --}}
                             </li>
                             <li  id="li-student" name="dashboard-menu">
                                 <a href="{{ route('student') }}" onclick="selectDashboardMenu('student');" >Student</a>
                             </li>
+                        </ul>
+
+                        <ul class="list-unstyled components">
+                            <h4 class="px-4 my-4">SCHOOL YEAR</h4>
+                            <li id="li-section" name="dashboard-menu">
+                                <a href="{{ route('section') }}" onclick="selectDashboardMenu('section', 'section-list');">Section</a>
+                            </li>
                             <li id="li-subject" name="dashboard-menu">
                                 <a href="{{ route('subject') }}" onclick="selectDashboardMenu('subject');">Subject</a>
                             </li>
-                            <li id="li-section" name="dashboard-menu">
-                                <a href="{{ route('section') }}" onclick="selectDashboardMenu('section', 'section-list');">Section</a>
+                            <li id="li-professor-subjectt" name="dashboard-menu">
+                                <a href="{{ route('professor.subject') }}" onclick="selectDashboardMenu('professor-subject');">Professor Subject</a>
+                            </li>
+                            <li id="li-student-sectiont" name="dashboard-menu">
+                                <a href="#" onclick="selectDashboardMenu('student-section');">Student Section</a>
                             </li>
                             <li id="li-generate-schedule" name="dashboard-menu">
                                 <a href="{{ route('generate.schedule') }}" onclick="selectDashboardMenu('generate-schedule');" >Generate Schedule</a>
@@ -86,13 +112,39 @@
                         <nav class="navbar navbar-expand-lg navbar-light bg-light">
                             <div class="container-fluid">
             
-                                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                                    <i class="fas fa-align-left"></i>
+                                <div class="d-flex w-100">
+                                    <div class="d-flex justify-content-center flex-column">
+                                        <div class="d-flex">
+                                            <div class="mr-2">
+                                                <button type="button" id="sidebarCollapse" class="btn btn-info" title="Hide Sidebar">
+                                                    <i class="fas fa-align-left"></i>
+                                                </button>
+                                                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                                    <i class="fas fa-align-justify"></i>
+                                                </button>
+                                            </div>
+        
+                                            <div class="mr-2">
+                                                <a type="button" href="{{ route('landing-welcome') }}" class="btn btn-info" title="Homepage">
+                                                    <i class="fas fa-home"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                     
-                                </button>
-                                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                    <i class="fas fa-align-justify"></i>
-                                </button>
+                                    <div class="mx-2 pl-3 b-left-gray d-flex justify-content-center flex-column w-50">
+                                        <div>
+                                            {{-- <h3>Currently updating <b><span id="selectedSY"></span></b> S.Y.</h3>  --}}
+                                            <small for="selectSYDashborad">Selected Schoolyear</small>  
+                                            <h4 id="selectSYDashboradSidebar" class="mb-0"></h4>
+                                            <a id="swictSchoolyearCallModal" class="hover-a"><small>Switch Schoolyear</small> </a>
+                                            {{-- <select class="form-control w-50" id="selectSYDashborad"></select>--}}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                
+                                
             
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul class="nav navbar-nav ml-auto">
@@ -133,6 +185,14 @@
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
         });
+
+        // initOnchange();
+        // loadSchoolyearRecordActive();
+        loadSchoolyearRecordToEdit();
+
+        // MODAL SWITCH CALL BTN INIT   
+        initOncallModalSwitch();
+
 
         if (localStorage.getItem('current_page') == '') {
             selectDashboardMenu('dashboard')

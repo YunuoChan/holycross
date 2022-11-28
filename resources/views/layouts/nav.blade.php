@@ -29,9 +29,9 @@
                     <li class="dropdown" style="display: flex !important; flex-direction: column; justify-content: center; margin-right: 30px; ">
                         <a href="#" class="nav-item nav-link" data-toggle="dropdown">Dashboard</a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item">Subject</a>
-                            <a href="#" class="dropdown-item">Teacher</a>
-                            <a href="#" class="dropdown-item">Generate Schedule</a>
+                            <a href="{{ route('subject') }}" class="dropdown-item">Subject</a>
+                            <a href="{{ route('professor') }}" class="dropdown-item">Professor</a>
+                            <a href="{{ route('generate.schedule') }}" class="dropdown-item">Generate Schedule</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">

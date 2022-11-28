@@ -85,11 +85,15 @@ function loadSchoolyearRecord() {
             data.schoolyears.forEach(schoolyear => {
                 if (schoolyear.is_active == 0) {
                     $('#adminSchoolyearTable').append(tableElement(schoolyear));
-                    initSetActiveSy(schoolyear.id);
+                    var activeSY = 'S.Y. '+ schoolyear.sy_from +' - '+ schoolyear.sy_to;
+                    initSetActiveSy(schoolyear.id, activeSY);
                     initTrashSy(schoolyear.id)
                 } else {
+                    var activeSY = 'S.Y. '+ schoolyear.sy_from +' - '+ schoolyear.sy_to;
                     $('#activeSchoolyearDiv').html(BLANK);
                     $('#activeSchoolyearDiv').append(syElement(schoolyear));
+                    $('#activeSYSidebar').text(activeSY);
+                    $('#activeSYSidebarIndicator').show();
                 }
             });
         } 
@@ -166,7 +170,7 @@ function syElement(data) {
 
 
 
-function initSetActiveSy(id) {
+function initSetActiveSy(id, sy) {
     $('#setActiveSchoolyear-'+ id).on('click', function () {
         bootbox.confirm({
             title: "Updtate Active Schoolyear?",
@@ -181,14 +185,14 @@ function initSetActiveSy(id) {
             },
             callback: function (result) {
                 if (result) {
-                    setActiveSy(id)
+                    setActiveSy(id, sy)
                 }
             }
         });
     });
 }
 
-function setActiveSy(id) {
+function setActiveSy(id, sy) {
     $.ajax({
         url:        '/admin/manage/schoolyear/setactive',
         type:       'POST',
@@ -201,6 +205,8 @@ function setActiveSy(id) {
         localStorage.setItem('__schoolYear_selected', id);
         setCookie('__schoolYear_selected', id, 1);
         loadSchoolyearRecord();
+        $('#activeSYSidebar').text(sy);
+        $('#activeSYSidebarIndicator').show();
         successUpdate();
         
     }).fail(function(error) {

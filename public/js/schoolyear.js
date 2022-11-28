@@ -64,10 +64,11 @@ function syElement(data) {
         s +=    '               <button class="remove-sy border-n badge rounded-pill badge-remove" id="removeSYRecord-'+ data.id +'" data-id="'+ data.id +'"><i class="fas fa-trash-alt"></i> <span>Delete</span></button> ';
         s +=    '           </div> ';
         s +=    '                <a class="select-sy btn btn-link m-0 text-reset text-deco-n" role="button" data-ripple-color="primary" id="proceedSYRecord-'+ data.id +'" data-id="'+ data.id +'">Proceed <i class="fas fa-arrow-right"></i></a>';
-    } else {
-        s +=    '       <div class="card-footer bg-transparent border-warning px-0 pb-0 text-right d-flex justify-content-end"> ';
-        s +=    '           <a class="select-sy btn btn-link m-0 text-reset text-deco-n" role="button" data-ripple-color="primary" id="proceedSYRecord-'+ data.id +'" data-id="'+ data.id +'">Proceed <i class="fas fa-arrow-right"></i></a>';
-    }
+    } 
+    // else {
+    //     s +=    '       <div class="card-footer bg-transparent border-warning px-0 pb-0 text-right d-flex justify-content-end"> ';
+    //     s +=    '           <a class="select-sy btn btn-link m-0 text-reset text-deco-n" role="button" data-ripple-color="primary" id="proceedSYRecord-'+ data.id +'" data-id="'+ data.id +'">Proceed <i class="fas fa-arrow-right"></i></a>';
+    // }
     
     s +=    '       </div> ';
     s +=    '     </div> ';

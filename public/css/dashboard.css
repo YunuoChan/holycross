@@ -195,3 +195,15 @@ a.article:hover {
     color: #7386D5 !important;
     background: #fff;
 }
+
+
+.b-left-gray {
+    border-left: gray 1px solid;
+}
+
+
+a.hover-a:hover, a.hover-a:focus {
+    color: var(--bs-link-color) !important;
+    /* text-decoration: underline !important; */
+    cursor: pointer !important;
+}

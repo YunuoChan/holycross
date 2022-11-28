@@ -19,7 +19,7 @@ function selectDashboardMenu(selected, submenu = null) {
 
 
 function btnModalElement(id, verbiage) {
-    var elm = BLANK;
+    var elm = '';
         elm += ' <button type="button" class="btn btn-primary px-4" id="'+ id +'">'+ verbiage +'</button>';
 
     return elm;
@@ -89,7 +89,7 @@ function openDropdown(page) {
 
 function showNoDataAvalable() {
     
-    var s = BLANK;
+    var s = '';
 
     s+= '<div class="d-flex justify-content-center">';  
     s+= '<tr>';  
@@ -123,3 +123,101 @@ function setCookie(name,value,days) {
     }
     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
+
+
+function loadSchoolyearRecordActive() {
+    // WEB SERVICE CALL 
+    $.ajax({
+        url:        '/admin/schoolyear/get',
+        type:       'GET',
+        dataType:   'json',
+        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        // data:   {
+        
+        // }
+    }).then(function(data) {
+        console.log('fetchAdminSchoolyearTable ____: ', data);
+        if (data.schoolyears.length > 0) {
+            var activeCount = 0;
+            $('#schoolyearListOnModal').html('');
+            data.schoolyears.forEach(function(schoolyear) {
+                if (schoolyear.is_active == 0) {
+                    if (schoolyear.id != localStorage.getItem('__schoolYear_selected')) {
+                        $('#schoolyearListOnModal').append(appendSchoolyearElement(schoolyear));
+                        initSwitchSY(schoolyear.id)
+                    } 
+                
+                    if (schoolyear.id == localStorage.getItem('__schoolYear_selected')) {
+                        $('#currentSYToModal').text('S.Y. '+ schoolyear.sy_from + ' - ' + schoolyear.sy_to);
+                    }
+                } else {
+                    $('#activeSYToModal').text('S.Y. '+ schoolyear.sy_from + ' - ' + schoolyear.sy_to);
+                }
+            });
+        } 
+    }).fail(function(error) {
+        console.log('Backend Error', error);
+        internalServerError();
+    });
+}
+
+
+
+function appendSchoolyearElement(data) {
+    console.log(data);
+    var elm = '';
+        elm += ' <a id="schoolyear-'+ data.id +'" class="list-group-item list-group-item-action list-group-item-info d-flex justify-content-between"> ';
+        elm += '     <div class="d-flex justify-content-center flex-column"> ';
+        elm += '        <div> ';
+        elm += '            <label class="mb-0"><strong>S.Y. '+ data.sy_from +' - '+ data.sy_to +'</strong></label> ';
+        elm += '        </div> ';
+        elm += '        <small>'+ data.user.name +'</small>';
+        // elm += '        <small>'+ data[2] +'</small>';
+        elm += '     </div> ';
+        elm += '     <div class="d-flex justify-content-center flex-column"> ';
+        elm += '        <button type="button" class="btn btn-danger" id="switchSchoolYearTo-'+ data.id +'">Switch</button> ';
+        elm += '     </div> ';
+        elm += ' </a> ';
+
+    return elm;
+}
+
+function initSwitchSY(id) {
+    $('#switchSchoolYearTo-'+ id).on('click', function () {
+        localStorage.setItem('__schoolYear_selected', id);
+        setCookie('__schoolYear_selected', id, 1);
+        location.reload();
+    })
+    
+}
+
+function loadSchoolyearRecordToEdit() {
+    // WEB SERVICE CALL 
+    $.ajax({
+        url:        '/admin/schoolyear/get/edit',
+        type:       'GET',
+        dataType:   'json',
+        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        // data:   {
+        
+        // }
+    }).then(function(data) {
+        console.log('fetchAdminSchoolyearTable: ', data);
+        $('#selectSYDashboradSidebar').text('S.Y. '+data.schoolyearEdit.sy_from +' - ' +  data.schoolyearEdit.sy_to);
+
+    }).fail(function(error) {
+        console.log('Backend Error', error);
+        internalServerError();
+    });
+}
+
+
+function initOncallModalSwitch() {
+    $('#swictSchoolyearCallModal').on('click', function () {
+
+        loadSchoolyearRecordActive();
+        $('#switchSchoolYearModal').modal('toggle');
+    });
+}
+
+

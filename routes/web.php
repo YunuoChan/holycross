@@ -25,7 +25,7 @@ use App\Http\Controllers\ProfessorSubjectController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('landing-welcome');
 
 Auth::routes();
 
@@ -36,6 +36,7 @@ Route::group(array('prefix' => '/admin'), function () {
 
     // SCHOOL YEAR
     Route::get('/schoolyear/get', [SchoolyearController::class, 'index'])->name('fetch-schoolyear');
+    Route::get('/schoolyear/get/edit', [SchoolyearController::class, 'indexToEdit'])->name('fetch-schoolyear-edit');
     Route::post('/schoolyear/save', [SchoolyearController::class, 'create'])->name('save-schoolyear');
     Route::post('/schoolyear/trash', [SchoolyearController::class, 'update'])->name('trash-schoolyear');
 

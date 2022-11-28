@@ -23,9 +23,42 @@ class SchoolyearController extends Controller
                                 ->where('status', 'ACT')
                                 ->orderBy('sy_from', 'DESC')
                                 ->get();
+            return response()->json([
+				'schoolyears' => $schoolyears
+			], 200);
+        } catch (\Throwable $th) {
+			return response()->json([
+				'error'	=> $th
+			], 500);
+		}
+      
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexToEdit()
+    {
+        try {
+
+            $schoolYearId = null;
+            if(isset($_COOKIE['__schoolYear_selected'])) {
+                $schoolYearId = $_COOKIE['__schoolYear_selected'];
+            } else {
+                return response()->json([
+                    'error'	=> 'Invalid Schoolyear!'
+                ], 500);
+            }
+
+            $schoolyearEdit = Schoolyear::with('user')
+                                ->where('id', $schoolYearId)
+                                ->where('status', 'ACT')
+                                ->first();
 
             return response()->json([
-				'schoolyears' => $schoolyears,
+                'schoolyearEdit'    => $schoolyearEdit
 			], 200);
         } catch (\Throwable $th) {
 			return response()->json([
