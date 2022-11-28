@@ -84,10 +84,13 @@ function loadSchoolyearRecord() {
         if (data.schoolyears.length > 0) {
             data.schoolyears.forEach(schoolyear => {
                 if (schoolyear.is_active == 0) {
-                    $('#adminSchoolyearTable').append(tableElement(schoolyear));
-                    var activeSY = 'S.Y. '+ schoolyear.sy_from +' - '+ schoolyear.sy_to;
-                    initSetActiveSy(schoolyear.id, activeSY);
-                    initTrashSy(schoolyear.id)
+                    if ( localStorage.getItem('__schoolYear_selected') != schoolyear.id) {
+                        $('#adminSchoolyearTable').append(tableElement(schoolyear));
+                        var activeSY = 'S.Y. '+ schoolyear.sy_from +' - '+ schoolyear.sy_to;
+                        initSetActiveSy(schoolyear.id, activeSY);
+                        initTrashSy(schoolyear.id)
+                    }
+                    
                 } else {
                     var activeSY = 'S.Y. '+ schoolyear.sy_from +' - '+ schoolyear.sy_to;
                     $('#activeSchoolyearDiv').html(BLANK);
@@ -202,8 +205,6 @@ function setActiveSy(id, sy) {
             id : id
         }
     }).then(function(data) {
-        localStorage.setItem('__schoolYear_selected', id);
-        setCookie('__schoolYear_selected', id, 1);
         loadSchoolyearRecord();
         $('#activeSYSidebar').text(sy);
         $('#activeSYSidebarIndicator').show();

@@ -1,5 +1,5 @@
 
-form {
+div.inputIDFrom {
     position: relative;
     top: 50%;
     left: 50%;
@@ -17,19 +17,26 @@ form {
     margin-top: 70px;
 }
 
-input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;;
-    height: 42.5px;
+#studentIdNo {
+    border: none !important;
     line-height: 30px;
     outline: 0;
     border: 0;
-    display: none;
     font-size: 1em;
-    border-radius: 20px;
-    padding: 0 20px;
+    width: 100%;
+}
+
+#profIdNo {
+    border: none !important;
+    line-height: 30px;
+    outline: 0;
+    border: 0;
+    font-size: 1em;
+    width: 100%;
+}
+
+.btn-font-1em {
+    font-size: 1em !important;
 }
 
 .fa.search-icon {
@@ -48,13 +55,13 @@ input {
 }
 
 
-form:hover input,
-form input{
+div.inputIDFrom:hover input,
+div.inputIDFrom input{
     display: block;
 }
 
-form:hover .fa.search-icon,
-form:valid .fa.search-icon {
+div.inputIDFrom:hover .fa.search-icon,
+div.inputIDFrom:valid .fa.search-icon {
     background: #07051a;
     color: white;
     cursor: pointer;
@@ -74,7 +81,7 @@ a#clear-btn {
   width: 100%;
 }
 
-form:valid a#clear-btn {
+div.inputIDFrom:valid a#clear-btn {
   display: block;
 }
 
@@ -88,14 +95,14 @@ form:valid a#clear-btn {
 }
 
 @media screen and (max-width: 300px){
-    form {
+    div.inputIDFrom {
         width: 100%;
     }
     
 }
 
 @media screen and (max-width: 700px){
-	form {
+	div.inputIDFrom {
         width: 80%;
     }
     
@@ -103,7 +110,7 @@ form:valid a#clear-btn {
 
 @media screen and (max-width: 1000px){
 
-    form {
+    div.inputIDFrom {
         width: 70%;
     }
     
@@ -112,8 +119,35 @@ form:valid a#clear-btn {
 
 @media screen and (min-width: 1001px){
 
-    form {
+    div.inputIDFrom {
         width: 60%;
     }
     
+}
+
+
+.iam-px-50 {
+    padding-left: 50px  !important;
+    padding-right: 50px  !important;
+
+}
+
+
+.iam-border {
+    border: blue 1px solid;
+    border-radius: 2%;
+}
+
+.iam-border:hover {
+    background-color: rgba(0, 0, 255, 0.195);
+    color: white !important;
+    cursor: pointer;
+}
+
+.w-30 {
+    width: 30% !important;
+}
+
+.font-s-3rem {
+    font-size: 3rem !important;
 }

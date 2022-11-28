@@ -269,7 +269,13 @@ class StudentController extends Controller
                                         $course->where('status', 'ACT')
                                             ->with(['generatedSchedules' => function($genSched) {
                                                 $genSched->where('status', 'ACT')
-                                                    ->orderBy('day', 'ASC');
+                                                    ->orderBy('day', 'ASC')
+                                                    ->with(['professorSubject' => function($subject) {
+                                                        $subject->where('status', 'ACT')
+                                                        ->with(['professor' => function($subject) {
+                                                            $subject->where('status', 'ACT');
+                                                        }]);
+                                                    }]);
                                             }])
                                             ->with(['subject' => function($subject) {
                                                 $subject->where('status', 'ACT');

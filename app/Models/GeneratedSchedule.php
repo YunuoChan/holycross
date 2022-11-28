@@ -36,6 +36,6 @@ class GeneratedSchedule extends Model
 
 
     public function professorSubject() {
-        return $this->belongsTo(ProfessorSubject::class);
+        return $this->belongsTo(ProfessorSubject::class, 'id', 'generated_sched_id');
     }
 }

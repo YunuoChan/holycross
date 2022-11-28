@@ -18,15 +18,15 @@
                       <li><a href="#">My Schedule</a></li>
                       @if (Route::has('login'))
                           @auth
-                              <li><a href="{{ url('/home') }}">Home</a></li>
+                              <li><a href="{{ route('landing-welcome') }}">Home</a></li>
                           @else
                               <li><a href="{{ route('login') }}">Log in</a></li>
-                              @if (Route::has('register'))
+                              {{-- @if (Route::has('register'))
                                   <li><a href="{{ route('register') }}">Register</a></li>
-                              @endif
+                              @endif --}}
                           @endauth
                       @endif
-                      <li><a href="#">How It Works?</a></li>
+                      {{-- <li><a href="#">How It Works?</a></li> --}}
                       
                   </ul>
               </div>
@@ -35,8 +35,8 @@
                   <h6>I am Student</h6>
                   <ul class="footer-links">
                       <li><a href="#">My Schedule</a></li>
-                      <li><a href="#">Register</a></li>
-                      <li><a href="#">How It Works?</a></li>
+                      {{-- <li><a href="#">Register</a></li>
+                      <li><a href="#">How It Works?</a></li> --}}
                   </ul>
               </div>
           </div>

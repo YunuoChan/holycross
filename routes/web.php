@@ -118,5 +118,8 @@ Route::group(array('prefix' => '/admin'), function () {
 
 Route::group(array('prefix' => '/student'), function () {
     Route::get('/schedule/get',              [StudentController::class, 'getSchedule'])->name('student.schedule');
+});
 
+Route::group(array('prefix' => '/professor'), function () {
+    Route::get('/schedule/get',              [ProfessorController::class, 'getSchedule'])->name('professor.schedule');
 });
