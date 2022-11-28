@@ -16,6 +16,13 @@ $('#addStudentModalCall').on('click', function () {
     
 })
 
+$('#importCSVStudentModalCall').on('click', function () {
+   
+    $('#studentImportModal').modal('toggle');
+    
+})
+
+
 
 
 /*---------------------------------

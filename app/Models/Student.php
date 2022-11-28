@@ -12,6 +12,12 @@ class Student extends Model
 	protected 	$primaryKey 	= 'id';
 	public 		$timestamps 	= false;
 
+    protected $fillable = [
+        'student_id_no',
+        'name',
+        'section_id',
+        'course_id'
+    ];
      /**
      * The attributes that should be cast.
      *

@@ -6,6 +6,8 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Imports\StudentImport;
+use App\Models\Section;
 
 class StudentController extends Controller
 {
@@ -24,9 +26,63 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $studentRecords = \Excel::toArray(new StudentImport, $request->file);
+    
+        // $array = $collection = (new StudentImport)->toCollection($request->file);
+
+        Log::debug($studentRecords[0]);
+
+
+        $alreadyExist = 0;
+        foreach($studentRecords[0] as $index => $record) {
+            if ($index > 0) {
+                $isStudentExist = Student::where('student_id_no', $record[0])
+                                    ->where('status', 'ACT')
+                                    ->count();
+
+                if ($isStudentExist) {
+                    $alreadyExist++;
+                }
+
+                $section = Section::where('section_code', $record[2])
+                                ->where('status', 'ACT')->first();
+                
+                $sectionId = null;
+                $courseId = null;
+                if ($section) {
+                    $sectionId = $section->id;
+                    $courseId = $section->course_id;
+                }
+
+                $userId                 = auth()->user()->id;
+
+
+                if ($isStudentExist < 1) {
+                    $student = new Student();
+                    $student->name              = $record[1];
+                    $student->student_id_no     = $record[0];
+                    $student->year_level        = 1;
+                    $student->section_id        = $sectionId;
+                    $student->course_id         = $courseId;
+                    $student->user_id           = $userId;
+                    $student->created_at        = Carbon::now();
+                    $student->save();
+                }
+            }
+        }
+
+
+        return redirect()->route('student')->with('success', 'User Imported Successfully!');
+
+    }
+
+
+    public function getSampleCSV() 
+    {
+         return response()->download(public_path('download/SampleCSV.csv'));
     }
 
     /**

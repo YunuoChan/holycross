@@ -14,7 +14,9 @@
                     <h1 class="d-flex justify-content-center flex-column mb-0">STUDENT</h1>
                 </div>
                 <button type="button" class="btn btn-outline-primary btn-lg mr-3" id="addStudentModalCall">Add Student</button>    
-                <button type="button" class="btn btn-outline-primary btn-lg" id="importCSVStudentModalCall" disabled>Import CSV</button>
+                <button type="button" class="btn btn-outline-primary btn-lg" id="importCSVStudentModalCall">Import CSV</button>
+
+               
             </div>
             {{-- SEARCH --}}
             <div class="d-flex justify-content-center flex-column mb-0">

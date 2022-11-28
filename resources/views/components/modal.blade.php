@@ -430,6 +430,62 @@
 
 
 
+{{-- SECTION SUBJETC --}}
+<div class="modal fade" id="studentImportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 50px">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-custom">
+        <h5 class="modal-title">Add Student via CSV File</h5>
+        <button type="button" class="close white-color" data-dismiss="modal" aria-label="Close" data-bs-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-4">
+          <div class="d-flex">
+            <h4>Instruction</h4>
+          </div>
+          <ul>
+            <li><a class="btn btn-success" href="{{ route('download-samplecsv') }}">Download Sample CSV</a> File Template</li>
+            <li>Add all the fields needed (StudentId, Name, and SectionCode)</li>
+            <li>Once done, browse the CSV file and import</li>
+          </ul>
+        </div>
+        <div class="mb-4">
+          <div class="d-flex">
+            <h5>#Note</h5>
+          </div>
+          <ul>
+            <li>Duplicated Student Id will be ignored</li>
+            <li>Missing fields will also be ignore and will not be added on the database</li>
+            <li>Only matching data will be added (mostly on section code)</li>
+            <li>Do not remove the first line(studentId,name,sectionCode) in the CSV Template. Record will not be validated</li>
+            <li>Add the record accordingly in the CSV.</li>
+          </ul>
+        </div>
+
+        <form action="{{ route('file-import') }}" method="POST" enctype="multipart/form-data">
+          <h4>Import CSV</h4>
+          @csrf
+          <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
+              <div class="custom-file text-left">
+                  <input type="file" name="file" class="custom-file-input" id="customFile">
+                  <label class="custom-file-label" for="customFile">Choose file</label>
+              </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary">Import data</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" id="sectionSubjecModalBtn">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 
 {{-- SCHOOLYEAR SWITCH ADMIN --}}

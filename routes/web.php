@@ -34,6 +34,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(array('prefix' => '/admin'), function () {
 
+    Route::post('file-import', [StudentController::class, 'create'])->name('file-import');
+    Route::get('download-samplecsv', [StudentController::class, 'getSampleCSV'])->name('download-samplecsv');
+
     // SCHOOL YEAR
     Route::get('/schoolyear/get', [SchoolyearController::class, 'index'])->name('fetch-schoolyear');
     Route::get('/schoolyear/get/edit', [SchoolyearController::class, 'indexToEdit'])->name('fetch-schoolyear-edit');
