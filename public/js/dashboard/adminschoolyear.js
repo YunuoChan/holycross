@@ -124,7 +124,7 @@ function tableElement(data) {
             elm += '        <div class="d-flex justify-content-start">'
             if (data.status == 'ACT') {
                 elm += '         <button type="button" class="btn btn-success mx-1" id="setActiveSchoolyear-'+ data.id +'"><i class="fas fa-edit"></i>Set As Active</button> ';
-                elm += '         <button type="button" class="btn btn-danger" id="trashSchoolyear-'+ data.id +'"><i class="fas fa-trash"></i></i>Trash</button> ';
+                elm += '         <button type="button" class="btn btn-danger" id="trashSchoolyear-'+ data.id +'"><i class="fas fa-trash"></i></i>Delete</button> ';
             }
             elm += '        </div>'
         }

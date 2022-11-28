@@ -97,7 +97,7 @@ function tableElement(subject) {
         // elm += '         <button type="button" class="btn btn-primary" id="viewSubject-'+ subject.id +'"><i class="fas fa-eye"></i>View</button> ';
         if (subject.status == 'ACT') {
             elm += '         <button type="button" class="btn btn-success mx-1" id="editSubject-'+ subject.id +'"><i class="fas fa-edit"></i>Edit</button> ';
-            elm += '         <button type="button" class="btn btn-danger" id="trashSubject-'+ subject.id +'"><i class="fas fa-trash"></i></i>Trash</button> ';
+            elm += '         <button type="button" class="btn btn-danger" id="trashSubject-'+ subject.id +'"><i class="fas fa-trash"></i></i>Delete</button> ';
         }
         elm += '        </div>'
         elm += '     </td> ';
