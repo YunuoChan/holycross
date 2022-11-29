@@ -92,15 +92,25 @@ class ProfessorController extends Controller
      * @param  \App\Models\Professor  $professor
      * @return \Illuminate\Http\Response
      */
-    public function show(Professor $professor)
+    public function show(Professor $professor, Request $request)
     {
         try {
+            $courseFilter = $request->courseFilter;
+            $keyword = $request->keyword;
+
             $professors = Professor::with(['course' => function($course) {
                                 $course->where('status', 'ACT');
                             }])
                             ->whereHas('course', function($query) {
                                 $query->where('status', 'ACT');
                             })
+                            ->when(is_numeric($courseFilter), function ($query) use ($courseFilter) {
+                                return $query->where('course_id', $courseFilter);
+                            })
+                            ->when($keyword, function ($query) use ($keyword) {
+                                return $query->whereRaw('CONCAT(professor_id_no, name) like "%'. $keyword .'%"');
+                            })
+                            ->where('status', 'ACT')
                             ->orderBy('status', 'ASC')
                             ->orderBy('id', 'DESC')
                             ->get();

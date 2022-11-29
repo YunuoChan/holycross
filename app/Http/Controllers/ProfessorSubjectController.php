@@ -93,7 +93,7 @@ class ProfessorSubjectController extends Controller
      * @param  \App\Models\ProfessorSubject  $professorSubject
      * @return \Illuminate\Http\Response
      */
-    public function show(ProfessorSubject $professorSubject)
+    public function show(Request $request, ProfessorSubject $professorSubject)
     {
         try {
             $schoolYearId = null;
@@ -104,6 +104,8 @@ class ProfessorSubjectController extends Controller
                     'error'	=> 'Invalid Schoolyear!'
                 ], 500);
             }
+
+            $keyword = $request->keyword;
 
             $professors = Professor::with(['professorSubjects' => function($subj) use ($schoolYearId) {
                                         $subj->where('status', 'ACT')
@@ -124,6 +126,9 @@ class ProfessorSubjectController extends Controller
                                             }]);
                                         }]);
                                     }])
+                                ->when($keyword, function ($query) use ($keyword) {
+                                    return $query->whereRaw('CONCAT(professor_id_no, name) like "%'. $keyword .'%"');
+                                })
                                 ->where('status', 'ACT')
                                 ->orderBy('status', 'ASC')
                                 ->orderBy('id', 'DESC')

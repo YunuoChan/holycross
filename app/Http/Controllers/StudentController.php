@@ -200,7 +200,7 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show(Request $request, Student $student)
     {
         try {
             $schoolYearId = null;
@@ -211,6 +211,10 @@ class StudentController extends Controller
                     'error'	=> 'Invalid Schoolyear!'
                 ], 500);
             }
+
+            $courseFilter   = $request->courseFilter;
+            $yearLevel      = $request->yearLevelFilter;
+            $keyword        = $request->keyword;
 
             $students = Student::with(['course' => function($course) {
                                 $course->where('status', 'ACT');
@@ -225,6 +229,16 @@ class StudentController extends Controller
                             ->whereHas('section', function($query) {
                                 $query->where('status', 'ACT');
                             })
+                            ->when(is_numeric($courseFilter), function ($query) use ($courseFilter) {
+                                return $query->where('course_id', $courseFilter);
+                            })
+                            ->when(is_numeric($yearLevel), function ($query) use ($yearLevel) {
+                                return $query->where('year_level', $yearLevel);
+                            })
+                            ->when($keyword, function ($query) use ($keyword) {
+                                return $query->whereRaw('CONCAT(student_id_no, name) like "%'. $keyword .'%"');
+                            })
+                            ->where('status', 'ACT')
                             ->where('schoolyear_id', $schoolYearId)
                             ->orderBy('status', 'ASC')
                             ->orderBy('id', 'DESC')

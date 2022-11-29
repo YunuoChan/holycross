@@ -51,19 +51,30 @@ function resetCourseModal() {
     $('#addCourseRecord').modal('hide');
 }
 
+$('#searchBtn-course').on('click', function () {
+    loadCoursesData();
+});
+
+$('#searchField-course').on('blur', function () {
+    loadCoursesData();
+});
+
+
 /*---------------------------------
 
 -----------------------------------*/
 function loadCoursesData() {
+
+    var keyword = $('#searchField-course').val();
     // WEB SERVICE CALL 
     $.ajax({
         url:        '/admin/manage/course/show',
         type:       'GET',
         dataType:   'json',
         headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        // data:   {
-        
-        // }
+        data:   {
+            keyword : keyword.trim()
+        }
     }).then(function(data) {
         console.log('fetchCourses: ', data);
         $('#courseTable').html(BLANK);

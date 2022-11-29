@@ -98,7 +98,7 @@ class SubjectController extends Controller
      * @param  \App\Models\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function show(Subject $subject)
+    public function show(Request $request, Subject $subject)
     {
         try {
             $schoolYearId = null;
@@ -109,7 +109,21 @@ class SubjectController extends Controller
                     'error'	=> 'Invalid Schoolyear!'
                 ], 500);
             }
+
+            $courseFilter   = $request->courseFilter;
+            $yearLevel      = $request->yearLevelFilter;
+            $keyword        = $request->keyword;
+
             $subjects = Subject::with('user')
+                                ->when(is_numeric($courseFilter), function ($query) use ($courseFilter) {
+                                    return $query->where('course_id', $courseFilter);
+                                })
+                                ->when(is_numeric($yearLevel), function ($query) use ($yearLevel) {
+                                    return $query->where('year_level', $yearLevel);
+                                })
+                                ->when($keyword, function ($query) use ($keyword) {
+                                    return $query->whereRaw('CONCAT(subject, subject_code, room_no) like "%'. $keyword .'%"');
+                                })
                                 ->with('course')
                                 ->where('schoolyear_id', $schoolYearId)
                                 ->orderBy('status', 'ASC')

@@ -153,19 +153,39 @@ function studentCoursePickOnChange() {
 }
 
 
+$('#coursePickerFilter-student').on('change', function () {
+    loadStudentRecord();
+});
+
+
+$('#yearLevelFilter-student').on('change', function () {
+    loadStudentRecord();
+});
+
+$('#searchBtn-student').on('click', function () {
+    loadStudentRecord();
+});
+
+$('#searchField-student').on('blur', function () {
+    loadStudentRecord();
+});
+
 /*---------------------------------
 
 -----------------------------------*/
 function loadStudentRecord() {
+    var keyword = $('#searchField-student').val();
     // WEB SERVICE CALL 
     $.ajax({
         url:        '/admin/student/show',
         type:       'GET',
         dataType:   'json',
         headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        // data:   {
-        
-        // }
+        data:   {
+            courseFilter : $('#coursePickerFilter-student').val(),
+            yearLevelFilter : $('#yearLevelFilter-student').val(),
+            keyword         : keyword.trim()
+        }
     }).then(function(data) {
         console.log('fetchStudentTable: ', data);
         $('#studentTable').html(BLANK);
@@ -175,6 +195,8 @@ function loadStudentRecord() {
                 initTrashStudents(student.id)
                 editStudentRecord(student.id) 
             });
+        }  else {
+            $('#studentTable').append(showNoDataTableAvalable());
         }
     }).fail(function(error) {
         console.log('Backend Error', error);

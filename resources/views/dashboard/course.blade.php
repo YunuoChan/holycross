@@ -18,9 +18,9 @@
         {{-- SEARCH --}}
         <div class="d-flex justify-content-center flex-column mb-0">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2">
+                <input type="text" class="form-control" id="searchField-course" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
+                  <button class="btn btn-outline-secondary" id="searchBtn-course" type="button"><i class="fa fa-search"></i></button>
                 </div>
             </div>
         </div>

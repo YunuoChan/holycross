@@ -18,13 +18,26 @@
 
                
             </div>
-            {{-- SEARCH --}}
-            <div class="d-flex justify-content-center flex-column mb-0">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
-                    </div>
+        </div>
+        <div class="d-flex justify-content-end mb-4">
+            {{-- SEARCH --}}                
+            <div class="input-group w-25 mr-3">
+                <select class="form-control" id="coursePickerFilter-student">
+                </select>
+            </div>
+            <div class="input-group w-25 mr-3">
+                <select class="form-control" id="yearLevelFilter-student">
+                    <option value="All">All Year Level</option>
+                    <option value="1">First year</option>
+                    <option value="2">Second year</option>
+                    <option value="3">Third year</option>
+                    <option value="4">Fouth year</option>
+                </select>
+            </div>
+            <div class="input-group w-25">
+                <input type="text" class="form-control" id="searchField-student" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" id="searchBtn-student" type="button"><i class="fa fa-search"></i></button>
                 </div>
             </div>
         </div>
@@ -66,6 +79,7 @@
 
         // loadSectionRecord();
         loadCourses('#coursePicker-student')
+        loadCourses('#coursePickerFilter-student')
         loadSectionRecord();
         loadStudentRecord();
         studentCoursePickOnChange();

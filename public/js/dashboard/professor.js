@@ -14,7 +14,7 @@ $('#addProfessorModalCall').on('click', function () {
 /*---------------------------------
 
 -----------------------------------*/
-function loadCourses(id) {
+function loadCourses(id, isAllExist) {
     // WEB SERVICE CALL 
     $.ajax({
         url:        '/admin/course/get',
@@ -28,6 +28,9 @@ function loadCourses(id) {
         console.log('fetchCourse: ', data);
         if (data.courses.length > 0) {
             $(id).html(BLANK);
+            if (isAllExist == 1) {
+                $(id).append('<option value="All">All Department</option>');
+            }
             data.courses.forEach(function(course) {
                 $(id).append('<option value="'+ course.id +'">'+ course.course_code +'</option>');
             })
@@ -88,19 +91,32 @@ function resetProfessorModal() {
 }
 
 
+$('#coursePickerFilter-professor').on('change', function () {
+    loadProfessorRecord();
+});
+
+$('#searchBtn-professor').on('click', function () {
+    loadProfessorRecord();
+});
+
+$('#searchField-professor').on('blur', function () {
+    loadProfessorRecord();
+});
 /*---------------------------------
 
 -----------------------------------*/
 function loadProfessorRecord() {
+    var keyword = $('#searchField-professor').val();
     // WEB SERVICE CALL 
     $.ajax({
         url:        '/admin/professor/show',
         type:       'GET',
         dataType:   'json',
         headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        // data:   {
-        
-        // }
+        data:   {
+            courseFilter : $('#coursePickerFilter-professor').val(),
+            keyword : keyword.trim()
+        }
     }).then(function(data) {
         console.log('fetchProfTable: ', data);
         $('#professorTable').html(BLANK);
@@ -110,6 +126,8 @@ function loadProfessorRecord() {
                 initTrashProfessor(prof.id)
                 editProfessorRecord(prof.id) 
             });
+        } else {
+            $('#professorTable').append(showNoDataTableAvalable());
         }
     }).fail(function(error) {
         console.log('Backend Error', error);
@@ -139,7 +157,6 @@ function tableElement(data) {
         elm += ' </tr> ';
     return elm;
 }
-
 
 
 

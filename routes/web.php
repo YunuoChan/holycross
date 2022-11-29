@@ -11,6 +11,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\ProfessorSubjectController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,6 +121,14 @@ Route::group(array('prefix' => '/admin'), function () {
     Route::post('/professor/subject/update',          [ProfessorSubjectController::class, 'update'])->name('professor.subject.update');
     Route::get('/professor/subject/list',            [ProfessorSubjectController::class, 'showSubjectList'])->name('professor.subject.list');
 
+    // ACCOUNTS 
+    Route::get('/accounts/get',              [UserController::class, 'index'])->name('accounts');
+    Route::get('/accounts/show',             [UserController::class, 'show'])->name('accounts.show');
+    Route::post('/accounts/save',            [UserController::class, 'store'])->name('accounts.save');
+    Route::post('/accounts/trash',           [UserController::class, 'destroy'])->name('accounts.trash');
+    Route::get('/accounts/edit',             [UserController::class, 'edit'])->name('accounts.edit');
+    Route::post('/accounts/update',          [UserController::class, 'update'])->name('accounts.update');
+    
 });
 
 

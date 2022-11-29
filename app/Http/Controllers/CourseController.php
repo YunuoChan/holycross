@@ -93,7 +93,11 @@ class CourseController extends Controller
     {
         try {
 
+            $keyword = $request->keyword;
             $courses = Course::where('status', 'ACT')
+                                ->when($keyword, function ($query) use ($keyword) {
+                                    return $query->whereRaw('CONCAT(course_code, course_name) like "%'. $keyword .'%"');
+                                })
                                 ->orderBy('course_code', 'ASC')
                                 ->get();
 

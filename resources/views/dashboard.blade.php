@@ -94,11 +94,11 @@
 
                         <ul class="list-unstyled components">
                             <h4 class="px-4 my-4">MAINTENANCE</h4>
-                            <li name="dashboard-menu">
-                                <a href="#">Admin Accounts</a>
-                            </li>
                             <li  id="li-schoolyear" name="dashboard-menu">
                                 <a href="{{ route('schoolyear') }}" onclick="selectDashboardMenu('schoolyear');" >Manage School Year</a>
+                            </li>
+                            <li  id="li-accounts" name="dashboard-menu">
+                                <a href="{{ route('accounts') }}" onclick="selectDashboardMenu('accounts');">Admin Accounts</a>
                             </li>
                             
                         </ul>

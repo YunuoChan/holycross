@@ -16,13 +16,26 @@
                 </div>
                 <button type="button" class="btn btn-outline-primary btn-lg" id="addSubjModalCall">Add Subject</button>    
             </div>
-            {{-- SEARCH --}}
-            <div class="d-flex justify-content-center flex-column mb-0">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
-                    </div>
+        </div>
+        <div class="d-flex justify-content-end mb-4">
+            {{-- SEARCH --}}                
+            <div class="input-group w-25 mr-3">
+                <select class="form-control" id="coursePickerFilter-subject">
+                </select>
+            </div>
+            <div class="input-group w-25 mr-3">
+                <select class="form-control" id="yearLevelFilter-subject">
+                    <option value="All">All Year Level</option>
+                    <option value="1">First year</option>
+                    <option value="2">Second year</option>
+                    <option value="3">Third year</option>
+                    <option value="4">Fouth year</option>
+                </select>
+            </div>
+            <div class="input-group w-25">
+                <input type="text" class="form-control" id="searchField-subject" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" id="searchBtn-subject" type="button"><i class="fa fa-search"></i></button>
                 </div>
             </div>
         </div>
@@ -67,6 +80,7 @@
 
             loadSubjectRecord();
             loadCourses('#coursePicker-subject')
+            loadCourses('#coursePickerFilter-subject', 1)
         });
 
         function validation() {

@@ -14,20 +14,30 @@ function assignSubjectInit(id) {
 }
 
 
+$('#searchBtn-professorsubject').on('click', function () {
+    loadProfessorSubjectRecord();
+});
+
+$('#searchField-professorsubject').on('blur', function () {
+    loadProfessorSubjectRecord();
+});
+
+
 
 /*---------------------------------
 
 -----------------------------------*/
 function loadProfessorSubjectRecord() {
+    var keyword = $('#searchField-professorsubject').val();
     // WEB SERVICE CALL 
     $.ajax({
         url:        '/admin/professor/subject/show',
         type:       'GET',
         dataType:   'json',
         headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        // data:   {
-        
-        // }
+        data:   {
+            keyword : keyword.trim()
+        }
     }).then(function(data) {
         console.log('fetchProfTable: ', data);
         $('#professorSubjectTable').html(BLANK);
@@ -41,6 +51,8 @@ function loadProfessorSubjectRecord() {
                 });
                 initCallFunctionToAssignSubject(prof.id)
             });
+        } else {
+            $('#professorSubjectTable').append(showNoDataTableAvalable());
         }
     }).fail(function(error) {
         console.log('Backend Error', error);

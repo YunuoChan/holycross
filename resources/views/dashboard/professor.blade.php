@@ -16,13 +16,17 @@
                 </div>
                 <button type="button" class="btn btn-outline-primary btn-lg mr-3" id="addProfessorModalCall">Add Professor</button>    
             </div>
-            {{-- SEARCH --}}
-            <div class="d-flex justify-content-center flex-column mb-0">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
-                    </div>
+        </div>
+        <div class="d-flex justify-content-end mb-4">
+            {{-- SEARCH --}}                
+            <div class="input-group w-25 mr-3">
+                <select class="form-control" id="coursePickerFilter-professor">
+                </select>
+            </div>
+            <div class="input-group w-25">
+                <input type="text" class="form-control" id="searchField-professor" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" id="searchBtn-professor" type="button"><i class="fa fa-search"></i></button>
                 </div>
             </div>
         </div>
@@ -61,6 +65,7 @@
             }
 
             loadCourses('#coursePicker-professor');
+            loadCourses('#coursePickerFilter-professor', 1);
             loadProfessorRecord();
         });
     </script>

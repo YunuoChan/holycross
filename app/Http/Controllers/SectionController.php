@@ -90,7 +90,7 @@ class SectionController extends Controller
      * @param  \App\Models\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function show(Section $section)
+    public function show(Section $section, Request $request)
     {
          //
          try {
@@ -102,8 +102,21 @@ class SectionController extends Controller
                     'error'	=> 'Invalid Schoolyear!'
                 ], 500);
             }
+            $courseFilter   = $request->courseFilter;
+            $yearLevel      = $request->yearLevelFilter;
+            $keyword        = $request->keyword;
+
 
             $sections = Section::with('user')->with('course')
+                                ->when(is_numeric($courseFilter), function ($query) use ($courseFilter) {
+                                    return $query->where('course_id', $courseFilter);
+                                })
+                                ->when(is_numeric($yearLevel), function ($query) use ($yearLevel) {
+                                    return $query->where('year_level', $yearLevel);
+                                })
+                                ->when($keyword, function ($query) use ($keyword) {
+                                    return $query->whereRaw('CONCAT(section, section_code) like "%'. $keyword .'%"');
+                                })
                                 ->where('schoolyear_id', $schoolYearId)
                                 ->orderBy('status', 'ASC')
                                 ->orderBy('id', 'DESC')

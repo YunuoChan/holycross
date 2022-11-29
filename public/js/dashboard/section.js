@@ -1,20 +1,42 @@
 const BLANK = '';
 
 
+$('#coursePickerFilter-section').on('change', function () {
+    loadSectionRecord() 
+});
+
+
+$('#yearLevelFilter-section').on('change', function () {
+    loadSectionRecord() 
+});
+
+$('#searchBtn-section').on('click', function () {
+   loadSectionRecord();
+});
+
+$('#searchField-section').on('blur', function () {
+   loadSectionRecord();
+});
+
+
 
 /*---------------------------------
 
 -----------------------------------*/
 function loadSectionRecord() {
+
+    var keyword = $('#searchField-section').val();
     // WEB SERVICE CALL 
     $.ajax({
         url:        '/admin/section/show',
         type:       'GET',
         dataType:   'json',
         headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        // data:   {
-        
-        // }
+        data:   {
+            courseFilter    : $('#coursePickerFilter-section').val(),
+            yearLevelFilter : $('#yearLevelFilter-section').val(),
+            keyword         : keyword.trim()
+        }
     }).then(function(data) {
         console.log('fetchSection: ', data);
         $('#sectionTable').html(BLANK);
@@ -24,6 +46,8 @@ function loadSectionRecord() {
                 initTrashSections(section.id)
                 editSectionRecord(section.id)
             });
+        } else {
+            $('#sectionTable').append(showNoDataTableAvalable());
         }
     }).fail(function(error) {
         console.log('Backend Error', error);
@@ -36,7 +60,7 @@ function loadSectionRecord() {
 /*---------------------------------
 
 -----------------------------------*/
-function loadCourses(id) {
+function loadCourses(id, isAllExist) {
     // WEB SERVICE CALL 
     $.ajax({
         url:        '/admin/course/get',
@@ -50,6 +74,9 @@ function loadCourses(id) {
         console.log('fetchCourse: ', data);
         $(id).html(BLANK);
         if (data.courses.length > 0) {
+            if (isAllExist == 1) {
+                $(id).append('<option value="All">All Course</option>');
+            }
             data.courses.forEach(function(course) {
                 $(id).append('<option value="'+ course.id +'">'+ course.course_code +'</option>');
             })

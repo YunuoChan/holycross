@@ -39,7 +39,9 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime:M d, Y',
+        'created_at' => 'datetime:M d, Y',
+        'updated_at' => 'datetime:M d, Y',
     ];  
 
     public function schoolyears() {

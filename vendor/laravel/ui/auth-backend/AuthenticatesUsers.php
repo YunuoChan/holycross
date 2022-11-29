@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Log;
 
 trait AuthenticatesUsers
 {
@@ -129,7 +130,34 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+        if ($user->status != 'ACT') {
+            
+
+            $this->guard()->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            if ($response = $this->loggedOut($request)) {
+                return $response;
+            }
+
+            
+            if (isset($_COOKIE['__schoolYear_selected'])) {
+                unset($_COOKIE['__schoolYear_selected']);
+                setCookie('__schoolYear_selected', null, -1, '/');
+            }
+
+            throw ValidationException::withMessages([
+                $this->username() => [trans('auth.inactive')],
+            ]);
+
+            return $request->wantsJson()
+                    ? new JsonResponse([], 204)
+                    : redirect('/login');
+
+        }
     }
 
     /**
