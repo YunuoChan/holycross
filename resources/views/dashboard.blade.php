@@ -56,7 +56,7 @@
                                 <a href="{{ route('home') }}"  onclick="selectDashboardMenu('dashboard');">Dashboard</a>
                             </li>
                             <li id="li-course" name="dashboard-menu">
-                                <a href="#" onclick="selectDashboardMenu('course');">Course</a>
+                                <a href="{{ route('manage.course') }}" onclick="selectDashboardMenu('course');">Course</a>
                             </li>
                             <li id="li-professor" name="dashboard-menu">
                                 <a href="{{ route('professor') }}"  onclick="selectDashboardMenu('professor');">Professor</a>

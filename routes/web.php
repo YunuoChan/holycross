@@ -78,7 +78,12 @@ Route::group(array('prefix' => '/admin'), function () {
 
     // COURSE
     Route::get('/course/get',                       [CourseController::class, 'show'])->name('course');
-
+    Route::get('/manage/course/get',                [CourseController::class, 'index'])->name('manage.course');
+    Route::get('/manage/course/show',               [CourseController::class, 'showRecord'])->name('course.show');
+    Route::post('/course/save',                     [CourseController::class, 'store'])->name('course.save');
+    Route::post('/course/trash',                    [CourseController::class, 'destroy'])->name('course.trash');
+    Route::get('/course/edit',                      [CourseController::class, 'edit'])->name('course.edit');
+    Route::post('/course/update',                   [CourseController::class, 'update'])->name('course.update');
     
     // GENERATE SCHEDULE
     Route::get('/schedule/generate/get',              [GenerateScheduleController::class, 'index'])->name('generate.schedule');

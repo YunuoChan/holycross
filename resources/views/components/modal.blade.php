@@ -501,30 +501,19 @@
       <div class="modal-body">
         <form>
           <div class="d-flex justify-content-start mb-3">
-            {{-- <div class="form-group mr-3"> --}}
-              {{-- <div class="d-flex"> --}}
-                {{-- <div class="d-flex justify-content-center flex-column"> --}}
-                  {{-- <div class="d-flex"> --}}
-                    <div class="col-lg-6 px-0">
-                      <small class="mb-0">Current</small> 
-                      <h4 id="currentSYToModal"></h4> 
-                    </div>
-                    <div class="col-lg-6 px-0">
-                      <small class="mb-0">Active</small> 
-                      <h4 id="activeSYToModal"></h4> 
-                    </div>  
-                  {{-- </div> --}}
-                {{-- </div> --}}
-              {{-- </div> --}}
-             
-            {{-- </div> --}}
+            <div class="col-lg-6 px-0">
+              <small class="mb-0">Current</small> 
+              <h4 id="currentSYToModal"></h4> 
+            </div>
+            <div class="col-lg-6 px-0">
+              <small class="mb-0">Active</small> 
+              <h4 id="activeSYToModal"></h4> 
+            </div>  
           </div>
-          <div class="form-group">
 
           <div class="mt-4">
             <p class="mb-0">Select Schoolyear</p>
             <div class="list-group tableFixHead" id="schoolyearListOnModal">
-              
             </div>
           </div>
 
@@ -533,3 +522,37 @@
     </div>
   </div>
 </div>
+
+
+
+{{-- PROFESSOR --}}
+<div class="modal fade" id="addCourseRecord" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top: 50px">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-custom">
+        <h5 class="modal-title">Add Course</h5>
+        <button type="button" class="close white-color" data-dismiss="modal" aria-label="Close" data-bs-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="mb-3">
+            <small class="text-muted sub-title">
+              <strong>Note:</strong><em>All fields marked with an asterisk (<span class="required-asterisk">*</span>) are required.</em>
+            </small>  
+          </div>
+          <div class="form-group w-50 mr-3 mb-0">
+            <label for="courseCode">Course Code<span class="required-asterisk">*</span></label>
+            <input type="text" class="form-control" id="courseCode" placeholder="Course code" maxlength="10">
+          </div>
+          <div class="form-group">
+            <label for="courseName">Course<span class="required-asterisk">*</span></label>
+            <input type="text" class="form-control" id="courseName" placeholder="Course name" maxlength="50">
+          </div>
+      </div>
+      <div class="modal-footer" id="courseModalBtn">
+      </div>
+    </div>
+  </div>
+</div>
+

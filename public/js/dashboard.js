@@ -113,6 +113,30 @@ function showNoDataAvalable() {
 }
 
 
+function showNoDataTableAvalable() {
+    
+    var s = '';
+
+    s+= '<tr>';  
+	s+= '   <td colspan="100%">';
+	s+= '	    <div id="noRecordContainer">';
+	s+= '	    	<div class="d-flex flex-row justify-content-center">';
+	s+= '	    		<div style="font-size: 5em;">';
+	s+= '	    			<i class="fas fa-box-open"></i> ';
+	s+= '	    		</div>';
+	s+= '	    	</div>';
+	s+= '	    	<div class="d-flex flex-row justify-content-center">';
+	s+= '	    		<div> No record found...';
+	s+= '	    		</div>';
+	s+= '	    	</div>';
+	s+= '	    </div>';
+	s+= '   </td>';
+	s+=	'</tr>';
+
+    return s;
+}
+
+
 //define a function to set cookies
 function setCookie(name,value,days) {
     var expires = "";
