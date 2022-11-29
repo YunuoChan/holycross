@@ -180,6 +180,7 @@ function courseOnchange() {
 -----------------------------------*/
 $('#generateSchedFirstYear').on('click', function () {
 
+    $('#generateScheduleBtnDiv').html(BLANK);
     $('#generateScheduleBtnDiv').append(btnModalElement('generateScheduleBtn', 'Generate Schedule'));
     initGenerateSchedule();
     courseOnchange();
@@ -190,44 +191,68 @@ $('#generateSchedFirstYear').on('click', function () {
 
 
 /*---------------------------------
-
+    TRASH SECTION
 -----------------------------------*/
 function initGenerateSchedule() {
-    $('#generateScheduleBtn').on('click', function () {
-        if (!$.isNumeric($('#coursePicker-generate-sched').val())) {
-            $('#generateScheduleBtn').prop('disabled', true);
-            customToaster('Fields incomplete!', 'Please select course.', 'warning')
-            $('#generateScheduleModal').modal('hide');
-            return false;
-        }
-        $('#generateScheduleBtn').prop('disabled', true);
-        $('#generateScheduleModal').modal('hide');
-        customToaster('Please Wait!', 'Generating schedule...', 'info')
-        // WEB SERVICE CALL 
-        $.ajax({
-            url:        '/admin/schedule/generate/data',
-            type:       'GET',
-            dataType:   'json',
-            headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data: {
-                courseId : $('#coursePicker-generate-sched').val(),
-                yearLevel: $('#generateSchedYearlevel').val()
+    $('#generateScheduleBtn').on('click', function() {
+        bootbox.confirm({
+            title: "Generate Schedule?",
+            message: "Are you sure you want to generate new schedule? <b>Doing so will overwrite the existing schedule(if any).</b>",
+            buttons: {
+                cancel: {
+                    label: '<i class="fas fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fas fa-check"></i> Yes, Please!'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    generateSchedule()
+                }
             }
-        }).then(function(data) {
-            console.log('loadSectionSubjectRecord: ', data);
-
-            setTimeout(function() {   
-                designateSectionAndSchedule();
-            }, 1000);
-
-        }).fail(function(error) {
-            console.log('Backend Error', error);
-            internalServerError();
         });
     });
 }
 
-function designateSectionAndSchedule() {
+
+/*---------------------------------
+
+-----------------------------------*/
+function generateSchedule() {
+    if (!$.isNumeric($('#coursePicker-generate-sched').val())) {
+        $('#generateScheduleBtn').prop('disabled', true);
+        customToaster('Fields incomplete!', 'Please select course.', 'warning')
+        $('#generateScheduleModal').modal('hide');
+        return false;
+    }
+    $('#generateScheduleBtn').prop('disabled', true);
+    $('#generateScheduleModal').modal('hide');
+    customToaster('Please Wait!', 'Generating schedule...', 'info')
+    // WEB SERVICE CALL 
+    $.ajax({
+        url:        '/admin/schedule/generate/data',
+        type:       'GET',
+        dataType:   'json',
+        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data: {
+            courseId : $('#coursePicker-generate-sched').val(),
+            yearLevel: $('#generateSchedYearlevel').val()
+        }
+    }).then(function(data) {
+        console.log('loadSectionSubjectRecord: ', data);
+
+        setTimeout(function() {   
+            designateSectionAndSchedule($('#coursePicker-generate-sched').val(), $('#generateSchedYearlevel').val());
+        }, 1000);
+
+    }).fail(function(error) {
+        console.log('Backend Error', error);
+        internalServerError();
+    });
+}
+
+function designateSectionAndSchedule(course, yearLevel) {
     // WEB SERVICE CALL 
     $.ajax({
         url:        '/admin/schedule/generate/gets',
@@ -294,7 +319,9 @@ function designateSectionAndSchedule() {
             dataType:   'json',
             headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             data: {
-                days : DAYS
+                days : DAYS,
+                course : course,
+                yearLevel : yearLevel
             }
         }).then(function(data) {
             console.log('SAVE DATA: ', data);

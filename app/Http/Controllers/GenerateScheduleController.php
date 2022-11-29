@@ -57,7 +57,51 @@ class GenerateScheduleController extends Controller
             }
 
             $data         = $request->days;
+            $course         = $request->course;
+            $yearLevel         = $request->yearLevel;
             $userId     = auth()->user()->id;
+
+            // GET SECTION LIST
+            $sections = Section::whereHas('course', function($query) use ($course) {
+                            $query->when(is_numeric($course), function ($filter) use ($course) {
+                                return $filter->where('id', $course);
+                            }); 
+                        })
+                        ->where('schoolyear_id', $schoolYearId)
+                        ->where('status', 'ACT')
+                        ->where('year_level', $yearLevel)
+                        ->get();
+
+            // GET SUBJECT LIST
+            $subjects = Subject::whereHas('course', function($query) use ($course) {
+                            $query->when(is_numeric($course), function ($filter) use ($course) {
+                                return $filter->where('id', $course);
+                            }); 
+                        }) 
+                        ->where('schoolyear_id', $schoolYearId)
+                        ->where('status', 'ACT')
+                        ->where('year_level', $yearLevel)
+                        ->get();
+
+
+            foreach ($sections as $section) {
+                foreach ($subjects as $subject) {
+                    $secSubId = SectionSubject::where('subject_id', $subject->id) 
+                                        ->where('section_id', $section->id)
+                                        ->where('schoolyear_id', $schoolYearId)
+                                        ->where('status', 'INA')
+                                        ->pluck('id');
+                    
+                    // INACTIVE THE EXISTING RECORD
+                    GeneratedSchedule::whereIn('section_subject_id', array($secSubId)) 
+                            ->where('status', 'ACT')
+                            ->update([
+                                'updated_at'    => Carbon::now(),
+                                'user_id'	    => $userId,
+                                'status'        => 'INA'
+                            ]);
+                    }
+            }
 
             foreach($data['days'] as $day) {
                 if (array_key_exists('subjects', $day)) {
@@ -203,8 +247,6 @@ class GenerateScheduleController extends Controller
                 ], 500);
             }
 
-            Log::debug(auth()->user());
-
             $id         = $request->courseId;
             $yearLevel  = $request->yearLevel;
             $userId     = auth()->user()->id;
@@ -232,23 +274,36 @@ class GenerateScheduleController extends Controller
                                 ->where('year_level', $yearLevel)
                                 ->get();
             
+
             foreach ($sections as $section) {
                 foreach ($subjects as $subject) {
+                     
+                    SectionSubject::where('subject_id', $subject->id) 
+                        ->where('section_id', $section->id)
+                        ->where('schoolyear_id', $schoolYearId)
+                        ->where('status', 'ACT')
+                        ->update([
+                            'updated_at'    => Carbon::now(),
+                            'user_id'	    => $userId,
+                            'status'        => 'INA'
+                        ]);
                     $subjectEdit = new SectionSubject();
                     $subjectEdit->subject_id        = $subject->id;
                     $subjectEdit->section_id        = $section->id;
-                    $subjectEdit->user_id               = $userId;
+                    $subjectEdit->user_id           = $userId;
                     $subjectEdit->created_at        = Carbon::now();
                     $subjectEdit->schoolyear_id     = $schoolYearId;
                     $subjectEdit->save();
                 }
             }
 
-            $sectionSubj = SectionSubject::where('status', 'ACT')->get();
+            $sectionSubjNew = SectionSubject::where('status', 'ACT')
+                                    ->where('schoolyear_id', $schoolYearId)
+                                    ->get();
 
 
             return response()->json([
-				'sectionSubjs' => $sectionSubj,
+				'sectionSubjs' => $sectionSubjNew,
 			], 200);
         } catch (\Throwable $th) {
 			return response()->json([
