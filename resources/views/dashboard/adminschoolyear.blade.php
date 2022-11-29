@@ -37,6 +37,7 @@
                     <thead class="thead-dark">
                     <tr>
                         <th width="15%" scope="col" class="vertical-center">Schoolyear</th>
+                        <th width="15%" scope="col" class="vertical-center">Semester</th>
                         <th width="15%" scope="col" class="vertical-center">Created By</th>
                         <th width="15%" scope="col" class="vertical-center">Created Date</th>
                         <th width="10%" scope="col" class="vertical-center">Status</th>

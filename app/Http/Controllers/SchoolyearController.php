@@ -80,6 +80,7 @@ class SchoolyearController extends Controller
 
             $from   = $request->syfrom;
             $to     = $request->syto;
+            $semester     = $request->semester;
             $userId = auth()->user()->id;
             if ($to  < $from ) {
                 $from   = $request->syto;
@@ -89,6 +90,7 @@ class SchoolyearController extends Controller
             $schoolYear = new Schoolyear();
             $schoolYear->sy_from    = $from;
             $schoolYear->sy_to      = $to;
+            $schoolYear->semester   = $semester;
             $schoolYear->user_id    = $userId;
             $schoolYear->created_at = Carbon::now();
             $schoolYear->save();

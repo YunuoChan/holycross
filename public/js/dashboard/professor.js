@@ -129,7 +129,7 @@ function tableElement(data) {
         elm += '     <td class="vertical-center">'+ data.name +'</td> ';
         elm += '     <td class="vertical-center">'+ data.status +'</td> ';
         elm += '     <td class="vertical-center"> ';
-        elm += '        <div class="d-flex justify-content-center">'
+        elm += '        <div class="d-flex justify-content-start">'
         if (data.status == 'ACT') {
             elm += '         <button type="button" class="btn btn-success mx-1" id="editProfessor-'+ data.id +'"><i class="fas fa-edit"></i>Edit</button> ';
             elm += '         <button type="button" class="btn btn-danger" id="trashProfessor-'+ data.id +'"><i class="fas fa-trash"></i></i>Delete</button> ';

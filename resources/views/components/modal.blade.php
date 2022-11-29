@@ -31,8 +31,17 @@
                 </div>
                 <select class="form-control" id="sySelectToPicker"></select>
               </div>
+            </div> <div class="form-group w-75 mt-4">
+              <label for="sySemester">Semester<span class="required-asterisk">*</span></label>
+              <select class="form-control" id="sySemester">
+                <option value="1">First Semester</option>
+                <option value="2">Second Semester
+                </option>
+              </select>
             </div>
           </div>
+
+
         </form>
       </div>
       <div class="modal-footer">
@@ -48,7 +57,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header modal-header-custom">
-        <h5 class="modal-title">Add New Subject<span class="required-asterisk">*</span></h5>
+        <h5 class="modal-title">Add New Subject</h5>
         <button type="button" class="close white-color" data-dismiss="modal" aria-label="Close" data-bs-dismiss="modal">
           <span aria-hidden="true">&times;</span>
         </button>

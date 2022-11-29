@@ -281,8 +281,16 @@ function loadSchoolyearRecordActive() {
         if (data.schoolyears.length > 0) {
             data.schoolyears.forEach(function(schoolyear) {
                 if (schoolyear.is_active == 1) {
-                    $('#syLabelShowStudent').text('S.Y. '+ schoolyear.sy_from + ' - ' + schoolyear.sy_to);
-                    $('#syLabelShowProfessor').text('S.Y. '+ schoolyear.sy_from + ' - ' + schoolyear.sy_to);
+                    $('#syLabelShowStudent').append('<b>S.Y. '+ schoolyear.sy_from + ' - ' + schoolyear.sy_to +'</b>');
+                    $('#syLabelShowProfessor').append('<b>S.Y. '+ schoolyear.sy_from + ' - ' + schoolyear.sy_to+'</b>');
+                    if (schoolyear.semester == 1) {
+                        $('#syLabelShowStudentSemester').text('First Semester');
+                        $('#syLabelShowProfessorSemester').text('First Semester');
+                    } else {
+                        $('#syLabelShowStudentSemester').text('Second Semester');
+                        $('#syLabelShowProfessorSemester').text('Second Semester');
+                    }
+                    
                 }
             });
         } 

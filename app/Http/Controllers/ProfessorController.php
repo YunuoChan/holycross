@@ -17,7 +17,14 @@ class ProfessorController extends Controller
      */
     public function index()
     {
-        return view('dashboard.professor');
+        if (isset($_COOKIE['__schoolYear_selected'])) {
+            Log::debug($_COOKIE['__schoolYear_selected']);
+            $_COOKIE['__schoolYear_selected'];
+
+            return view('dashboard.professor');
+        } else {
+            return view('home');
+        }
     }
 
     /**

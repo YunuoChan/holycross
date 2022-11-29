@@ -38,8 +38,9 @@
                         </li>
                     @endif --}}
                 @else
+                    {{-- <li style="display: flex !important; flex-direction: column; justify-content: center;"><a href="{{ route('home') }}" class="nav-item nav-link">Dashboard</a></li> --}}
                     <li class="dropdown" style="display: flex !important; flex-direction: column; justify-content: center; margin-right: 30px; ">
-                        <a href="#" class="nav-item nav-link" data-toggle="dropdown">Dashboard</a>
+                        <a href="{{ route('home') }}" class="nav-item nav-link" data-toggle="dropdown">Dashboard</a>
                         <div class="dropdown-menu">
                             <a href="{{ route('subject') }}" class="dropdown-item">Subject</a>
                             <a href="{{ route('professor') }}" class="dropdown-item">Professor</a>

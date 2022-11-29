@@ -17,7 +17,14 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        return view('dashboard.subject');
+        if (isset($_COOKIE['__schoolYear_selected'])) {
+            Log::debug($_COOKIE['__schoolYear_selected']);
+            $_COOKIE['__schoolYear_selected'];
+
+            return view('dashboard.subject');
+        } else {
+            return view('home');
+        }
     }
 
     /**

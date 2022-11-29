@@ -16,8 +16,14 @@ class SectionController extends Controller
      */
     public function index()
     {
-        //
-        return view('dashboard.section');
+        if (isset($_COOKIE['__schoolYear_selected'])) {
+            Log::debug($_COOKIE['__schoolYear_selected']);
+            $_COOKIE['__schoolYear_selected'];
+
+            return view('dashboard.section');
+        } else {
+            return view('home');
+        }
     }
 
     /**

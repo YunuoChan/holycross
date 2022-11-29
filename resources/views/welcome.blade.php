@@ -81,7 +81,8 @@
                                         <h3 class="font-s-3rem">
                                             I AM PROFESSOR
                                         </h3>
-                                        <p id="syLabelShowProfessor"></p>
+                                        <p id="syLabelShowProfessor" class="mb-0"></p>
+                                        <p id="syLabelShowProfessorSemester"></p>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-start flex-column mt-5">
@@ -140,7 +141,8 @@
                                         <h3 class="font-s-3rem">
                                             I AM STUDENT
                                         </h3>
-                                        <p id="syLabelShowStudent"></p>
+                                        <p id="syLabelShowStudent" class="mb-0"></p>
+                                        <p id="syLabelShowStudentSemester"></p>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center flex-column">

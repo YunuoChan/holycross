@@ -43,7 +43,12 @@ function syElement(data) {
     var s = '';
     s +=    ' <div class="card border-success mb-3" style="max-width: 18rem;"> ';
     s +=    '     <div class="card-header"> ';
-    s +=    '       <h3 class="mt-3 mb-0"><b>S.Y. '+ data.sy_from +' - '+ data.sy_to +'</b></h3> ';
+    if (data.semester == 1) {
+        s +=    '                   <small class="mt-3 mb-0"><b>First Semester</b></small> ';
+    } else {
+        s +=    '                   <small class="mt-3 mb-0"><b>Second Semester</b></small> ';
+    }
+    s +=    '       <h3 class="mb-0"><b>S.Y. '+ data.sy_from +' - '+ data.sy_to +'</b></h3> ';
     if (data.is_active == 1) {
     s +=    '       <p class="t text-success mb-0">Active</p> ';
     }
@@ -212,7 +217,8 @@ $('#saveNewSy').on('click', function() {
         headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         data:   {
             syfrom: $('#sySelectFromPicker').val(),
-            syto  : $('#sySelectToPicker').val()
+            syto  : $('#sySelectToPicker').val(),
+            semester : $('#sySemester').val()
         }
     }).then(function(data) {
         console.log('fetchUsers: ', data);

@@ -71,9 +71,6 @@
 
                                 </ul> --}}
                             </li>
-                            <li  id="li-student" name="dashboard-menu">
-                                <a href="{{ route('student') }}" onclick="selectDashboardMenu('student');" >Student</a>
-                            </li>
                         </ul>
 
                         <ul class="list-unstyled components">
@@ -84,11 +81,11 @@
                             <li id="li-subject" name="dashboard-menu">
                                 <a href="{{ route('subject') }}" onclick="selectDashboardMenu('subject');">Subject</a>
                             </li>
+                            <li  id="li-student" name="dashboard-menu">
+                                <a href="{{ route('student') }}" onclick="selectDashboardMenu('student');" >Student</a>
+                            </li>
                             <li id="li-professor-subjectt" name="dashboard-menu">
                                 <a href="{{ route('professor.subject') }}" onclick="selectDashboardMenu('professor-subject');">Professor Subject</a>
-                            </li>
-                            <li id="li-student-sectiont" name="dashboard-menu">
-                                <a href="#" onclick="selectDashboardMenu('student-section');">Student Section</a>
                             </li>
                             <li id="li-generate-schedule" name="dashboard-menu">
                                 <a href="{{ route('generate.schedule') }}" onclick="selectDashboardMenu('generate-schedule');" >Generate Schedule</a>

@@ -93,7 +93,7 @@ function tableElement(subject) {
        
         elm += '     <td class="vertical-center">'+ subject.status +'</td> ';
         elm += '     <td class="vertical-center"> ';
-        elm += '        <div class="d-flex justify-content-center">'
+        elm += '        <div class="d-flex justify-content-start">'
         // elm += '         <button type="button" class="btn btn-primary" id="viewSubject-'+ subject.id +'"><i class="fas fa-eye"></i>View</button> ';
         if (subject.status == 'ACT') {
             elm += '         <button type="button" class="btn btn-success mx-1" id="editSubject-'+ subject.id +'"><i class="fas fa-edit"></i>Edit</button> ';

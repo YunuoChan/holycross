@@ -18,7 +18,14 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('dashboard.student');
+        if (isset($_COOKIE['__schoolYear_selected'])) {
+            Log::debug($_COOKIE['__schoolYear_selected']);
+            $_COOKIE['__schoolYear_selected'];
+
+            return view('dashboard.student');
+        } else {
+            return view('home');
+        }
     }
 
 
@@ -46,27 +53,30 @@ class StudentController extends Controller
     {
         // SAVE SECTION
         try {
+
+            $schoolYearId = null;
+            if(isset($_COOKIE['__schoolYear_selected'])) {
+                $schoolYearId = $_COOKIE['__schoolYear_selected'];
+            } else {
+                return response()->json([
+                    'error'	=> 'Invalid Schoolyear!'
+                ], 500);
+            }
+
             if (!$request->file) {
                 Log::debug('Student.create');
                 return redirect()->route('student')->with('fail', 'No CSV File added');
-                // return response()->json([
-                // 	'error'	=> 'Internal Server Error'
-                // ], 500);
             }
 
             
-            //
+            // CONVERT CSV TO ARRAY
             $studentRecords = \Excel::toArray(new StudentImport, $request->file);
         
-            // $array = $collection = (new StudentImport)->toCollection($request->file);
-
-            Log::debug($studentRecords[0]);
-
-
             $alreadyExist = 0;
             foreach($studentRecords[0] as $index => $record) {
                 if ($index > 0) {
                     $isStudentExist = Student::where('student_id_no', $record[0])
+                                        ->where('schoolyear_id', $schoolYearId)
                                         ->where('status', 'ACT')
                                         ->count();
 
@@ -75,6 +85,7 @@ class StudentController extends Controller
                     }
 
                     $section = Section::where('section_code', $record[2])
+                                    ->where('schoolyear_id', $schoolYearId)
                                     ->where('status', 'ACT')->first();
                     
                     $sectionId = null;
@@ -94,6 +105,7 @@ class StudentController extends Controller
                         $student->year_level        = 1;
                         $student->section_id        = $sectionId;
                         $student->course_id         = $courseId;
+                        $student->schoolyear_id     = $schoolYearId;
                         $student->user_id           = $userId;
                         $student->created_at        = Carbon::now();
                         $student->save();
@@ -144,8 +156,9 @@ class StudentController extends Controller
             $userId                 = auth()->user()->id;
 
             $isExist =  Student::where('student_id_no',  $studentId)
-                        ->where('status', 'ACT')
-                        ->count();
+                                ->where('schoolyear_id', $schoolYearId)
+                                ->where('status', 'ACT')
+                                ->count();
 
             if ($isExist > 0) {
                 return response()->json([
@@ -160,6 +173,7 @@ class StudentController extends Controller
             $student->year_level        = $yearlevel;
             $student->section_id        = $section;
             $student->course_id         = $course;
+            $student->schoolyear_id     = $schoolYearId;
             $student->user_id           = $userId;
             $student->created_at        = Carbon::now();
             if ($fromAdmin == 0) {
@@ -189,11 +203,21 @@ class StudentController extends Controller
     public function show(Student $student)
     {
         try {
+            $schoolYearId = null;
+            if(isset($_COOKIE['__schoolYear_selected'])) {
+                $schoolYearId = $_COOKIE['__schoolYear_selected'];
+            } else {
+                return response()->json([
+                    'error'	=> 'Invalid Schoolyear!'
+                ], 500);
+            }
+
             $students = Student::with(['course' => function($course) {
                                 $course->where('status', 'ACT');
                             }])
-                            ->with(['section' => function($course) {
-                                $course->where('status', 'ACT');
+                            ->with(['section' => function($section) use ($schoolYearId) {
+                                $section->where('status', 'ACT')
+                                ->where('schoolyear_id', $schoolYearId);
                             }])
                             ->whereHas('course', function($query) {
                                 $query->where('status', 'ACT');
@@ -201,6 +225,7 @@ class StudentController extends Controller
                             ->whereHas('section', function($query) {
                                 $query->where('status', 'ACT');
                             })
+                            ->where('schoolyear_id', $schoolYearId)
                             ->orderBy('status', 'ASC')
                             ->orderBy('id', 'DESC')
                             ->get();

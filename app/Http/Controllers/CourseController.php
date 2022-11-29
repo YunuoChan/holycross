@@ -16,7 +16,14 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view('dashboard.course');
+        if (isset($_COOKIE['__schoolYear_selected'])) {
+            Log::debug($_COOKIE['__schoolYear_selected']);
+            $_COOKIE['__schoolYear_selected'];
+
+            return view('dashboard.course');
+        } else {
+            return view('home');
+        }
     }
 
     /**

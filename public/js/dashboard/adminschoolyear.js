@@ -52,7 +52,8 @@ $('#saveNewSy').on('click', function() {
         headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         data:   {
             syfrom: $('#sySelectFromPicker').val(),
-            syto  : $('#sySelectToPicker').val()
+            syto  : $('#sySelectToPicker').val(),
+            semester : $('#sySemester').val()
         }
     }).then(function(data) {
         console.log('fetchUsers: ', data);
@@ -117,7 +118,12 @@ function loadSchoolyearRecord() {
 function tableElement(data) {
     var elm = BLANK;
         elm += ' <tr> ';
-        elm += '     <td class="vertical-center">'+ data.sy_from +' - '+ data.sy_to +'</th> ';
+        elm += '     <td class="vertical-center">'+ data.sy_from +' - '+ data.sy_to +'</td> ';
+        if (data.semester == 1) {
+            elm += '     <td class="vertical-center">First Semester</td> ';
+        } else {
+            elm += '     <td class="vertical-center">Second Semester</td> ';
+        }
         elm += '     <td class="vertical-center">'+ data.user.name +'</td> ';
         elm += '     <td class="vertical-center">'+ data.created_at +'</td> ';
         elm += '     <td class="vertical-center">'+ data.status +'</td> ';
@@ -151,6 +157,13 @@ function syElement(data) {
     s +=    '               <img src="/img/logo.jpg"  style="width: 100px; height: 100px" class="rounded-circle"/> ';
     s +=    '           </div> ';
     s +=    '           <div>';
+    s +=    '               <div class="d-flex justify-content-center">';
+    if (data.semester == 1) {
+        s +=    '                   <h4 class="text-muted mb-0"><b>First Semester</b></h4> ';
+    } else {
+        s +=    '                   <h4 class="text-muted mb-0"><b>Second Semester</b></h4> ';
+    }
+    s +=    '               </div> ';
     s +=    '               <div class="d-flex justify-content-center">';
     s +=    '                   <p class="text-muted mb-0"><b>'+ data.user.name +'</b></p> ';
     s +=    '               </div> ';

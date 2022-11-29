@@ -39,4 +39,8 @@ class Student extends Model
     public function section() {
         return $this->belongsTo(Section::class, 'section_id');
     }
+
+    public function schoolyear() {
+        return $this->belongsTo(Schoolyear::class, 'schoolyear_id');
+    }
 }

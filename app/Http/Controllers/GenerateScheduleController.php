@@ -18,7 +18,14 @@ class GenerateScheduleController extends Controller
      */
     public function index()
     {
-        return view('dashboard.generate-schedule');
+        if (isset($_COOKIE['__schoolYear_selected'])) {
+            Log::debug($_COOKIE['__schoolYear_selected']);
+            $_COOKIE['__schoolYear_selected'];
+
+            return view('dashboard.generate-schedule');
+        } else {
+            return view('home');
+        }
     }
 
     /**

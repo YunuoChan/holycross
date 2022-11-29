@@ -195,8 +195,12 @@ function appendSchoolyearElement(data) {
         elm += '        <div> ';
         elm += '            <label class="mb-0"><strong>S.Y. '+ data.sy_from +' - '+ data.sy_to +'</strong></label> ';
         elm += '        </div> ';
+        if (data.semester == 1) {
+            elm += '        <p class="mb-0">First Semester</p>';
+        } else {
+            elm += '        <p class="mb-0">Second Semester</p>';
+        }
         elm += '        <small>'+ data.user.name +'</small>';
-        // elm += '        <small>'+ data[2] +'</small>';
         elm += '     </div> ';
         elm += '     <div class="d-flex justify-content-center flex-column"> ';
         elm += '        <button type="button" class="btn btn-danger" id="switchSchoolYearTo-'+ data.id +'">Switch</button> ';
@@ -227,7 +231,12 @@ function loadSchoolyearRecordToEdit() {
         // }
     }).then(function(data) {
         console.log('fetchAdminSchoolyearTable: ', data);
-        $('#selectSYDashboradSidebar').text('S.Y. '+data.schoolyearEdit.sy_from +' - ' +  data.schoolyearEdit.sy_to);
+
+        if (data.schoolyearEdit.semester == 1) {
+            $('#selectSYDashboradSidebar').text('S.Y. '+data.schoolyearEdit.sy_from +' - ' +  data.schoolyearEdit.sy_to + ' | First Semester');
+        } else {
+            $('#selectSYDashboradSidebar').text('S.Y. '+data.schoolyearEdit.sy_from +' - ' +  data.schoolyearEdit.sy_to + ' | Second Semester');
+        }
 
     }).fail(function(error) {
         console.log('Backend Error', error);
