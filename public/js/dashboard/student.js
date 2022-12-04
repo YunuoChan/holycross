@@ -215,13 +215,13 @@ function tableElement(data) {
         elm += '     <td class="vertical-center">'+ data.name +'</td> ';
         elm += '     <td class="vertical-center">'+ data.course.course_code +'</td> ';
         elm += '     <td class="vertical-center">'+ data.section.section_code +'</td> ';
-        if (data.year_level == 1) {
+        if (data.section.year_level == 1) {
             elm += '     <td class="vertical-center">First Year</td> ';
-        } else  if (data.year_level == 2) {
+        } else  if (data.section.year_level == 2) {
             elm += '     <td class="vertical-center">Second Year</td> ';
-        } else  if (data.year_level == 3) {
+        } else  if (data.section.year_level == 3) {
             elm += '     <td class="vertical-center">Third Year</td> ';
-        } else  if (data.year_level == 4) {
+        } else  if (data.section.year_level == 4) {
             elm += '     <td class="vertical-center">Fourth Year</td> ';
         } else {
             elm += '     <td class="vertical-center">First Year</td> ';
@@ -347,7 +347,7 @@ function initUpdateStudent(id) {
                     label: '<i class="fas fa-times"></i> Cancel'
                 },
                 confirm: {
-                    label: '<i class="fas fa-trash"></i> Yes, Please!'
+                    label: '<i class="fas fa-check"></i> Yes, Please!'
                 }
             },
             callback: function (result) {

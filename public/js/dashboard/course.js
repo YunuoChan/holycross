@@ -167,7 +167,7 @@ function initUpdateCourse(id) {
                     label: '<i class="fas fa-times"></i> Cancel'
                 },
                 confirm: {
-                    label: '<i class="fas fa-trash"></i> Yes, Please!'
+                    label: '<i class="fas fa-check"></i> Yes, Please!'
                 }
             },
             callback: function (result) {

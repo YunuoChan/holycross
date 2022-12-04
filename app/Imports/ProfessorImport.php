@@ -2,10 +2,10 @@
 
 namespace App\Imports;
 
-use App\Models\Student;
+use App\Models\Professor;
 use Maatwebsite\Excel\Concerns\ToModel;
 
-class StudentImport implements ToModel
+class ProfessorImport implements ToModel
 {
     /**
     * @param array $row
@@ -14,15 +14,16 @@ class StudentImport implements ToModel
     */
     public function model(array $row)
     {
-        return new Student([
-            //
-            'student_id_no' => $row['studentId'],
-            'name'          => $row['name'],
-            'section_code'  => $row['sectionCode']
+        return new Professor([
+            // FIELD SHOULD BE IN CSV
+            'professor_id_no' => $row['ProfessorId'],
+            'name'          => $row['Name'],
+            'department'  => $row['Department']
         ]);
+        
     }
 
-     /**
+    /**
     * @return array
     */
     public function rules(): array

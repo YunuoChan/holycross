@@ -14,7 +14,8 @@
                 <div class="mr-4 d-flex justify-content-center flex-column">
                     <h1 class="d-flex justify-content-center flex-column mb-0">SUBJECT</h1>
                 </div>
-                <button type="button" class="btn btn-outline-primary btn-lg" id="addSubjModalCall">Add Subject</button>    
+                <button type="button" class="btn btn-outline-primary btn-lg mr-3" id="addSubjModalCall">Add Subject</button>  
+                <button type="button" class="btn btn-outline-primary btn-lg" id="importCSVSubjectModalCall">Import CSV</button>   
             </div>
         </div>
         <div class="d-flex justify-content-end mb-4">
@@ -81,23 +82,40 @@
             loadSubjectRecord();
             loadCourses('#coursePicker-subject')
             loadCourses('#coursePickerFilter-subject', 1)
+            initUploadNameChange('#customFileSubj', '#uploadCSVSubject');
+
+            var status = '{{ $status }}';
+            var message = '{{ $message }}';
+            var countNotInsert = '{{ $notInserted }}';
+            if (status != '') {
+                if (status == 'success') {
+                    customToaster('Success!', message, status);
+
+                    if (parseInt(countNotInsert) > 0) {
+                        customToaster('Warning', (countNotInsert-1)+' record(s) is duplicated or not valid.', 'warning')
+                    }
+                } else {
+                    customToaster('Failed!', message, status)
+                    customToaster('Warning', 'No record added.', 'warning')
+                }
+            }
         });
 
         function validation() {
-        if ($('#subjectCode').val() == '') {
-            alert('Subject Code is required');
-        }
+            if ($('#subjectCode').val() == '') {
+                alert('Subject Code is required');
+            }
 
-        if ($('#subjectName').val() == '') {
-            alert('Subject Name is required');
-        }
-        if ($('#subjectUnit').val() == '') {
-            alert('Subject Unit is required');
-         
-        if ($('#subjectRoomNo').val() == '') {
-            alert('Room Number is required');
-        }
-    }
+            if ($('#subjectName').val() == '') {
+                alert('Subject Name is required');
+            }
+            if ($('#subjectUnit').val() == '') {
+                alert('Subject Unit is required');
+            }
+            
+            if ($('#subjectRoomNo').val() == '') {
+                alert('Room Number is required');
+            }
         }
 
 
