@@ -6,6 +6,10 @@ $('#coursePickerFilter-subject').on('change', function () {
     loadSubjectRecord();
 });
 
+$('#importCSVSubjectModalCall').on('click', function () {
+    $('#subjectImportModal').modal('toggle');
+})
+
 
 $('#yearLevelFilter-subject').on('change', function () {
     loadSubjectRecord();

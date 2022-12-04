@@ -36,12 +36,16 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(array('prefix' => '/admin'), function () {
 
     // STuDENT IMPORT CSV
-    Route::post('file-import/student', [StudentController::class, 'create'])->name('file-import.student');
-    Route::get('download-samplecsv/student', [StudentController::class, 'getSampleCSV'])->name('download-samplecsv.student');
+    Route::post('file-import/student',          [StudentController::class, 'create'])->name('file-import.student');
+    Route::get('download-samplecsv/student',    [StudentController::class, 'getSampleCSV'])->name('download-samplecsv.student');
 
     // PROFESOR IMPORT CSV
-    Route::post('file-import/professor', [ProfessorController::class, 'importCSV'])->name('file-import.professor');
-    Route::get('download-samplecsv/professor', [ProfessorController::class, 'getSampleCSV'])->name('download-samplecsv.professor');
+    Route::post('file-import/professor',        [ProfessorController::class, 'importCSV'])->name('file-import.professor');
+    Route::get('download-samplecsv/professor',  [ProfessorController::class, 'getSampleCSV'])->name('download-samplecsv.professor');
+
+    // SUBJECT IMPORT CSV
+    Route::post('file-import/subject',          [SubjectController::class, 'importCSV'])->name('file-import.subject');
+    Route::get('download-samplecsv/subject',    [SubjectController::class, 'getSampleCSV'])->name('download-samplecsv.subject');
 
     // SCHOOL YEAR
     Route::get('/schoolyear/get', [SchoolyearController::class, 'index'])->name('fetch-schoolyear');

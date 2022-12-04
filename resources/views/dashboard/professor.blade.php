@@ -69,6 +69,22 @@
             loadCourses('#coursePickerFilter-professor', 1);
             loadProfessorRecord();
             initUploadNameChange('#customFileProf', '#uploadCSVProfessor');
+
+            var status = '{{ $status }}';
+            var message = '{{ $message }}';
+            var countNotInsert = '{{ $notInserted }}';
+            if (status != '') {
+                if (status == 'success') {
+                    customToaster('Success!', message, status);
+
+                    if (parseInt(countNotInsert) > 0) {
+                        customToaster('Warning', (countNotInsert-1)+' record(s) is duplicated or not valid.', 'warning')
+                    }
+                } else {
+                    customToaster('Failed!', message, status)
+                    customToaster('Warning', 'No record added.', 'warning')
+                }
+            }
         });
     </script>
   

@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use App\Imports\StudentImport;
 use App\Models\Section;
+use Session;
 
 class StudentController extends Controller
 {
@@ -22,7 +23,10 @@ class StudentController extends Controller
             Log::debug($_COOKIE['__schoolYear_selected']);
             $_COOKIE['__schoolYear_selected'];
 
-            return view('dashboard.student');
+            $message = Session::get('csv_message_student');
+            $status = Session::get('csv_status_student');
+            $notInserted = Session::get('csv_notinserted_student');
+            return view('dashboard.student', compact('message', 'status', 'notInserted'));
         } else {
             return view('home');
         }
@@ -65,7 +69,9 @@ class StudentController extends Controller
 
             if (!$request->file) {
                 Log::debug('Student.create');
-                return redirect()->route('student')->with('fail', 'No CSV File added');
+                $message = 'Invalid CSV File';
+                $status = 'error';
+                return redirect()->route('student')->with(['csv_message_student' => $message, 'csv_status_student' => $status, 'csv_notinserted_student' => 0]);
             }
 
             
@@ -73,48 +79,70 @@ class StudentController extends Controller
             $studentRecords = \Excel::toArray(new StudentImport, $request->file);
         
             $alreadyExist = 0;
+            $isInvalid = 0;
+            $notInsertedCount = 0;
             foreach($studentRecords[0] as $index => $record) {
-                if ($index > 0) {
-                    $isStudentExist = Student::where('student_id_no', $record[0])
+                if (count($record) == 3) {
+                    if ($index > 0) {
+                        $isStudentExist = Student::where('student_id_no', $record[0])
+                                            ->where('schoolyear_id', $schoolYearId)
+                                            ->where('status', 'ACT')
+                                            ->count();
+
+                        if ($isStudentExist) {
+                            $alreadyExist++;
+                        }
+
+                        $section = Section::where('section_code', $record[2])
                                         ->where('schoolyear_id', $schoolYearId)
-                                        ->where('status', 'ACT')
-                                        ->count();
+                                        ->where('status', 'ACT')->first();
+                        
+                        $sectionId = null;
+                        $courseId = null;
+                        if ($section) {
+                            $sectionId = $section->id;
+                            $courseId = $section->course_id;
+                        }
 
-                    if ($isStudentExist) {
-                        $alreadyExist++;
+                        $userId                 = auth()->user()->id;
+
+
+                        if ($isStudentExist < 1 && $section) {
+                            $student = new Student();
+                            $student->name              = $record[1];
+                            $student->student_id_no     = $record[0];
+                            $student->year_level        = 1;
+                            $student->section_id        = $sectionId;
+                            $student->course_id         = $courseId;
+                            $student->schoolyear_id     = $schoolYearId;
+                            $student->user_id           = $userId;
+                            $student->created_at        = Carbon::now();
+                            $student->save();
+                        } else {
+                            $notInsertedCount++;
+                        }
+                    } else {
+                        if ($record[0] != 'studentId' || $record[1] != 'name' || $record[2] != 'sectionCode') {
+                            $isInvalid++;
+                            break;
+                        }
                     }
-
-                    $section = Section::where('section_code', $record[2])
-                                    ->where('schoolyear_id', $schoolYearId)
-                                    ->where('status', 'ACT')->first();
-                    
-                    $sectionId = null;
-                    $courseId = null;
-                    if ($section) {
-                        $sectionId = $section->id;
-                        $courseId = $section->course_id;
-                    }
-
-                    $userId                 = auth()->user()->id;
-
-
-                    if ($isStudentExist < 1 && $section) {
-                        $student = new Student();
-                        $student->name              = $record[1];
-                        $student->student_id_no     = $record[0];
-                        $student->year_level        = 1;
-                        $student->section_id        = $sectionId;
-                        $student->course_id         = $courseId;
-                        $student->schoolyear_id     = $schoolYearId;
-                        $student->user_id           = $userId;
-                        $student->created_at        = Carbon::now();
-                        $student->save();
-                    }
+                } else {
+                    $isInvalid++;
+                    break;
                 }
             }
 
 
-            return redirect()->route('student')->with('success', 'User Imported Successfully!');
+            if ($isInvalid > 0) {
+                $message = 'Invalid CSV File';
+                $status = 'error';
+                return redirect()->route('student')->with(['csv_message_student' => $message, 'csv_status_student' => $status, 'csv_notinserted_student' => 0]);
+            } else {
+                $message = 'CSV Imported Successfully!';
+                $status = 'success';
+                return redirect()->route('student')->with(['csv_message_student' => $message, 'csv_status_student' => $status, 'csv_notinserted_student' => $notInsertedCount]);
+            }
         } catch (\Throwable $th) {
             Log::debug('Student.store');
             Log::debug($th);

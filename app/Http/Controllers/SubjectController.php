@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-
+use App\Models\Course;
+use App\Imports\SubjectImport;
 use Carbon\Carbon;
+use Session;
+
 
 class SubjectController extends Controller
 {
@@ -21,7 +24,10 @@ class SubjectController extends Controller
             Log::debug($_COOKIE['__schoolYear_selected']);
             $_COOKIE['__schoolYear_selected'];
 
-            return view('dashboard.subject');
+            $message = Session::get('csv_message_subject');
+            $status = Session::get('csv_status_subject');
+            $notInserted = Session::get('csv_notinserted_subject');
+            return view('dashboard.subject', compact('message', 'status', 'notInserted'));
         } else {
             return view('home');
         }
@@ -234,6 +240,111 @@ class SubjectController extends Controller
             ], 200);
 
         } catch (\Throwable $th) {
+            return response()->json([
+                'error'	=> $th
+            ], 500);
+        }
+    }
+
+
+    public function getSampleCSV() 
+    {
+         return response()->download(public_path('download/CSVTemplate-Subject.csv'));
+    }
+
+    public function importCSV(Request $request) {
+        try {
+            $schoolYearId = null;
+            if(isset($_COOKIE['__schoolYear_selected'])) {
+                $schoolYearId = $_COOKIE['__schoolYear_selected'];
+            } else {
+                return response()->json([
+                    'error'	=> 'Invalid Schoolyear!'
+                ], 500);
+            }
+
+            if (!$request->file) {
+                Log::debug('prof.importCSV');
+                $message = 'Invalid CSV File';
+                $status = 'error';
+                return redirect()->route('subject')->with(['csv_message_subject' => $message, 'csv_status_subject' => $status, 'csv_notinserted_subject' => 0]);
+            }
+
+            
+            // CONVERT CSV TO ARRAY
+            $subjectRecords = \Excel::toArray(new SubjectImport, $request->file);
+            Log::debug($subjectRecords );
+        
+
+            $isInvalid = 0;
+            $notInsertedCount = 0;
+            foreach($subjectRecords[0] as $index => $record) {
+                if (count($record) == 7) {
+                    if ($index > 0) {
+
+                        $userId                 = auth()->user()->id;
+                        $course = Course::where('course_code', $record[2])
+                                        ->where('status', 'ACT')
+                                        ->first();
+    
+                        $courseId = null;
+                        if ($course) {
+                            $courseId = $course->id;
+                        }
+                       
+                        $timeConsume = (($record[4] / 15) * 0.25);
+    
+                        // SAVE IF EXIST
+                        if ($course) {
+                            $isSubjExist =  Subject::where('subject_code', $record[0])
+                                                    ->where('year_level', $record[3])
+                                                    ->where('status', 'ACT')
+                                                    ->where('course_id', $courseId)
+                                                    ->count();
+                            if ($isSubjExist < 1) {
+                                $subject = new Subject();
+                                $subject->subject           = $record[1];
+                                $subject->subject_code      = $record[0];
+                                $subject->year_level        = $record[3];
+                                $subject->unit              = $record[6];
+                                $subject->time_to_consume   = $timeConsume;
+                                $subject->schoolyear_id     = $schoolYearId;
+                                $subject->course_id         = $courseId;
+                                $subject->room_no           = $record[5];
+                                $subject->user_id           = $userId;
+                                $subject->created_at        = Carbon::now();
+                                $subject->save();
+                            } else {
+                                $notInsertedCount++;
+                            }
+                        } else {
+                            $notInsertedCount++;
+                        }
+                    } else {
+                        if ($record[0] != 'SubjectCode' || $record[1] != 'SubjectName' || $record[2] != 'Course' || $record[3] != 'YearLevel' || $record[4] != 'TimeConsumeInMinute' || $record[5] != 'RoomNo' || $record[6] != 'Unit') {
+                            $isInvalid++;
+                            break;
+                        }
+                    }
+                } else { 
+                    $isInvalid++;
+                    break;
+                   
+                }
+            }
+
+            if ($isInvalid > 0) {
+                $message = 'Invalid CSV File';
+                $status = 'error';
+                return redirect()->route('subject')->with(['csv_message_subject' => $message, 'csv_status_subject' => $status, 'csv_notinserted_subject' => 0]);
+            } else {
+                $message = 'CSV Imported Successfully!';
+                $status = 'success';
+                return redirect()->route('subject')->with(['csv_message_subject' => $message, 'csv_status_subject' => $status, 'csv_notinserted_subject' => $notInsertedCount]);
+            }
+            
+        } catch (\Throwable $th) {
+            Log::debug($th);
             return response()->json([
                 'error'	=> $th
             ], 500);
