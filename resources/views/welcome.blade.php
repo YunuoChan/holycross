@@ -105,7 +105,7 @@
                                         <div class="mr-3 w-25">
                                             <div class="card">
                                                 <div class="d-flex justify-content-center my-5">
-                                                    <img class="card-img-top w-50" src="/img/logo.jpg" alt="Holy Cross Student" height="auto">
+                                                    <img class="card-img-top w-50" src="/img/logo1.jpg" alt="Holy Cross Student" height="auto">
                                                 </div>
                                                 <div class="card-body py-0 px-4 pb-5 d-none" id="profInfo">
                                                     <p class="card-title font-35-rem mb-0"><strong><span id="professorName">John Doe</span></strong></p>
@@ -165,7 +165,7 @@
                                         <div class="mr-3 w-25">
                                             <div class="card">
                                                 <div class="d-flex justify-content-center my-5">
-                                                    <img class="card-img-top w-50" src="/img/logo.jpg" alt="Holy Cross Student" height="auto">
+                                                    <img class="card-img-top w-50" src="" alt="Holy Cross Student" height="auto">
                                                 </div>
                                                 <div class="card-body py-0 px-4 pb-5 d-none" id="studentInfo">
                                                     <p class="card-title font-35-rem mb-0"><strong><span id="studentName">John Doe</span></strong></p>

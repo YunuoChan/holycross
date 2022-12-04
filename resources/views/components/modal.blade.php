@@ -387,7 +387,7 @@
           <div class="d-flex justify-content-start mb-3">
             <div class="form-group mr-3">
               <div class="d-flex">
-                <img class="card-img-top w-15 h-15" src="/img/logo.jpg" alt="Holy Cross Student" height="auto">
+                <img class="card-img-top w-15 h-15" src="/img/logo1.jpg" alt="Holy Cross Student" height="auto">
                 <div class="ml-3 d-flex justify-content-center flex-column">
                   <div>
                     <h3 id="profName"></h3>

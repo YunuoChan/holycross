@@ -4,7 +4,7 @@
             <a href="{{ route('landing-welcome') }}" class="navbar-brand white-color" title="Holy Cross College">
                 <div class="d-flex">
                     <div class="mr-2">
-                        <img src="/img/logo.jpg"  style="width: 50px; height: 50px" class="rounded-circle"/>
+                        <img src="/img/logo1.jpg"  style="width: 50px; height: 50px" />
                     </div>
                     <div class="d-flex justify-content-center flex-column">
                         <h4 style="font-size: 2.5rem;">Holy Cross College</h4>
