@@ -117,6 +117,7 @@ class SectionController extends Controller
                                 ->when($keyword, function ($query) use ($keyword) {
                                     return $query->whereRaw('CONCAT(section, section_code) like "%'. $keyword .'%"');
                                 })
+                                ->where('status', 'ACT')
                                 ->where('schoolyear_id', $schoolYearId)
                                 ->orderBy('status', 'ASC')
                                 ->orderBy('id', 'DESC')

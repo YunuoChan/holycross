@@ -254,3 +254,15 @@ function initOncallModalSwitch() {
 }
 
 
+
+function initUploadNameChange(id, btnId) {
+    $(id).change(function(){
+        $(id + 'Label').html($(this).val().split("\\").splice(-1,1)[0] || "Choose file");     
+        console.log($(this).val().split("\\").splice(-1,1)[0]);
+        if ($(this).val().split("\\").splice(-1,1)[0] != BLANK) {
+            $(btnId).prop('disabled', false);
+        } else {
+            $(btnId).prop('disabled', true)
+        }
+     });
+}

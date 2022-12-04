@@ -14,7 +14,8 @@
                 <div class="mr-4 d-flex justify-content-center flex-column">
                     <h1 class="d-flex justify-content-center flex-column mb-0">PROFESSOR</h1>
                 </div>
-                <button type="button" class="btn btn-outline-primary btn-lg mr-3" id="addProfessorModalCall">Add Professor</button>    
+                <button type="button" class="btn btn-outline-primary btn-lg mr-3" id="addProfessorModalCall">Add Professor</button>   
+                <button type="button" class="btn btn-outline-primary btn-lg" id="importCSVProfessorModalCall">Import CSV</button> 
             </div>
         </div>
         <div class="d-flex justify-content-end mb-4">
@@ -67,6 +68,7 @@
             loadCourses('#coursePicker-professor');
             loadCourses('#coursePickerFilter-professor', 1);
             loadProfessorRecord();
+            initUploadNameChange('#customFileProf', '#uploadCSVProfessor');
         });
     </script>
   

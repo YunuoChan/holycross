@@ -124,6 +124,7 @@ class SubjectController extends Controller
                                 ->when($keyword, function ($query) use ($keyword) {
                                     return $query->whereRaw('CONCAT(subject, subject_code, room_no) like "%'. $keyword .'%"');
                                 })
+                                ->where('status', 'ACT')
                                 ->with('course')
                                 ->where('schoolyear_id', $schoolYearId)
                                 ->orderBy('status', 'ASC')

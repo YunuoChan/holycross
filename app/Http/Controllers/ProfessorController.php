@@ -6,7 +6,9 @@ use App\Models\Professor;
 use App\Models\ProfessorSubject;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Imports\ProfessorImport;
 use Illuminate\Support\Facades\Log;
+use App\Models\Course;
 
 class ProfessorController extends Controller
 {
@@ -279,4 +281,70 @@ class ProfessorController extends Controller
 			], 500);
 		}
     }
+
+    public function getSampleCSV() 
+    {
+         return response()->download(public_path('download/CSVTemplate-Professor.csv'));
+    }
+
+    public function importCSV(Request $request) {
+        try {
+            $schoolYearId = null;
+            if(isset($_COOKIE['__schoolYear_selected'])) {
+                $schoolYearId = $_COOKIE['__schoolYear_selected'];
+            } else {
+                return response()->json([
+                    'error'	=> 'Invalid Schoolyear!'
+                ], 500);
+            }
+
+            if (!$request->file) {
+                Log::debug('prof.importCSV');
+                return redirect()->route('professor')->with('fail', 'No CSV File added');
+            }
+
+            
+            // CONVERT CSV TO ARRAY
+            $profRecords = \Excel::toArray(new ProfessorImport, $request->file);
+        
+            foreach($profRecords[0] as $index => $record) {
+                if ($index > 0) {
+
+                    $userId                 = auth()->user()->id;
+                    $isProfExist =  Professor::where('professor_id_no', $record[0])
+                                    ->where('status', 'ACT')
+                                    ->count();
+
+                    $course = Course::where('course_code', $record[2])
+                                    ->where('status', 'ACT')
+                                    ->first();
+                    
+                    $courseId = null;
+                    if ($course) {
+                        $courseId = $course->id;
+                    }
+
+                    // SAVE IF EXIST
+                    if ($isProfExist < 1 && $course) {
+                        $professor = new Professor();
+                        $professor->name              = $record[1];
+                        $professor->professor_id_no   = $record[0];
+                        $professor->course_id         = $courseId;
+                        $professor->user_id           = $userId;
+                        $professor->created_at        = Carbon::now();
+                        $professor->save();
+                    }
+                }
+            }
+
+
+            return redirect()->route('professor')->with('success', 'User Imported Successfully!');
+        } catch (\Throwable $th) {
+            Log::debug($th);
+            return response()->json([
+                'error'	=> $th
+            ], 500);
+        }
+    }
+
 }

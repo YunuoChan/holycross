@@ -83,6 +83,7 @@
         loadSectionRecord();
         loadStudentRecord();
         studentCoursePickOnChange();
+        initUploadNameChange('#customFile', '#uploadCSVStudent');
     });
 
     function validation() {

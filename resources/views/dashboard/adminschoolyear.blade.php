@@ -67,7 +67,7 @@
                 }
             }
 
-            loadSchoolyearRecord();
+            loadSchoolyearRecordAdmin();
         });
     </script>
   
