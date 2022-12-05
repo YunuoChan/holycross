@@ -57,7 +57,7 @@ $('#saveNewSy').on('click', function() {
         }
     }).then(function(data) {
         console.log('fetchUsers: ', data);
-        loadSchoolyearRecord();
+        loadSchoolyearRecordAdmin();
         $('#addSchoolYearRecord').modal('hide');
         successSave();
     }).fail(function(error) {
@@ -220,7 +220,7 @@ function setActiveSy(id, sy) {
             id : id
         }
     }).then(function(data) {
-        loadSchoolyearRecord();
+        loadSchoolyearRecordAdmin();
         $('#activeSYSidebar').text(sy);
         $('#activeSYSidebarIndicator').show();
         successUpdate();
@@ -267,7 +267,7 @@ function deleteSy(id) {
     }).then(function(data) {
         localStorage.setItem('__schoolYear_selected', id);
         setCookie('__schoolYear_selected', id, 1);
-        loadSchoolyearRecord();
+        loadSchoolyearRecordAdmin();
         successUpdate();
         
     }).fail(function(error) {
