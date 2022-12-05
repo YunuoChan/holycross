@@ -94,18 +94,67 @@ div.inputIDFrom:valid a#clear-btn {
     background-size: cover;
 }
 
+.w-75-screen {
+    width: 75%;
+}
+
+.division-mx {
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+
 @media screen and (max-width: 300px){
     div.inputIDFrom {
+        width: 90% !important;
+    }
+    
+    .display-sm-sched {
+        display: none !important; 
+    }
+     
+    .division-mx {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+
+    .w-75-screen {
         width: 100%;
     }
     
 }
+
+@media screen and (max-width: 500px){
+    div.inputIDFrom {
+        width: 80% !important;
+    }
+    
+    .display-sm-sched {
+        display: none !important; 
+    }
+
+    .division-mx {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    .w-75-screen {
+        width: 100%;
+    }
+    
+}
+
 
 @media screen and (max-width: 700px){
 	div.inputIDFrom {
         width: 80%;
     }
     
+    .display-sm-sched {
+        display: none !important; 
+    }
+
+    .w-75-screen {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 1000px){
@@ -151,3 +200,61 @@ div.inputIDFrom:valid a#clear-btn {
 .font-s-3rem {
     font-size: 3rem !important;
 }
+
+.tableFixHead {
+    overflow: auto;
+    height: 300px;
+  }
+
+
+
+nav .nav-content {
+    height: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #16104d !important;
+    color: white !important;
+}
+
+.navbar .dropdown-menu .dropdown-item {
+    position: relative;
+    padding: 10px 20px;
+    color: #fff;
+    /* font-size: 1.4rem; */
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+    transition: color 0.2s ease-in;
+  }
+
+
+.navbar .dropdown-menu {
+    padding: 0;
+    background-color: rgba(0, 0, 0, .9);
+  }
+
+  .navbar .dropdown-menu .dropdown-item:hover {
+    background: transparent;
+    color: #6c5ee4;
+  }
+
+  .navbar .dropdown-menu .dropdown-item::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    width: 5px;
+    background-color: #2b19c9;
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+  }

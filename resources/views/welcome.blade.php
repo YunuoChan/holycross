@@ -35,40 +35,46 @@
             <section id="content">
                 <div class="bg-sy" style="background-image: url('/img/hcc-front.jpg');">
                     <div class="bg-opacity">
-                        <div class="container" style="height: 200vh; background-color: rgb(223 222 222 / 70%);">
+                        <div class="container" style="height: 150vh; background-color: rgb(223 222 222 / 70%);">
                             <div class="mt-5" id="chooseFinderDiv">
                                 <div class="d-flex justify-content-center mt-5">
                                     <h1>
                                         WELCOME TO HCC!
                                     </h1>
                                 </div>
-                                <div class="d-flex justify-content-center mt-5">
-                                    <div class="d-flex justify-content-center w-30 mx-3" id="iAmStudentDiv">
-                                        <div class="iam-border">
-                                            <img class="card-img-top" src="/img/student.png"  alt="Card image cap">
-                                            <div class="iam-px-50  mb-5">
-                                                <div class="text-center">
-                                                    <h3 class="font-s-3rem">
-                                                        I AM STUDENT
-                                                    </h3>
-                                                    <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+                                <div class="d-flex justify-content-center">
+                                    <div class="w-75">
+                                        <div class="row justify-content-md-center">
+                                            {{-- I AM STUDENT --}}
+                                            <div class="col col-lg-4 my-3" id="iAmStudentDiv">
+                                                <div class="iam-border">
+                                                    <img class="card-img-top" src="/img/student.png"  alt="Card image cap">
+                                                    <div class="iam-px-50  mb-5">
+                                                        <div class="text-center">
+                                                            <h3 class="font-s-3rem">
+                                                                I AM STUDENT
+                                                            </h3>
+                                                            <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- I AM TEACHER --}}
+                                            <div class="col col-lg-4 my-3" id="iAmProfDiv">
+                                                <div class="iam-border">
+                                                    <img class="card-img-top" src="/img/teacher.png"  alt="Card image cap">
+                                                    <div class="iam-px-50  mb-5">
+                                                        <div class="text-center">
+                                                            <h3 class="font-s-3rem">
+                                                                I AM TEACHER
+                                                            </h3>
+                                                            <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> 
-                                    <div class="d-flex justify-content-center w-30 mx-3" id="iAmProfDiv">
-                                        <div class="iam-border">
-                                            <img class="card-img-top" src="/img/teacher.png"  alt="Card image cap">
-                                            <div class="iam-px-50  mb-5">
-                                                <div class="text-center">
-                                                    <h3 class="font-s-3rem">
-                                                        I AM TEACHER
-                                                    </h3>
-                                                    <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                             
@@ -161,8 +167,8 @@
                                     <div class="d-flex justify-content-center mb-3">
                                         <h1>View Your Shedule</h1>
                                     </div>
-                                    <div class="d-flex justify-content-center mb-5 mx-5">
-                                        <div class="mr-3 w-25">
+                                    <div class="d-flex justify-content-center mb-5 division-mx">
+                                        <div class="mr-3 w-25 display-sm-sched">
                                             <div class="card">
                                                 <div class="d-flex justify-content-center my-5">
                                                     <img class="card-img-top w-50" src="" alt="Holy Cross Student" height="auto">
@@ -175,20 +181,23 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <table class="table w-75">
-                                            <thead class="sched-head">
-                                              <tr>
-                                                <th width="13%" scope="col" class="vertical-center uppercase">Subject</th>
-                                                <th width="15%" scope="col" class="vertical-center uppercase">Section</th>
-                                                <th width="10%" scope="col" class="vertical-center uppercase">Days</th>
-                                                <th width="18%"scope="col" class="vertical-center uppercase">Time</th>
-                                                <th width="15%" scope="col" class="vertical-center uppercase">Professor</th>
-                                                <th width="10%" scope="col" class="vertical-center uppercase">Room</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody id="studentScheduleTable">
-                                            </tbody>
-                                        </table>
+                                        <div class="tableFixHead w-75-screen">
+                                            <table class="table">
+                                                <thead class="sched-head">
+                                                  <tr>
+                                                    <th width="13%" scope="col" class="vertical-center uppercase">Subject</th>
+                                                    <th width="15%" scope="col" class="vertical-center uppercase">Section</th>
+                                                    <th width="10%" scope="col" class="vertical-center uppercase">Days</th>
+                                                    <th width="18%"scope="col" class="vertical-center uppercase">Time</th>
+                                                    <th width="15%" scope="col" class="vertical-center uppercase">Professor</th>
+                                                    <th width="10%" scope="col" class="vertical-center uppercase">Room</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody id="studentScheduleTable">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
