@@ -176,6 +176,12 @@ class GenerateScheduleController extends Controller
                                     $course->where('status', 'ACT')
                                         ->with(['generatedSchedules' => function($course) use ($schoolYearId) {
                                             $course->where('status', 'ACT')
+                                                ->with(['professorSubject' => function($subject) {
+                                                    $subject->where('status', 'ACT')
+                                                    ->with(['professor' => function($subject) {
+                                                        $subject->where('status', 'ACT');
+                                                    }]);
+                                                }])
                                                 ->where('schoolyear_id', $schoolYearId);
                                         }])
                                         ->with(['subject' => function($course) use ($schoolYearId) {
