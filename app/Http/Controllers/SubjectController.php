@@ -300,17 +300,18 @@ class SubjectController extends Controller
                                                     ->where('year_level', $record[3])
                                                     ->where('status', 'ACT')
                                                     ->where('course_id', $courseId)
+                                                    ->where('schoolyear_id', $schoolYearId)
                                                     ->count();
                             if ($isSubjExist < 1) {
                                 $subject = new Subject();
                                 $subject->subject           = $record[1];
                                 $subject->subject_code      = $record[0];
                                 $subject->year_level        = $record[3];
-                                $subject->unit              = $record[6];
+                                $subject->unit              = $record[5];
                                 $subject->time_to_consume   = $timeConsume;
                                 $subject->schoolyear_id     = $schoolYearId;
                                 $subject->course_id         = $courseId;
-                                $subject->room_no           = $record[5];
+                                $subject->room_no           = $record[4];
                                 $subject->user_id           = $userId;
                                 $subject->created_at        = Carbon::now();
                                 $subject->save();
