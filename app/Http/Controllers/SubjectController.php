@@ -299,6 +299,7 @@ class SubjectController extends Controller
                             $isSubjExist =  Subject::where('subject_code', $record[0])
                                                     ->where('year_level', $record[3])
                                                     ->where('status', 'ACT')
+                                                    ->where('schoolyear_id', $schoolYearId)
                                                     ->where('course_id', $courseId)
                                                     ->where('schoolyear_id', $schoolYearId)
                                                     ->count();

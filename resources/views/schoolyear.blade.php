@@ -9,6 +9,7 @@
         <title>Holy Cross College</title>
         <link href="{{ asset('/css/dashboard.css') }}" rel="stylesheet" type="text/css">
          <link href="{{ asset('/css/schoolyear.css') }}" rel="stylesheet" type="text/css">
+         <link href="{{ asset('/css/search-schedule.css') }}" rel="stylesheet" type="text/css">
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
         <link href="{{ asset('/plugin/jquery-toast/jquery.toast.min.css') }}" rel="stylesheet" type="text/css">
@@ -31,7 +32,9 @@
         @yield('head')
 
     </head>
-    <body>
+    <body class="antialiased">
+        @include('layouts/nav')
+
         <main style="height: 100vh;">
             <section class="p-0" id="content">
                 @yield('content')
@@ -45,7 +48,42 @@
 
     @yield('page-script')
     <script type="text/javascript">
+        $(document).ready(function() {
 
+            $(window).on('scroll', function() {
+                if ($(this).scrollTop() >= 200) {
+                    $('.navbar').addClass('fixed-top');
+                } else if ($(this).scrollTop() == 0) {
+                    $('.navbar').removeClass('fixed-top');
+                }
+            });
+            
+            function adjustNav() {
+                var winWidth = $(window).width(),
+                    dropdown = $('.dropdown'),
+                    dropdownMenu = $('.dropdown-menu');
+                
+                if (winWidth >= 768) {
+                    dropdown.on('mouseenter', function() {
+                        $(this).addClass('show')
+                            .children(dropdownMenu).addClass('show');
+                    });
+                    
+                    dropdown.on('mouseleave', function() {
+                        $(this).removeClass('show')
+                            .children(dropdownMenu).removeClass('show');
+                    });
+                } else {
+                    dropdown.off('mouseenter mouseleave');
+                }
+            }
+            
+            $(window).on('resize', adjustNav);
+            
+            adjustNav();
+
+
+        })
 
      </script>
 </html>

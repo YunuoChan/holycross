@@ -14,6 +14,13 @@
                 </div>
                 <button type="button" class="btn btn-outline-primary btn-lg" id="generateSchedFirstYear">Generate Schedule</button>   
             </div>
+            <div class="d-flex justify-content-end mb-4">
+                {{-- SEARCH --}}                
+                <div class="input-group w-25 mr-3">
+                    <select class="form-control" id="coursePickerFilter-generatedSched">
+                    </select>
+                </div>
+            </div>
             {{-- COURSE PICKER --}}
             {{-- <div class="d-flex justify-content-end">
                 <div class="form-group w-25">
@@ -159,7 +166,8 @@
                 }
             }
 
-            loadCourses('#coursePicker-generate-sched');
+            loadCourses('#coursePicker-generate-sched', 1);
+            loadCourses('#coursePickerFilter-generatedSched', 1);
 
             loadSectionSubjectRecord();
 

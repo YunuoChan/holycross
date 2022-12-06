@@ -62,22 +62,26 @@ class GenerateScheduleController extends Controller
             $userId     = auth()->user()->id;
 
             // GET SECTION LIST
-            $sections = Section::whereHas('course', function($query) use ($course) {
-                            $query->when(is_numeric($course), function ($filter) use ($course) {
-                                return $filter->where('id', $course);
-                            }); 
-                        })
+            $sections = Section::
+                    // whereHas('course', function($query) use ($course) {
+                    //         $query->when(is_numeric($course), function ($filter) use ($course) {
+                    //             return $filter->where('id', $course);
+                    //         }); 
+                    //     })
+                        where('course_id', $course)
                         ->where('schoolyear_id', $schoolYearId)
                         ->where('status', 'ACT')
                         ->where('year_level', $yearLevel)
                         ->get();
 
             // GET SUBJECT LIST
-            $subjects = Subject::whereHas('course', function($query) use ($course) {
-                            $query->when(is_numeric($course), function ($filter) use ($course) {
-                                return $filter->where('id', $course);
-                            }); 
-                        }) 
+            $subjects = Subject::
+            // whereHas('course', function($query) use ($course) {
+            //                 $query->when(is_numeric($course), function ($filter) use ($course) {
+            //                     return $filter->where('id', $course);
+            //                 }); 
+            //             }) 
+                        where('course_id', $course)
                         ->where('schoolyear_id', $schoolYearId)
                         ->where('status', 'ACT')
                         ->where('year_level', $yearLevel)
@@ -93,7 +97,7 @@ class GenerateScheduleController extends Controller
                                         ->pluck('id');
                     
                     // INACTIVE THE EXISTING RECORD
-                    GeneratedSchedule::whereIn('section_subject_id', array($secSubId)) 
+                    GeneratedSchedule::whereIn('section_subject_id', $secSubId) 
                             ->where('status', 'ACT')
                             ->update([
                                 'updated_at'    => Carbon::now(),
@@ -128,6 +132,8 @@ class GenerateScheduleController extends Controller
 				'generatedScheds' => $generatedScheds,
 			], 200);
         } catch (\Throwable $th) {
+            Log::debug('GenerateSched.Store');
+            Log::debug($th);
 			return response()->json([
 				'error'	=> $th
 			], 500);
@@ -161,11 +167,11 @@ class GenerateScheduleController extends Controller
                                 ->with(['course' => function($course) use ($id) {
                                     $course->where('status', 'ACT');
                                 }])
-                                ->whereHas('course', function($query) use ($id) {
-                                    $query->when(is_numeric($id), function ($filter) use ($id) {
-                                        return $filter->where('id', $id);
-                                    }); 
-                                })
+                                // ->whereHas('course', function($query) use ($id) {
+                                //     $query->when(is_numeric($id), function ($filter) use ($id) {
+                                //         return $filter->where('id', $id);
+                                //     }); 
+                                // })
                                 ->with(['sectionSubjects' => function($course) use ($schoolYearId) {
                                     $course->where('status', 'ACT')
                                         ->with(['generatedSchedules' => function($course) use ($schoolYearId) {
@@ -177,6 +183,9 @@ class GenerateScheduleController extends Controller
                                                 ->where('schoolyear_id', $schoolYearId);
                                         }]);
                                 }])
+                                ->when(is_numeric($id), function ($filter) use ($id) {
+                                    return $filter->where('course_id', $id);
+                                })
                                 ->where('schoolyear_id', $schoolYearId)
                                 ->where('status', 'ACT')
                                 ->orderBy('status', 'ASC')
@@ -253,27 +262,31 @@ class GenerateScheduleController extends Controller
 
             
             // GET SECTION LIST
-            $sections = Section::whereHas('course', function($query) use ($id) {
-                                    $query->when(is_numeric($id), function ($filter) use ($id) {
-                                        return $filter->where('id', $id);
-                                    }); 
-                                })
+            $sections = Section::
+            // whereHas('course', function($query) use ($id) {
+            //                         $query->when(is_numeric($id), function ($filter) use ($id) {
+            //                             return $filter->where('id', $id);
+            //                         }); 
+            //                     })
+                                where('course_id', $id)
                                 ->where('schoolyear_id', $schoolYearId)
                                 ->where('status', 'ACT')
                                 ->where('year_level', $yearLevel)
                                 ->get();
 
             // GET SUBJECT LIST
-            $subjects = Subject::whereHas('course', function($query) use ($id) {
-                                    $query->when(is_numeric($id), function ($filter) use ($id) {
-                                        return $filter->where('id', $id);
-                                    }); 
-                                }) 
+            $subjects = Subject::
+                // whereHas('course', function($query) use ($id) {
+                //                     $query->when(is_numeric($id), function ($filter) use ($id) {
+                //                         return $filter->where('id', $id);
+                //                     }); 
+                //                 }) 
+                                where('course_id', $id)
                                 ->where('schoolyear_id', $schoolYearId)
                                 ->where('status', 'ACT')
                                 ->where('year_level', $yearLevel)
                                 ->get();
-            
+
 
             foreach ($sections as $section) {
                 foreach ($subjects as $subject) {
@@ -306,6 +319,7 @@ class GenerateScheduleController extends Controller
 				'sectionSubjs' => $sectionSubjNew,
 			], 200);
         } catch (\Throwable $th) {
+            Log::debug($th);
 			return response()->json([
 				'error'	=> $th
 			], 500);
@@ -330,6 +344,8 @@ class GenerateScheduleController extends Controller
 				'sectionSubjs' => $sectionSubj,
 			], 200);
         } catch (\Throwable $th) {
+            Log::debug('GenerateSched.Get');
+            Log::debug($th);
 			return response()->json([
 				'error'	=> $th
 			], 500);

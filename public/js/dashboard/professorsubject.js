@@ -92,19 +92,19 @@ function tableElement(data) {
                 elm += '        <div> ';
                 elm +=              '<label class="mb-0">'+  subj.generated_sched.section_subject.section.course.course_code +' - '+  subj.generated_sched.section_subject.section.section_code + '</label>';
                 elm += '        </div> ';
-                elm += '        <div> ';
-                    if (data.year_level == 1) {
-                        elm += '     <small>First Year</small>';
-                    } else  if (data.year_level == 2) {
-                        elm += '     <small>Second Year</small>';
-                    } else  if (data.year_level == 3) {
-                        elm += '     <small>Third Year</small>';
-                    } else  if (data.year_level == 4) {
-                        elm += '     <small>Fourth Year</small>';
-                    } else {
-                        elm += '     <small>First Year</small>';
-                    }
-                elm += '        </div> ';
+                // elm += '        <div> ';
+                //     if (data.year_level == 1) {
+                //         elm += '     <small>First Year</small>';
+                //     } else  if (data.year_level == 2) {
+                //         elm += '     <small>Second Year</small>';
+                //     } else  if (data.year_level == 3) {
+                //         elm += '     <small>Third Year</small>';
+                //     } else  if (data.year_level == 4) {
+                //         elm += '     <small>Fourth Year</small>';
+                //     } else {
+                //         elm += '     <small>First Year</small>';
+                //     }
+                // elm += '        </div> ';
                 elm += '     </td> ';
                 elm += '     <td class="vertical-center">'
                 elm += '        <div> ';

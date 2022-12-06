@@ -38,7 +38,7 @@ const DAYS        	= {
 /*---------------------------------
 
 -----------------------------------*/
-function loadCourses(id) {
+function loadCourses(id, isAllExist) {
     // WEB SERVICE CALL 
     $.ajax({
         url:        '/admin/course/get',
@@ -49,7 +49,9 @@ function loadCourses(id) {
         console.log('fetchCourse: ', data);
         if (data.courses.length > 0) {
             $(id).html(BLANK);
-            $(id).append('<option value="all">All Courses</option>');
+            if (isAllExist == 1) {
+                $(id).append('<option value="All">All Department</option>');
+            }
             data.courses.forEach(function(course) {
                 $(id).append('<option value="'+ course.id +'">'+ course.course_code +'</option>');
             })
@@ -88,7 +90,10 @@ function yearCard(section, mark) {
             elm += ' <div class="card border-'+ mark +' my-3"> ';
             elm += '     <div class="card-header"><h3 class="mb-0">'+ section.section_code +'</h3>'+ section.course.course_code +'</div> ';
             elm += '     <div class="card-body text-'+ mark +' p-1"> ';
-            if (section.section_subjects.length > 0) {               
+            if (section.section_subjects.length > 0) {    
+                elm += ' <div class="tableFixHead">';
+
+        
                 elm += ' <table class="table"> ';
                 elm += tableHead();    
                 elm += '    <tbody> ';
@@ -108,6 +113,7 @@ function yearCard(section, mark) {
                 });
                 elm += '    </tbody> ';
                 elm += ' </table> ';
+                elm += ' </div>     ';      
               
             } else {
                 elm += '         <h5 class="card-title ml-3">No schedule generated yet</h5> ';
@@ -120,6 +126,9 @@ function yearCard(section, mark) {
 }
 
 
+$('#coursePickerFilter-generatedSched').on('change', function () {
+    loadSectionSubjectRecord()
+});
 
 /*---------------------------------
 
@@ -132,7 +141,7 @@ function loadSectionSubjectRecord() {
         dataType:   'json',
         headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         data: {
-            courseId : $('#coursePicker-generate-sched').val()
+            courseId : $('#coursePickerFilter-generatedSched').val()
         }
     }).then(function(data) {
         console.log('loadSectionSubjectRecord: ', data);
@@ -310,9 +319,7 @@ function designateSectionAndSchedule(course, yearLevel) {
            
         });
 
-        console.log(DAYS);
-        debugger
-
+        // SAVE GENERATED
         $.ajax({
             url:        '/admin/schedule/generate/save',
             type:       'POST',

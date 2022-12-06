@@ -1,3 +1,15 @@
 .vertical-center {
     vertical-align: middle !important;
 }
+
+
+.tableFixHead {
+    overflow: auto;
+    height: 300px;
+  }
+  
+  .tableFixHead thead th {
+    position: sticky;
+    top: 0;
+  }
+  
