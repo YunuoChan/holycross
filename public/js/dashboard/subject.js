@@ -37,7 +37,7 @@ function loadSubjectRecord() {
         dataType:   'json',
         headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         data:   {
-            courseFilter    : $('#subjectPickerFilter-subject').val(),
+            courseFilter    : $('#coursePickerFilter-subject').val(),
             yearLevelFilter : $('#yearLevelFilter-subject').val(),
             keyword         : keyword.trim()
         }
