@@ -31,6 +31,66 @@ const DAYS        	= {
             id	: 'saturday',
             day	: 'Saturday',
             limit : 8,
+        },
+        {
+            id	: 'monday',
+            day	: 'Monday',
+            limit : 8,
+        },
+        {
+            id	: 'tuesday',
+            day	: 'Tuesday',
+            limit : 8,
+        },
+        {
+            id	: 'wednesday',
+            day	: 'Wednesday',
+            limit : 8,
+        }, 
+        {
+            id	: 'thursday',
+            day	: 'Thursday',
+            limit : 8,
+        },
+        {
+            id	: 'friday',
+            day	: 'Friday',
+            limit : 8,
+        },
+        {
+            id	: 'saturday',
+            day	: 'Saturday',
+            limit : 8,
+        },
+        {
+            id	: 'monday',
+            day	: 'Monday',
+            limit : 8,
+        },
+        {
+            id	: 'tuesday',
+            day	: 'Tuesday',
+            limit : 8,
+        },
+        {
+            id	: 'wednesday',
+            day	: 'Wednesday',
+            limit : 8,
+        }, 
+        {
+            id	: 'thursday',
+            day	: 'Thursday',
+            limit : 8,
+        },
+        {
+            id	: 'friday',
+            day	: 'Friday',
+            limit : 8,
+        },
+        {
+            id	: 'saturday',
+            day	: 'Saturday',
+            limit : 8,
         }
     ]
 };
@@ -106,7 +166,11 @@ function yearCard(section, mark) {
                         elm += '            <td class="vertical-center">TBA </td> ';
                     }
                     elm += '            ';
+<<<<<<< HEAD
                     console.log("string schedule",subject);
+=======
+                    console.log('GEN-SCHED: ', subject.generated_schedules[0]);
+>>>>>>> 1fa067fb6176839beaf9ff2efa30d359839f6cd5
                     elm += '            <td class="vertical-center">'+ subject.generated_schedules[0].from +' - '+ subject.generated_schedules[0].to +'</td> ';
                     elm += '            <td class="vertical-center">TBA </td> ';
                     elm += '            <td class="vertical-center">'+ subject.subject.room_no +' </td> ';
