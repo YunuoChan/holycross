@@ -85,11 +85,12 @@
                             <li  id="li-student" name="dashboard-menu">
                                 <a href="{{ route('student') }}" onclick="selectDashboardMenu('student');" >Student</a>
                             </li>
-                            <li id="li-professor-subjectt" name="dashboard-menu">
-                                <a href="{{ route('professor.subject') }}" onclick="selectDashboardMenu('professor-subject');">Professor Subject</a>
-                            </li>
+                            
                             <li id="li-generate-schedule" name="dashboard-menu">
                                 <a href="{{ route('generate.schedule') }}" onclick="selectDashboardMenu('generate-schedule');" >Generate Schedule</a>
+                            </li>
+                            <li id="li-professor-subject" name="dashboard-menu">
+                                <a href="{{ route('professor.subject') }}" onclick="selectDashboardMenu('professor-subject');">Professor Subject</a>
                             </li>
                         </ul>
 

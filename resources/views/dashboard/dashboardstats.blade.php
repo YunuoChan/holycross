@@ -79,7 +79,7 @@
                                     <div class="px-3 pt-8 pb-10 text-center relative z-10">
                                         <h4 class="font-1rem text-uppercase color-gray mt-4">Cousre</h4>
                                         <h3 class="text-3xl text-gray-700 font-semibold leading-tight my-3" id="dasboardCourseCount"></h3>
-                                        <a href="{{ route('course') }}">See Record<i class="ml-3 fas fa-arrow-circle-right"></i></a>
+                                        <a href="{{ route('manage.course') }}">See Record<i class="ml-3 fas fa-arrow-circle-right"></i></a>
                                     </div>
                                     <div class="absolute bottom-0 inset-x-0">
                                         <canvas id="chart3" height="70"></canvas>

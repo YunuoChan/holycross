@@ -403,9 +403,35 @@
              
             </div>
           </div>
+          <div class="d-flex justify-content-between">
+            <h4>Choose Subject</h4>
+            <div class="d-flex justify-content-end mb-4 w-50">
+                {{-- SEARCH --}}                
+                <div class="input-group w-75 mr-3">
+                    <select class="form-control" id="coursePickerFilter-profsubject">
+                    </select>
+                </div>
+                <div class="input-group w-75">
+                    <select class="form-control" id="yearLevelFilter-profsubject">
+                        <option value="All">All Year Level</option>
+                        <option value="1">First year</option>
+                        <option value="2">Second year</option>
+                        <option value="3">Third year</option>
+                        <option value="4">Fourth year</option>
+                    </select>
+                </div>
+                {{-- <div class="input-group w-25">
+                    <input type="text" class="form-control" id="searchField-profsubject" placeholder="Search.." aria-label="Search.." aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" id="searchBtn-profsubject" type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                </div> --}}
+            </div>
+          </div>
+          
           <div class="tableFixHead form-group">
 
-            <h4>Choose Subject</h4>
+           
             <table class="table">
               <thead class="thead-dark">
                 <tr>

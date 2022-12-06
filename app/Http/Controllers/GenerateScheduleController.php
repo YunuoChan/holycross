@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Section;
 use App\Models\Subject;
 use App\Models\SectionSubject;
+use App\Models\ProfessorSubject;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 class GenerateScheduleController extends Controller
@@ -62,26 +63,14 @@ class GenerateScheduleController extends Controller
             $userId     = auth()->user()->id;
 
             // GET SECTION LIST
-            $sections = Section::
-                    // whereHas('course', function($query) use ($course) {
-                    //         $query->when(is_numeric($course), function ($filter) use ($course) {
-                    //             return $filter->where('id', $course);
-                    //         }); 
-                    //     })
-                        where('course_id', $course)
+            $sections = Section::where('course_id', $course)
                         ->where('schoolyear_id', $schoolYearId)
                         ->where('status', 'ACT')
                         ->where('year_level', $yearLevel)
                         ->get();
 
             // GET SUBJECT LIST
-            $subjects = Subject::
-            // whereHas('course', function($query) use ($course) {
-            //                 $query->when(is_numeric($course), function ($filter) use ($course) {
-            //                     return $filter->where('id', $course);
-            //                 }); 
-            //             }) 
-                        where('course_id', $course)
+            $subjects = Subject::where('course_id', $course)
                         ->where('schoolyear_id', $schoolYearId)
                         ->where('status', 'ACT')
                         ->where('year_level', $yearLevel)
@@ -96,15 +85,30 @@ class GenerateScheduleController extends Controller
                                         ->where('status', 'INA')
                                         ->pluck('id');
                     
+                                         // INACTIVE THE EXISTING RECORD
+                    $generatedSched = GeneratedSchedule::whereIn('section_subject_id', $secSubId)
+                                        ->where('status', 'ACT')
+                                        ->first();
                     // INACTIVE THE EXISTING RECORD
-                    GeneratedSchedule::whereIn('section_subject_id', $secSubId) 
-                            ->where('status', 'ACT')
-                            ->update([
-                                'updated_at'    => Carbon::now(),
-                                'user_id'	    => $userId,
-                                'status'        => 'INA'
-                            ]);
+                    GeneratedSchedule::whereIn('section_subject_id', $secSubId)
+                        ->where('status', 'ACT')
+                        ->update([
+                            'updated_at' => Carbon::now(),
+                            'user_id' => $userId,
+                            'status' => 'INA'
+                        ]);
+
+                    if ($generatedSched) {
+                        ProfessorSubject::where('generated_sched_id', $generatedSched->id)
+                                ->where('status', 'ACT')
+                                ->update([
+                                    'updated_at'    => Carbon::now(),
+                                    'user_id'	    => $userId,
+                                    'status'        => 'INA'
+                                ]);
                     }
+                    
+                }
             }
 
             foreach($data['days'] as $day) {

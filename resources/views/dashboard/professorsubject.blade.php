@@ -61,6 +61,8 @@
     
             // loadCourses('#coursePicker-professorSubject');
             loadProfessorSubjectRecord();
+
+            loadCourses('#coursePickerFilter-profsubject', 1)
         });
     </script>
   

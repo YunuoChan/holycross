@@ -239,8 +239,6 @@ function loadSectionSubjectRecord() {
 
 
 $('#coursePicker-generate-sched').on('change', function() {
-    loadSectionSubjectRecord();
-
     courseOnchange();
 });
 
