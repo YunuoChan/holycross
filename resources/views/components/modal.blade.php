@@ -97,7 +97,7 @@
                 <option value="1">First year</option>
                 <option value="2">Second year</option>
                 <option value="3">Third year</option>
-                <option value="4">Fouth year</option>
+                <option value="4">Fourth year</option>
               </select>
             </div>
           </div>
@@ -177,7 +177,7 @@
               <option value="1">First year</option>
               <option value="2">Second year</option>
               <option value="3">Third year</option>
-              <option value="4">Fouth year</option>
+              <option value="4">Fourth year</option>
             </select>
           </div>
         </form>
@@ -256,7 +256,7 @@
               <option value="1">First year</option>
               <option value="2">Second year</option>
               <option value="3">Third year</option>
-              <option value="4">Fouth year</option>
+              <option value="4">Fourth year</option>
             </select>
           </div>
         </form>
@@ -308,7 +308,7 @@
                 <option value="1">First year</option>
                 <option value="2">Second year</option>
                 <option value="3">Third year</option>
-                <option value="4">Fouth year</option>
+                <option value="4">Fourth year</option>
               </select>
              
             </div>

@@ -251,17 +251,17 @@ class StudentController extends Controller
                                 $section->where('status', 'ACT')
                                 ->where('schoolyear_id', $schoolYearId);
                             }])
-                            ->whereHas('course', function($query) {
-                                $query->where('status', 'ACT');
+                            ->whereHas('course', function($course) {
+                                $course->where('status', 'ACT');
                             })
-                            ->whereHas('section', function($query) {
-                                $query->where('status', 'ACT');
+                            ->whereHas('section', function($section) use ($yearLevel){
+                                $section->where('status', 'ACT')
+                                ->when(is_numeric($yearLevel), function ($query) use ($yearLevel) {
+                                    return $query->where('year_level', $yearLevel);
+                                });
                             })
                             ->when(is_numeric($courseFilter), function ($query) use ($courseFilter) {
                                 return $query->where('course_id', $courseFilter);
-                            })
-                            ->when(is_numeric($yearLevel), function ($query) use ($yearLevel) {
-                                return $query->where('year_level', $yearLevel);
                             })
                             ->when($keyword, function ($query) use ($keyword) {
                                 return $query->whereRaw('CONCAT(student_id_no, name) like "%'. $keyword .'%"');

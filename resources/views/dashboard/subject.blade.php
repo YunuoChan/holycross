@@ -30,7 +30,7 @@
                     <option value="1">First year</option>
                     <option value="2">Second year</option>
                     <option value="3">Third year</option>
-                    <option value="4">Fouth year</option>
+                    <option value="4">Fourth year</option>
                 </select>
             </div>
             <div class="input-group w-25">
