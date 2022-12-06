@@ -28,7 +28,7 @@ class HomeController extends Controller
             Log::debug($_COOKIE['__schoolYear_selected']);
             $_COOKIE['__schoolYear_selected'];
 
-            return view('dashboard');
+            return view('dashboard.dashboardstats');
         } else {
             return view('home');
         }

@@ -286,6 +286,56 @@ class ProfessorController extends Controller
 		}
     }
 
+
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function getScheduleApi($prof)
+    {
+        try {
+
+            $professor = Professor::with(['course' => function($course) {
+                                        $course->where('status', 'ACT');
+                                    }])
+                                    ->with(['professorSubjects' => function($professorSubject) {
+                                        $professorSubject->whereHas('schoolyear', function($query) {
+                                            $query->where('is_active', 1);
+                                        })
+                                    ->with(['generatedSched' => function($genSched) {
+                                        $genSched->where('status', 'ACT')
+                                        ->with(['sectionSubject' => function($sectSubj) {
+                                            $sectSubj->where('status', 'ACT')
+                                            ->with(['section' => function($section) {
+                                                $section->where('status', 'ACT');
+                                            }])
+                                            ->with(['subject' => function($subject) {
+                                                $subject->where('status', 'ACT');
+                                            }]);
+                                        }]);
+                                    }])
+                                    ->where('status', 'ACT');
+                                }])
+                                ->where('professor_id_no', $prof)
+                                ->where('status', 'ACT')
+                                ->get();
+
+
+
+
+            return response()->json([
+				'professor' => $professor
+			], 200);
+        } catch (\Throwable $th) {
+			return response()->json([
+				'error'	=> $th
+			], 500);
+		}
+    }
+
     public function getSampleCSV() 
     {
          return response()->download(public_path('download/CSVTemplate-Professor.csv'));

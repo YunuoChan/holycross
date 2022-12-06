@@ -466,4 +466,66 @@ class StudentController extends Controller
 		}
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function getScheduleApi($student)
+    {
+        try {
+
+            $students = Student::with(['course' => function($course) {
+                                $course->where('status', 'ACT');
+                            }])
+                            ->with(['section' => function($course) {
+                                $course->where('status', 'ACT')
+                                    ->with(['sectionSubjects' => function($course) {
+                                        $course->where('status', 'ACT')
+                                            ->with(['generatedSchedules' => function($genSched) {
+                                                $genSched->where('status', 'ACT')
+                                                    ->orderBy('day', 'ASC')
+                                                    ->with(['professorSubject' => function($subject) {
+                                                        $subject->where('status', 'ACT')
+                                                        ->with(['professor' => function($subject) {
+                                                            $subject->where('status', 'ACT');
+                                                        }]);
+                                                    }]);
+                                            }])
+                                            ->with(['subject' => function($subject) {
+                                                $subject->where('status', 'ACT');
+                                            }]);
+                                    }])
+                                    ->whereHas('schoolyear', function($query) {
+                                        $query->where('is_active', 1)
+                                            ->where('status', 'ACT');
+                                    })
+                                    ->with('schoolyear');
+                            }])
+                            ->whereHas('schoolyear', function($query) {
+                                $query->where('is_active', 1)
+                                    ->where('status', 'ACT');
+                            })
+                            ->whereHas('course', function($query) {
+                                $query->where('status', 'ACT');
+                            })
+                            ->whereHas('section', function($query) {
+                                $query->where('status', 'ACT');
+                            })
+                            ->where('student_id_no', $student)
+                            ->orderBy('status', 'ASC')
+                            ->orderBy('id', 'DESC')
+                            ->first();
+
+            return response()->json([
+				'students' => $students
+			], 200);
+        } catch (\Throwable $th) {
+			return response()->json([
+				'error'	=> $th
+			], 500);
+		}
+    }
+
 }
