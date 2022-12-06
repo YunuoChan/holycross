@@ -235,7 +235,7 @@ function initCallFunctionToAssignSubject(profSubjId) {
         $('#toAssignSubject').html(BLANK);
         toAssignSubject = [];
         initSaveProfSubject(profSubjId);
-        $('#toAssignSubject').append(showNoDataAvalable());
+        $('#toAssignSubject').append(showNoDataTableAvalable());
     });
 }
 
@@ -366,7 +366,7 @@ function initRemoveAssigned(id) {
         $('#addSubjectToAssign-'+ id).removeClass('d-none');
 
         if (toAssignSubject.length < 1) {
-            $('#toAssignSubject').append(showNoDataAvalable());
+            $('#toAssignSubject').append(showNoDataTableAvalable());
         }
     });
 
@@ -410,7 +410,7 @@ function loadSubjectRecordForModal(profId) {
                 initAddAssignSubject(subj.id)
             });
         } else {
-            $('#appendSubjectTable').append(showNoDataAvalable());
+            $('#appendSubjectTable').append(showNoDataTableAvalable());
         }
         $('#toAssignSubject').html(BLANK);
         if ( data.professor.professor_subjects.length > 0) {
@@ -420,7 +420,7 @@ function loadSubjectRecordForModal(profId) {
                 initRemoveAssignedSubjectToDbModal(subj.id)
             });
         } else {
-            $('#toAssignSubject').append(showNoDataAvalable());
+            $('#toAssignSubject').append(showNoDataTableAvalable());
         }
        
 
@@ -501,6 +501,6 @@ function initRemoveAssignedSubjectToDbApiModal(id) {
 
 function showNoData() {
     if ($('a[name="selectedSubjectFromDb"]').length < 1 && toAssignSubject.length < 1) {
-        $('#toAssignSubject').append(showNoDataAvalable());
+        $('#toAssignSubject').append(showNoDataTableAvalable());
     }
 }
