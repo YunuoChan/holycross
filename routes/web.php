@@ -32,6 +32,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/get/statistics', [App\Http\Controllers\HomeController::class, 'getStatistics'])->name('home.statistics');
+
 
 Route::group(array('prefix' => '/admin'), function () {
 

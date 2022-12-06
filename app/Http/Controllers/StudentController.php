@@ -111,7 +111,7 @@ class StudentController extends Controller
                             $student = new Student();
                             $student->name              = $record[1];
                             $student->student_id_no     = $record[0];
-                            $student->year_level        = 1;
+                            $student->year_level        = $section->year_level;
                             $student->section_id        = $sectionId;
                             $student->course_id         = $courseId;
                             $student->schoolyear_id     = $schoolYearId;
