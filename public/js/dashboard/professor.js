@@ -102,7 +102,7 @@ $('#searchBtn-professor').on('click', function () {
     loadProfessorRecord();
 });
 
-$('#searchField-professor').on('blur', function () {
+$('#searchField-professor').on('blur keyup', function () {
     loadProfessorRecord();
 });
 /*---------------------------------

@@ -166,7 +166,7 @@ $('#searchBtn-student').on('click', function () {
     loadStudentRecord();
 });
 
-$('#searchField-student').on('blur', function () {
+$('#searchField-student').on('blur keyup', function () {
     loadStudentRecord();
 });
 

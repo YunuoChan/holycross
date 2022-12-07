@@ -14,7 +14,7 @@ $('#searchBtn-section').on('click', function () {
    loadSectionRecord();
 });
 
-$('#searchField-section').on('blur', function () {
+$('#searchField-section').on('blur keyup', function () {
    loadSectionRecord();
 });
 

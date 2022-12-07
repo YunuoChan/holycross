@@ -191,7 +191,7 @@ function syElement(data) {
 function initSetActiveSy(id, sy) {
     $('#setActiveSchoolyear-'+ id).on('click', function () {
         bootbox.confirm({
-            title: "Updtate Active Schoolyear?",
+            title: "Update Active Schoolyear?",
             message: "Changing the active record will delete the previously active. Are you sure you want to change the active schoolyear?",
             buttons: {
                 cancel: {

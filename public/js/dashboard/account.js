@@ -14,7 +14,7 @@ $('#searchBtn-account').on('click', function () {
     loadAccounts();
 });
 
-$('#searchField-account').on('blur', function () {
+$('#searchField-account').on('blur keyup', function () {
     loadAccounts();
 });
 

@@ -18,7 +18,7 @@ $('#searchBtn-professorsubject').on('click', function () {
     loadProfessorSubjectRecord();
 });
 
-$('#searchField-professorsubject').on('blur', function () {
+$('#searchField-professorsubject').on('blur keyup', function () {
     loadProfessorSubjectRecord();
 });
 

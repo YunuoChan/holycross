@@ -55,7 +55,7 @@ $('#searchBtn-course').on('click', function () {
     loadCoursesData();
 });
 
-$('#searchField-course').on('blur', function () {
+$('#searchField-course').on('blur keyup', function () {
     loadCoursesData();
 });
 
