@@ -168,8 +168,16 @@ function yearCard(section, mark) {
                     elm += '            ';
                     
                     elm += '            <td class="vertical-center">'+ subject.generated_schedules[0].from +' - '+ subject.generated_schedules[0].to +'</td> ';
-                    elm += '            <td class="vertical-center">TBA </td> ';
-                    elm += '            <td class="vertical-center">'+ subject.subject.room_no +' </td> ';
+                    if (subject.generated_schedules[0].professor_subject) {
+                        elm += '     <td class="vertical-center">'+ subject.generated_schedules[0].professor_subject.professor.name +'</td> ';
+                    } else {
+                        elm += '     <td class="vertical-center">TBA</td> ';
+                    }
+                    if (subject.subject.room_no != BLANK) {
+                        elm += '            <td class="vertical-center">'+ subject.subject.room_no +' </td> ';
+                    } else {
+                        elm += '     <td class="vertical-center">TBA</td> ';
+                    }
                     elm += '        </tr> ';
                 });
                 elm += '    </tbody> ';
@@ -177,7 +185,7 @@ function yearCard(section, mark) {
                 elm += ' </div>     ';      
               
             } else {
-                elm += '         <h5 class="card-title ml-3">No schedule generated yet</h5> ';
+                elm += '         <h5 class="card-title ml-3">No schedule generated yet..</h5> ';
             }
             elm += '     </div> ';
             elm += ' </div> ';
@@ -231,8 +239,6 @@ function loadSectionSubjectRecord() {
 
 
 $('#coursePicker-generate-sched').on('change', function() {
-    loadSectionSubjectRecord();
-
     courseOnchange();
 });
 

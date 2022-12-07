@@ -215,6 +215,8 @@ class ProfessorSubjectController extends Controller
                 ], 500);
             }
             $id = $request->profId;
+            $courseD = $request->course;
+            $yrLvl = $request->yearLvl;
             
             $professor = Professor::with('course')
                             ->with(['professorSubjects' => function($subj) use ($schoolYearId) {
@@ -241,19 +243,32 @@ class ProfessorSubjectController extends Controller
                             })
                             ->where('id', $id)
                             ->first();
-            $subjectLists = GeneratedSchedule::with(['sectionSubject' => function($course) {
-                                $course->where('status', 'ACT')
-                                    ->with(['subject' => function($course) {
-                                        $course->where('status', 'ACT');
+            $subjectLists = GeneratedSchedule::with(['sectionSubject' => function($sectionSubject) {
+                                $sectionSubject->where('status', 'ACT')
+                                    ->with(['subject' => function($subject) {
+                                        $subject->where('status', 'ACT');
                                        
                                     }])
-                                    ->with(['section' => function($course) {
-                                        $course->where('status', 'ACT') 
+                                    
+                                    ->with(['section' => function($section) {
+                                        $section->where('status', 'ACT') 
                                         ->with(['course' => function($course) {
                                             $course->where('status', 'ACT');
                                         }]);
                                     }]);
                             }])
+                            ->whereHas('sectionSubject', function($sectionSubject) use ($yrLvl, $courseD){
+                                $sectionSubject->whereHas('section', function($section) use ($yrLvl, $courseD){
+                                    $section->where('status', 'ACT')
+                                    ->when(is_numeric($courseD), function ($query) use ($courseD) {
+                                        return $query->where('course_id', $courseD);
+                                    })
+                                    ->when(is_numeric($yrLvl), function ($query) use ($yrLvl) {
+                                        return $query->where('year_level', $yrLvl);
+                                    })
+                                    ->where('status', 'ACT');
+                                });
+                            })
                             ->where('schoolyear_id', $schoolYearId)
                             ->where('status', 'ACT')
                             ->get();

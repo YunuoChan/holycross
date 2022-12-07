@@ -1,0 +1,11 @@
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.color-gray {
+    color: rgb(162, 161, 161);
+}
+
+.font-1rem {
+    font-size: 1rem;
+}

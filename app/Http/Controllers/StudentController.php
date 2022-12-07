@@ -111,7 +111,7 @@ class StudentController extends Controller
                             $student = new Student();
                             $student->name              = $record[1];
                             $student->student_id_no     = $record[0];
-                            $student->year_level        = 1;
+                            $student->year_level        = $section->year_level;
                             $student->section_id        = $sectionId;
                             $student->course_id         = $courseId;
                             $student->schoolyear_id     = $schoolYearId;
@@ -251,17 +251,17 @@ class StudentController extends Controller
                                 $section->where('status', 'ACT')
                                 ->where('schoolyear_id', $schoolYearId);
                             }])
-                            ->whereHas('course', function($query) {
-                                $query->where('status', 'ACT');
+                            ->whereHas('course', function($course) {
+                                $course->where('status', 'ACT');
                             })
-                            ->whereHas('section', function($query) {
-                                $query->where('status', 'ACT');
+                            ->whereHas('section', function($section) use ($yearLevel){
+                                $section->where('status', 'ACT')
+                                ->when(is_numeric($yearLevel), function ($query) use ($yearLevel) {
+                                    return $query->where('year_level', $yearLevel);
+                                });
                             })
                             ->when(is_numeric($courseFilter), function ($query) use ($courseFilter) {
                                 return $query->where('course_id', $courseFilter);
-                            })
-                            ->when(is_numeric($yearLevel), function ($query) use ($yearLevel) {
-                                return $query->where('year_level', $yearLevel);
                             })
                             ->when($keyword, function ($query) use ($keyword) {
                                 return $query->whereRaw('CONCAT(student_id_no, name) like "%'. $keyword .'%"');
@@ -414,6 +414,68 @@ class StudentController extends Controller
         try {
 
             $student = $request->studentId;
+            $students = Student::with(['course' => function($course) {
+                                $course->where('status', 'ACT');
+                            }])
+                            ->with(['section' => function($course) {
+                                $course->where('status', 'ACT')
+                                    ->with(['sectionSubjects' => function($course) {
+                                        $course->where('status', 'ACT')
+                                            ->with(['generatedSchedules' => function($genSched) {
+                                                $genSched->where('status', 'ACT')
+                                                    ->orderBy('day', 'ASC')
+                                                    ->with(['professorSubject' => function($subject) {
+                                                        $subject->where('status', 'ACT')
+                                                        ->with(['professor' => function($subject) {
+                                                            $subject->where('status', 'ACT');
+                                                        }]);
+                                                    }]);
+                                            }])
+                                            ->with(['subject' => function($subject) {
+                                                $subject->where('status', 'ACT');
+                                            }]);
+                                    }])
+                                    ->whereHas('schoolyear', function($query) {
+                                        $query->where('is_active', 1)
+                                            ->where('status', 'ACT');
+                                    })
+                                    ->with('schoolyear');
+                            }])
+                            ->whereHas('schoolyear', function($query) {
+                                $query->where('is_active', 1)
+                                    ->where('status', 'ACT');
+                            })
+                            ->whereHas('course', function($query) {
+                                $query->where('status', 'ACT');
+                            })
+                            ->whereHas('section', function($query) {
+                                $query->where('status', 'ACT');
+                            })
+                            ->where('student_id_no', $student)
+                            ->orderBy('status', 'ASC')
+                            ->orderBy('id', 'DESC')
+                            ->first();
+
+            return response()->json([
+				'students' => $students
+			], 200);
+        } catch (\Throwable $th) {
+			return response()->json([
+				'error'	=> $th
+			], 500);
+		}
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function getScheduleApi($student)
+    {
+        try {
+
             $students = Student::with(['course' => function($course) {
                                 $course->where('status', 'ACT');
                             }])

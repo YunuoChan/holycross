@@ -39,24 +39,6 @@
                         </div>
                     </div>
                     <div class="row mx-3" id="firstYearSectionDiv">
-                        <div class="col col-lg-4">
-                            <div class="card border-success my-3">
-                                <div class="card-header">Header</div>
-                                <div class="card-body text-success">
-                                    <h5 class="card-title">Success card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col col-lg-4">
-                            <div class="card border-success my-3">
-                                <div class="card-header">Header</div>
-                                <div class="card-body text-success">
-                                    <h5 class="card-title">Success card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -68,24 +50,6 @@
                         </div>
                     </div>
                     <div class="row mx-3" id="secondYearSectionDiv">
-                        <div class="col col-lg-4">
-                            <div class="card border-success my-3">
-                                <div class="card-header">Header</div>
-                                <div class="card-body text-success">
-                                    <h5 class="card-title">Success card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col col-lg-4">
-                            <div class="card border-success my-3">
-                                <div class="card-header">Header</div>
-                                <div class="card-body text-success">
-                                    <h5 class="card-title">Success card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -97,24 +61,6 @@
                         </div>
                     </div>
                     <div class="row mx-3" id="thirdYearSectionDiv">
-                        <div class="col col-lg-4">
-                            <div class="card border-success my-3">
-                                <div class="card-header">Header</div>
-                                <div class="card-body text-success">
-                                    <h5 class="card-title">Success card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col col-lg-4">
-                            <div class="card border-success my-3">
-                                <div class="card-header">Header</div>
-                                <div class="card-body text-success">
-                                    <h5 class="card-title">Success card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 {{-- FOURTH --}}
@@ -125,24 +71,6 @@
                         </div>
                     </div>
                     <div class="row mx-3" id="fourthYearSectionDiv">
-                        <div class="col col-lg-4">
-                            <div class="card border-success my-3">
-                                <div class="card-header">Header</div>
-                                <div class="card-body text-success">
-                                    <h5 class="card-title">Success card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col col-lg-4">
-                            <div class="card border-success my-3">
-                                <div class="card-header">Header</div>
-                                <div class="card-body text-success">
-                                    <h5 class="card-title">Success card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 

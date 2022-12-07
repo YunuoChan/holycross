@@ -1,6 +1,7 @@
 const BLANK = '';
 
 var toAssignSubject = [];
+var curProf = null;
 
 
 function assignSubjectInit(id) {
@@ -60,6 +61,39 @@ function loadProfessorSubjectRecord() {
     });
 }
 
+
+
+/*---------------------------------
+
+-----------------------------------*/
+function loadCourses(id, isAllExist) {
+    // WEB SERVICE CALL 
+    $.ajax({
+        url:        '/admin/course/get',
+        type:       'GET',
+        dataType:   'json',
+        headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        // data:   {
+        
+        // }
+    }).then(function(data) {
+        console.log('fetchCourse: ', data);
+        $(id).html(BLANK);
+        if (data.courses.length > 0) {
+            if (isAllExist == 1) {
+                $(id).append('<option value="All">All Course</option>');
+            }
+            data.courses.forEach(function(course) {
+                $(id).append('<option value="'+ course.id +'">'+ course.course_code +'</option>');
+            })
+        } else {
+            $(id).append('<option value="0">No course found in redord</option>');
+        }
+    }).fail(function(error) {
+        console.log('Backend Error', error);
+        internalServerError();
+    });
+}
 
 
 /*---------------------------------
@@ -196,11 +230,12 @@ function initCallFunctionToAssignSubject(profSubjId) {
         $('#professorSubjectModalBtn').html(BLANK);
         $('#professorSubjectModalBtn').append(btnModalElement('addProfessorSubjectBtn-'+ profSubjId, 'Assign Subject'));
         loadSubjectRecordForModal(profSubjId)
+        curProf = profSubjId;
         $('#addProfessorSubjectRecord').modal('toggle');
         $('#toAssignSubject').html(BLANK);
         toAssignSubject = [];
         initSaveProfSubject(profSubjId);
-        $('#toAssignSubject').append(showNoDataAvalable());
+        $('#toAssignSubject').append(showNoDataTableAvalable());
     });
 }
 
@@ -244,13 +279,13 @@ function appendSubjectTable(id) {
 function tableElementSubject(data) {
     var elm = BLANK;
         elm += ' <tr class="pointer scroll-xy" id="addSubjectToAssign-'+ data.id +'" data-id="'+ data.id +'" data-value="'+ data.section_subject.subject.subject_code +'='+ data.day +', '+ data.from +' - '+ data.to +'='+ data.section_subject.section.course.course_code +' - '+ data.section_subject.section.section_code +'"> ';
-        if (data.year_level == 1) {
+        if (data.section_subject.section.year_level == 1) {
             elm += '     <td class="vertical-center">First Year</td> ';
-        } else  if (data.year_level == 2) {
+        } else  if (data.section_subject.section.year_level == 2) {
             elm += '     <td class="vertical-center">Second Year</td> ';
-        } else  if (data.year_level == 3) {
+        } else  if (data.section_subject.section.year_level == 3) {
             elm += '     <td class="vertical-center">Third Year</td> ';
-        } else  if (data.year_level == 4) {
+        } else  if (data.section_subject.section.year_level == 4) {
             elm += '     <td class="vertical-center">Fourth Year</td> ';
         } else {
             elm += '     <td class="vertical-center">First Year</td> ';
@@ -296,6 +331,7 @@ function initAddAssignSubject(id) {
 function resetAssignModal() {
     $('#toAssignSubject').html(BLANK);
     toAssignSubject = [];
+    curProf = null;
 }
 
 function appendSelectedSubject(data, id) {
@@ -330,11 +366,21 @@ function initRemoveAssigned(id) {
         $('#addSubjectToAssign-'+ id).removeClass('d-none');
 
         if (toAssignSubject.length < 1) {
-            $('#toAssignSubject').append(showNoDataAvalable());
+            $('#toAssignSubject').append(showNoDataTableAvalable());
         }
     });
 
 }
+
+
+$('#yearLevelFilter-profsubject').on('change', function () {
+    loadSubjectRecordForModal(curProf);
+});
+
+
+$('#coursePickerFilter-profsubject').on('change', function () {
+    loadSubjectRecordForModal(curProf);
+});
 
 /*---------------------------------
 
@@ -347,7 +393,9 @@ function loadSubjectRecordForModal(profId) {
         dataType:   'json',
         headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         data:   {
-            profId : profId
+            profId : profId,
+            course : $('#coursePickerFilter-profsubject').val(),
+            yearLvl : $('#yearLevelFilter-profsubject').val()
         }
     }).then(function(data) {
         console.log('fetchProfTable: ', data);
@@ -362,7 +410,7 @@ function loadSubjectRecordForModal(profId) {
                 initAddAssignSubject(subj.id)
             });
         } else {
-            $('#appendSubjectTable').append(showNoDataAvalable());
+            $('#appendSubjectTable').append(showNoDataTableAvalable());
         }
         $('#toAssignSubject').html(BLANK);
         if ( data.professor.professor_subjects.length > 0) {
@@ -372,7 +420,7 @@ function loadSubjectRecordForModal(profId) {
                 initRemoveAssignedSubjectToDbModal(subj.id)
             });
         } else {
-            $('#toAssignSubject').append(showNoDataAvalable());
+            $('#toAssignSubject').append(showNoDataTableAvalable());
         }
        
 
@@ -453,6 +501,6 @@ function initRemoveAssignedSubjectToDbApiModal(id) {
 
 function showNoData() {
     if ($('a[name="selectedSubjectFromDb"]').length < 1 && toAssignSubject.length < 1) {
-        $('#toAssignSubject').append(showNoDataAvalable());
+        $('#toAssignSubject').append(showNoDataTableAvalable());
     }
 }

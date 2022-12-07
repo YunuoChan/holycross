@@ -32,6 +32,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/get/statistics', [App\Http\Controllers\HomeController::class, 'getStatistics'])->name('home.statistics');
+
 
 Route::group(array('prefix' => '/admin'), function () {
 
@@ -143,9 +145,11 @@ Route::group(array('prefix' => '/admin'), function () {
 
 
 Route::group(array('prefix' => '/student'), function () {
-    Route::get('/schedule/get',              [StudentController::class, 'getSchedule'])->name('student.schedule');
+    Route::get('/schedule/get/',              [StudentController::class, 'getSchedule'])->name('student.schedule');
+    Route::get('/api/schedule/get/{studentId}',              [StudentController::class, 'getScheduleApi'])->name('professor.schedule.api');
 });
 
 Route::group(array('prefix' => '/professor'), function () {
     Route::get('/schedule/get',              [ProfessorController::class, 'getSchedule'])->name('professor.schedule');
+    Route::get('/api/schedule/get/{profId}',              [ProfessorController::class, 'getScheduleApi'])->name('professor.schedule.api');
 });
