@@ -224,8 +224,7 @@ class SchoolyearController extends Controller
                     ->update([
                         'updated_at'    => Carbon::now(),
                         'user_id'	    => $userId,
-                        'is_active'     => 1,
-                        'status'        => 'INA'
+                        'is_active'     => 0,
                     ]);
         
             $schoolyear                    = Schoolyear::find($id);

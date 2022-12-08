@@ -423,7 +423,8 @@ class StudentController extends Controller
                                         $course->where('status', 'ACT')
                                             ->with(['generatedSchedules' => function($genSched) {
                                                 $genSched->where('status', 'ACT')
-                                                    ->orderBy('day', 'ASC')
+                                                    
+                                                    // ->orderByRaw('DAY(day)')
                                                     ->with(['professorSubject' => function($subject) {
                                                         $subject->where('status', 'ACT')
                                                         ->with(['professor' => function($subject) {
@@ -431,6 +432,10 @@ class StudentController extends Controller
                                                         }]);
                                                     }]);
                                             }])
+                                            ->whereHas('generatedSchedules', function($query) {
+                                                $query->orderByRaw('DAY(day)');
+                                            })
+                                            
                                             ->with(['subject' => function($subject) {
                                                 $subject->where('status', 'ACT');
                                             }]);
@@ -452,14 +457,15 @@ class StudentController extends Controller
                                 $query->where('status', 'ACT');
                             })
                             ->where('student_id_no', $student)
-                            ->orderBy('status', 'ASC')
-                            ->orderBy('id', 'DESC')
+                            // ->orderBy('status', 'ASC')
+                            // ->orderBy('id', 'DESC')
                             ->first();
 
             return response()->json([
 				'students' => $students
 			], 200);
         } catch (\Throwable $th) {
+            Log::debug($th);
 			return response()->json([
 				'error'	=> $th
 			], 500);

@@ -165,7 +165,7 @@ function loadSchoolyearRecordActive() {
             var activeCount = 0;
             $('#schoolyearListOnModal').html('');
             data.schoolyears.forEach(function(schoolyear) {
-                if (schoolyear.is_active == 0) {
+               
                     if (schoolyear.id != localStorage.getItem('__schoolYear_selected')) {
                         $('#schoolyearListOnModal').append(appendSchoolyearElement(schoolyear));
                         initSwitchSY(schoolyear.id)
@@ -173,9 +173,19 @@ function loadSchoolyearRecordActive() {
                 
                     if (schoolyear.id == localStorage.getItem('__schoolYear_selected')) {
                         $('#currentSYToModal').text('S.Y. '+ schoolyear.sy_from + ' - ' + schoolyear.sy_to);
+                        if (schoolyear.semester == 1) {
+                            $('#currentSYSemModal').text('First Semester');
+                        } else {
+                            $('#currentSYSemModal').text('Second Semester');
+                        }
                     }
-                } else {
+                if (schoolyear.is_active == 1) {
                     $('#activeSYToModal').text('S.Y. '+ schoolyear.sy_from + ' - ' + schoolyear.sy_to);
+                    if (schoolyear.semester == 1) {
+                        $('#activeSYSemModal').text('First Semester');
+                    } else {
+                        $('#activeSYSemModal').text('Second Semester');
+                    }
                 }
             });
         } 
@@ -188,7 +198,6 @@ function loadSchoolyearRecordActive() {
 
 
 function appendSchoolyearElement(data) {
-    console.log(data);
     var elm = '';
         elm += ' <a id="schoolyear-'+ data.id +'" class="list-group-item list-group-item-action list-group-item-info d-flex justify-content-between"> ';
         elm += '     <div class="d-flex justify-content-center flex-column"> ';

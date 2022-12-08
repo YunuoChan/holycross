@@ -538,11 +538,15 @@
           <div class="d-flex justify-content-start mb-3">
             <div class="col-lg-6 px-0">
               <small class="mb-0">Current</small> 
-              <h4 id="currentSYToModal"></h4> 
+              <h4 id="currentSYToModal" class="mb-0"></h4> 
+              <small class="text-muted sub-title" id="currentSYSemModal">
+              </small> 
             </div>
             <div class="col-lg-6 px-0">
               <small class="mb-0">Active</small> 
-              <h4 id="activeSYToModal"></h4> 
+                <h4 id="activeSYToModal" class="mb-0"></h4> 
+                <small class="text-muted sub-title" id="activeSYSemModal">
+                </small>  
             </div>  
           </div>
 

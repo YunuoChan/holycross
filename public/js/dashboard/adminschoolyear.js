@@ -85,12 +85,12 @@ function loadSchoolyearRecordAdmin() {
         if (data.schoolyears.length > 0) {
             data.schoolyears.forEach(schoolyear => {
 
-                if (localStorage.getItem('__schoolYear_selected') != schoolyear.id) {
+                // if (localStorage.getItem('__schoolYear_selected') != schoolyear.id) {
                     $('#adminSchoolyearTable').append(tableElement(schoolyear));
                     var activeSY = 'S.Y. '+ schoolyear.sy_from +' - '+ schoolyear.sy_to;
                     initSetActiveSy(schoolyear.id, activeSY);
                     initTrashSy(schoolyear.id)
-                }
+                // }
                     
                 if (schoolyear.is_active == 1) {
                     var activeSY = 'S.Y. '+ schoolyear.sy_from +' - '+ schoolyear.sy_to;
@@ -126,16 +126,20 @@ function tableElement(data) {
         }
         elm += '     <td class="vertical-center">'+ data.user.name +'</td> ';
         elm += '     <td class="vertical-center">'+ data.created_at +'</td> ';
-        elm += '     <td class="vertical-center">'+ data.status +'</td> ';
+        // elm += '     <td class="vertical-center">'+ data.status +'</td> ';
         elm += '     <td class="vertical-center"> ';
         var cur = new Date().getFullYear();
         if (parseInt(cur) < parseInt(data.sy_to)) {
             elm += '        <div class="d-flex justify-content-start">'
             if (data.status == 'ACT') {
-                elm += '         <button type="button" class="btn btn-success mx-1" id="setActiveSchoolyear-'+ data.id +'"><i class="fas fa-edit"></i>Set As Active</button> ';
-                // if (localStorage.getItem('__schoolYear_selected') != data.id) {
+                if (data.is_active == 0) {
+                    elm += '         <button type="button" class="btn btn-success mx-1" id="setActiveSchoolyear-'+ data.id +'"><i class="fas fa-edit"></i>Set As Active</button> ';
+              
                     elm += '         <button type="button" class="btn btn-danger" id="trashSchoolyear-'+ data.id +'"><i class="fas fa-trash"></i></i>Delete</button> ';
-                // }
+                } else {
+                    elm += '         <small>This School Year is currently Active.</small>';
+                }
+
             }
             elm += '        </div>'
         }
@@ -191,8 +195,8 @@ function syElement(data) {
 function initSetActiveSy(id, sy) {
     $('#setActiveSchoolyear-'+ id).on('click', function () {
         bootbox.confirm({
-            title: "Update Active Schoolyear?",
-            message: "Changing the active record will delete the previously active. Are you sure you want to change the active schoolyear?",
+            title: "Updtate Active Schoolyear?",
+            message: "Are you sure you want to change the active schoolyear?",
             buttons: {
                 cancel: {
                     label: '<i class="fas fa-times"></i> Cancel'

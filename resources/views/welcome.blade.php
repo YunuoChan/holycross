@@ -26,50 +26,58 @@
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     </head>
-    <body class="antialiased">
-        {{-- INCLUDE NAV --}}
-        @include('layouts/nav')
-
-
+    <body class="antialiased bg-sy" style="background-image: url('/img/bgnew.jpeg');">
         <main style="font-size: 1.6rem !important;">
-            <section id="content">
-                <div class="bg-sy" style="background-image: url('/img/hcc-front.jpg');">
-                    <div class="bg-opacity">
-                        <div class="container" style="height: 150vh; background-color: rgb(223 222 222 / 70%);">
-                            <div class="mt-5" id="chooseFinderDiv">
-                                <div class="d-flex justify-content-center mt-5">
-                                    <h1>
-                                        WELCOME TO HCC!
-                                    </h1>
+            <section id="content my-5">
+                <div class="containter my-5">
+                        <div class="d-flex justify-content-center">
+                            <div id="timedate" class="display-sm-sched ">
+                                <div id="time" class="d-flex justify-content-center" style="font-size:80px;">
                                 </div>
-                                <div class="d-flex justify-content-center">
-                                    <div class="w-75">
-                                        <div class="row justify-content-md-center">
-                                            {{-- I AM STUDENT --}}
-                                            <div class="col col-lg-4 my-3" id="iAmStudentDiv">
-                                                <div class="iam-border">
-                                                    <img class="card-img-top" src="/img/student.png"  alt="Card image cap">
-                                                    <div class="iam-px-50  mb-5">
-                                                        <div class="text-center">
-                                                            <h3 class="font-s-3rem">
-                                                                I AM STUDENT
-                                                            </h3>
-                                                            <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                                                        </div>
+                                <div class="d-flex justify-content-center" id="date" style="font-size:30px;" >
+                                </div>
+                            </div>                            
+                        </div>
+                    <div id="homeView">
+                        <div class="d-flex justify-content-center">
+                            <div>
+                                <img class="card-img-top w-15 h-15" src="/img/logo-new.png" alt="Holy Cross Student" height="200px" width="200px">
+                            </div>
+                        </div>
+                        
+                        <div id="chooseFinderDiv" class="pt-5">
+                            <div class="d-flex justify-content-center">
+                                <h1>
+                                    WELCOME TO HCC!
+                                </h1>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <div class="w-75">
+                                    <div class="row justify-content-md-center">
+                                        {{-- I AM STUDENT --}}
+                                        <div class="col col-lg-4 my-3" id="iAmStudentDiv">
+                                            <div class="iam-border">
+                                                <img class="card-img-top" src="/img/student.png"  alt="Card image cap">
+                                                <div class="iam-px-50 mb-5">
+                                                    <div class="text-center">
+                                                        <h3 class="font-s-3rem">
+                                                            I AM STUDENT
+                                                        </h3>
+                                                        <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- I AM TEACHER --}}
-                                            <div class="col col-lg-4 my-3" id="iAmProfDiv">
-                                                <div class="iam-border">
-                                                    <img class="card-img-top" src="/img/teacher.png"  alt="Card image cap">
-                                                    <div class="iam-px-50  mb-5">
-                                                        <div class="text-center">
-                                                            <h3 class="font-s-3rem">
-                                                                I AM TEACHER
-                                                            </h3>
-                                                            <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                                                        </div>
+                                        </div>
+                                        {{-- I AM TEACHER --}}
+                                        <div class="col col-lg-4 my-3" id="iAmProfDiv">
+                                            <div class="iam-border">
+                                                <img class="card-img-top" src="/img/teacher.png"  alt="Card image cap">
+                                                <div class="iam-px-50  mb-5">
+                                                    <div class="text-center">
+                                                        <h3 class="font-s-3rem">
+                                                            I AM TEACHER
+                                                        </h3>
+                                                        <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -77,145 +85,147 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                        </div>    
+                    </div>
 
-                            {{-- FIND PROFESSOR SCHED --}}
-                            <div class="d-none" id="findProfDiv">
-                                <div class="d-flex justify-content-center mt-5">
-                                    <div class="text-center">
-                                        <img class="card-img-top w-50" src="/img/teacher.png"  alt="Card image cap">
-                                        <h3 class="font-s-3rem">
-                                            I AM PROFESSOR
-                                        </h3>
-                                        <p id="syLabelShowProfessor" class="mb-0"></p>
-                                        <p id="syLabelShowProfessorSemester"></p>
+
+                   
+                    <div class="d-none" id="findProfDiv">
+                        <div class="d-flex justify-content-center mt-3">
+                            <div class="text-center">
+                                <img class="card-img-top w-50" src="/img/teacher.png"  alt="Card image cap">
+                                <h3 class="font-s-3rem">
+                                    I AM PROFESSOR
+                                </h3>
+                                <p id="syLabelShowProfessor" class="mb-0"></p>
+                                <p id="syLabelShowProfessorSemester"></p>
+                            </div>
+                        </div>
+
+                        <div class=" d-flex justify-content-center  mb-0">
+                            <div class="d-flex justify-content-center flex-column">
+                                <button class="button button5 mr-2" id="homeBtnSchedProf"><i class="fas fa-home ifont-s"></i></button>                             
+                            </div>
+                            <div class="wrapper">
+                                <div class="searchBar">
+                                    <input id="searchProfId" type="text" name="searchProfId" class="searchQueryInput text-center" placeholder="Your ID Number"/>
+                                    <div>
+                                        <button id="searchProfSubmit" type="submit" class="searchQuerySubmit"  name="searchProfSubmit">
+                                            <i class="fas fa-search"></i>
+                                        </button>
                                     </div>
-                                </div>
-                                <div class="d-flex justify-content-start flex-column mt-5">
-                                    <div class="w-50 inputIDFrom">
-                                        <div class="mb-4">
-                                            <input type="text" id="profIdNo" class="text-center" required placeholder="Input your ID Number">
-                                        </div>
-                                        <div class="d-flex justify-content-center">
-                                            <button type="button" class="btn btn-outline-primary btn-lg mr-3" id="searchSchedprof"><i class="fa fa-search"></i>Find My Schedule</button>  
-                                        </div>
-                                    </div>
-                                </div>
-    
-    
-                                <div class="mt-5 pt-5">
-                                    <div class="d-flex justify-content-center mb-3">
-                                        <h1>View Your Schedule</h1>
-                                    </div>
-                                    <div class="d-flex justify-content-center mb-5 mx-5">
-                                        <div class="mr-3 w-25">
-                                            <div class="card">
-                                                <div class="d-flex justify-content-center my-5">
-                                                    <img class="card-img-top w-50" src="/img/logo1.jpg" alt="Holy Cross Student" height="auto">
-                                                </div>
-                                                <div class="card-body py-0 px-4 pb-5 d-none" id="profInfo">
-                                                    <p class="card-title font-35-rem mb-0"><strong><span id="professorName">John Doe</span></strong></p>
-                                                    <p class="card-text mb-0"><strong><span id="syLabelShowProfessor">S.Y. 2022 - 2023</span></strong></p>
-                                                    <p class="card-text mb-0">Professor No: <strong><span id="professorNo">John Doe</span></strong></p>
-                                                    <p class="card-text mb-0"><strong><span id="professorCourse">BCSS</span></strong></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <table class="table w-75">
-                                            <thead class="sched-head">
-                                              <tr>
-                                                <th width="13%" scope="col" class="vertical-center uppercase">Subject</th>
-                                                <th width="15%" scope="col" class="vertical-center uppercase">Section</th>
-                                                <th width="10%" scope="col" class="vertical-center uppercase">Days</th>
-                                                <th width="18%"scope="col" class="vertical-center uppercase">Time</th>
-                                                <th width="10%" scope="col" class="vertical-center uppercase">Room</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody id="profScheduleTable">
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                   
                                 </div>
                             </div>
                             
-                            {{-- FIND STUDENT SCHED --}}
-                            <div class="d-none" id="findStudentDiv">
+                        </div>
 
-                                <div class="d-flex justify-content-center mt-5">
-                                    <div class="text-center">
-                                        <img class="card-img-top w-50" src="/img/student.png"  alt="Card image cap">
-                                        <h3 class="font-s-3rem">
-                                            I AM STUDENT
-                                        </h3>
-                                        <p id="syLabelShowStudent" class="mb-0"></p>
-                                        <p id="syLabelShowStudentSemester"></p>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center flex-column">
-                                    <div class="w-50 inputIDFrom">
-                                        <div class="mb-4">
-                                            <input type="text" id="studentIdNo" class="text-center" required placeholder="Type your student ID Number">
-                                        </div>
-                                        <div class="d-flex justify-content-center">
-                                            <button type="button" class="btn btn-outline-primary btn-lg mr-3" id="searchSchedStudent"><i class="fa fa-search"></i>Find My Schedule</button>  
-                                        </div>
-                                    </div>
-                                </div>
-    
-    
-                                <div class="mt-5 pt-5">
-                                    <div class="d-flex justify-content-center mb-3">
-                                        <h1>View Your Shedule</h1>
-                                    </div>
-                                    <div class="d-flex justify-content-center mb-5 division-mx">
-                                        <div class="mr-3 w-25 display-sm-sched">
-                                            <div class="card">
-                                                <div class="d-flex justify-content-center my-5">
-                                                    <img class="card-img-top w-50" src="" alt="Holy Cross Student" height="auto">
-                                                </div>
-                                                <div class="card-body py-0 px-4 pb-5 d-none" id="studentInfo">
-                                                    <p class="card-title font-35-rem mb-0"><strong><span id="studentName">John Doe</span></strong></p>
-                                                    <p class="card-text mb-0"><strong><span id="syLabelShow">S.Y. 2022 - 2023</span></strong></p>
-                                                    <p class="card-text mb-0">Student No: <strong><span id="studentNo">John Doe</span></strong></p>
-                                                    <p class="card-text mb-0"><strong><span id="studentCourse">BCSS</span></strong></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tableFixHead w-75-screen">
-                                            <table class="table">
-                                                <thead class="sched-head">
-                                                  <tr>
-                                                    <th width="13%" scope="col" class="vertical-center uppercase">Subject</th>
-                                                    <th width="15%" scope="col" class="vertical-center uppercase">Section</th>
-                                                    <th width="10%" scope="col" class="vertical-center uppercase">Days</th>
-                                                    <th width="18%"scope="col" class="vertical-center uppercase">Time</th>
-                                                    <th width="15%" scope="col" class="vertical-center uppercase">Professor</th>
-                                                    <th width="10%" scope="col" class="vertical-center uppercase">Room</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody id="studentScheduleTable">
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
+                        <div class="mt-5 pt-5 d-none" id="profSchedTable">
+                            <div class="d-flex justify-content-center mb-3 text-center d-none" id="professorNameDiv">
+                                <h1>Hi <span id="professorName"></span>, here's your shedule for this week!</h1>
+                            </div>
+                            <div class="d-flex justify-content-center mb-5 mx-5">
+                                <table class="table w-75">
+                                    <thead class="sched-head">
+                                      <tr>
+                                        <th width="13%" scope="col" class="vertical-center uppercase">Subject</th>
+                                        <th width="15%" scope="col" class="vertical-center uppercase">Section</th>
+                                        <th width="10%" scope="col" class="vertical-center uppercase">Days</th>
+                                        <th width="18%"scope="col" class="vertical-center uppercase">Time</th>
+                                        <th width="10%" scope="col" class="vertical-center uppercase">Room</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="profScheduleTable">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 pt-5" id="profSchedTableFirst">
+                            <div class="d-flex justify-content-center mb-5 mx-5">
+                                <img class="card-img-top w-25 h-25" src="/img/logo-new.png" alt="Holy Cross Student" height="200px" width="200px">
                             </div>
                         </div>
                     </div>
+                    
+                    {{-- FIND STUDENT SCHED --}}
+                    <div class="d-none" id="findStudentDiv">
+
+                        <div class="d-flex justify-content-center mt-3">
+                            <div class="text-center">
+                                <img class="card-img-top w-50" src="/img/student.png"  alt="Card image cap">
+                                <h3 class="font-s-3rem">
+                                    I AM STUDENT
+                                </h3>
+                                <p id="syLabelShowStudent" class="mb-0"></p>
+                                <p id="syLabelShowStudentSemester"></p>
+                            </div>
+                        </div>
+                        <div class=" d-flex justify-content-center  mb-0">
+                            <div class="d-flex justify-content-center flex-column">
+                                <button class="button button5 mr-2" id="homeBtnSchedStudent"><i class="fas fa-home ifont-s"></i></button>                             
+                            </div>
+                            <div class="wrapper">
+                                <div class="searchBar">
+                                    <input id="searchStudentID" type="text" name="searchStudentID" class="searchQueryInput text-center" placeholder="Your Student ID Number"/>
+                                    <div>
+                                        <button id="searchStudentSubmit" type="submit" class="searchQuerySubmit" name="searchStudentSubmit">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" d-flex justify-content-center  mb-0">
+                            <p class="card-text mb-0"><strong><span id="syLabelShow"></span></strong></p>
+                        </div>
+
+
+                        <div class="mt-5 pt-5 d-none" id="studentSchedTable">
+                            <div class="d-flex justify-content-center mb-3 text-center" id="studentNameDiv">
+                                <h1>Hi <span id="studentName"></span>, here's your shedule for this week!</h1>
+                            </div>
+                            <div class="d-flex justify-content-center mb-5 division-mx">
+                                <div class="tableFixHead w-75-screen">
+                                    <table class="table">
+                                        <thead>
+                                          <tr>
+                                            <th width="20%" scope="col" class="vertical-center uppercase th-color">Subject</th>
+                                            <th width="10%" scope="col" class="vertical-center uppercase th-color">Section</th>
+                                            <th width="10%" scope="col" class="vertical-center uppercase th-color">Days</th>
+                                            <th width="18%"scope="col" class="vertical-center uppercase th-color">Time</th>
+                                            <th width="15%" scope="col" class="vertical-center uppercase th-color">Professor</th>
+                                            <th width="5%" scope="col" class="vertical-center uppercase th-color">Room</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="studentScheduleTable">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="mt-5 pt-5" id="studentSchedTableFirst">
+                            <div class="d-flex justify-content-center mb-5 mx-5">
+                                <img class="card-img-top w-25 h-25" src="/img/logo-new.png" alt="Holy Cross Student" height="200px" width="200px">
+                            </div>
+                        </div>
+                    </div>
+                                    
                 </div>
             </section>
         </main>
-
-        {{-- INCLUDE FOOTER --}}
-        @include('layouts/footer')
     </body>
 
     <script>
         $(document).ready(function() {
+            runClock();
             initFinder();
             checkSchedStudent();
             checkSchedProf();
+            loadSchoolyearRecordActive();
             $(window).on('scroll', function() {
                 if ($(this).scrollTop() >= 200) {
                     $('.navbar').addClass('fixed-top');

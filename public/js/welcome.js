@@ -37,7 +37,7 @@ function checkSchedStudent() {
 function checkSchedProf() {
 
     $('#searchSchedprof').on('click', function (e) {
-        var profIdNo = $('#profIdNo').val();
+        var profIdNo = $('#searchProfId').val();
         if (profIdNo.trim() == BLANK) {
             customToaster('Blank ID Number', 'Please input Id Number!', 'error')
             return false;
@@ -60,7 +60,7 @@ function loadProfScheduleRecord() {
         dataType:   'json',
         headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         data:   {
-            professorId : $('#profIdNo').val()
+            professorId : $('#searchProfId').val()
         }
     }).then(function(data) {
         console.log('PROFScheduleTable: ', data);
@@ -70,6 +70,7 @@ function loadProfScheduleRecord() {
             if (data.professor[0].professor_subjects.length > 0) {
                 console.log(data.professor[0].professor_subjects);
                 data.professor[0].professor_subjects.forEach(function(prof) {
+                    $('#professorNameDiv').removeClass('d-none')
                     $('#profScheduleTable').append(tableDatProfElement(prof));
                     $('#professorName').text(data.professor[0].name);
                     $('#professorNo').text(data.professor[0].professor_id_no);
@@ -77,7 +78,8 @@ function loadProfScheduleRecord() {
     
                 });
             } else {
-                $('#profScheduleTable').append(showNoSchedAvalable());
+                $('#professorNameDiv').addClass('d-none')
+                $('#profScheduleTable').append(showNoDataAvalable());
             }
             
         } else {
@@ -113,24 +115,93 @@ function tableDatProfElement(data) {
 
 function initFinder() {
     $('#iAmStudentDiv').on('click', function () {
-        loadSchoolyearRecordActive()
+        
+        $('#homeView').fadeOut();
+        $('#findProfDiv').fadeOut();
+        $('#studentSchedTable').fadeOut();
+        $('#findStudentDiv').fadeIn();
+        $('#studentSchedTableFirst').fadeIn();
+        
         $('#findStudentDiv').removeClass('d-none');
-        $('#chooseFinderDiv').addClass('d-none');
+        $('#homeView').addClass('d-none');
         $('#findProfDiv').addClass('d-none');
+        $('#studentSchedTable').addClass('d-none');
+        $('#searchStudentID').val(BLANK);
         $('#studentScheduleTable').html(BLANK);
         $('#studentScheduleTable').append(showSearchAvalable());
     });
     
     $('#iAmProfDiv').on('click', function () {
-        loadSchoolyearRecordActive()
+        $('#homeView').fadeOut();
+        $('#findStudentDiv').fadeOut();
+        $('#profScheduleTable').fadeOut();
+        $('#findProfDiv').fadeIn();
+        $('#profSchedTableFirst').fadeIn();
+
         $('#findProfDiv').removeClass('d-none');
-        $('#chooseFinderDiv').addClass('d-none');
+        $('#homeView').addClass('d-none');
         $('#findStudentDiv').addClass('d-none');
         $('#profScheduleTable').html(BLANK);
+        $('#profSchedTable').addClass('d-none');
+        
+        $('#searchProfId').val(BLANK);
         $('#profScheduleTable').append(showSearchAvalable());
     });
 
-    
+    $('#searchProfSubmit').on('click', function () {
+        var profId = $('#searchProfId').val();
+        if (profId.trim() == BLANK) {
+            customToaster('Invalid ID Number', 'Please input ID Number!', 'warning');
+            return false;
+        } else {
+            loadProfScheduleRecord();
+            $('#profSchedTableFirst').fadeOut();
+            $('#profSchedTable').fadeIn();
+           
+            setInterval(() => {
+                $('#profSchedTable').removeClass('d-none');
+            }, 500);
+            
+        }
+    });
+
+    $('#searchStudentSubmit').on('click', function () {
+        var profId = $('#searchStudentID').val();
+        if (profId.trim() == BLANK) {
+            customToaster('Invalid ID Number', 'Please input ID Number!', 'warning');
+            return false;
+        } else {
+         
+            loadScheduleRecord();
+            $('#studentSchedTableFirst').fadeOut(); 
+            $('#studentSchedTable').fadeIn();
+            setInterval(() => {
+                $('#studentSchedTable').removeClass('d-none');
+            }, 500);
+           
+        }
+    });
+
+
+    $('#homeBtnSchedProf').on('click', function () {
+        $('#findProfDiv').addClass('d-none');
+        $('#homeView').removeClass('d-none');
+        $('#findStudentDiv').addClass('d-none');
+        $('#homeView').fadeIn();
+        $('#findStudentDiv').fadeOut();
+        $('#findProfDiv').fadeOut();
+        $('#profScheduleTable').html(BLANK);
+    });
+
+    $('#homeBtnSchedStudent').on('click', function () {
+        $('#findProfDiv').addClass('d-none');
+        $('#homeView').removeClass('d-none');
+        $('#homeView').fadeIn();
+        $('#findStudentDiv').fadeOut();
+        $('#findProfDiv').fadeOut();
+        $('#findStudentDiv').addClass('d-none');
+        $('#profScheduleTable').html(BLANK);
+    });
 }
 
 
@@ -214,23 +285,24 @@ function loadScheduleRecord() {
         dataType:   'json',
         headers:    {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         data:   {
-            studentId : $('#studentIdNo').val()
+            studentId : $('#searchStudentID').val()
         }
     }).then(function(data) {
         console.log('studentScheduleTable: ', data);
         $('#studentScheduleTable').html(BLANK);
         if (data.students) {
-            $('#studentInfo').removeClass('d-none');
+            // $('#studentInfo').removeClass('d-none');
+            $('#studentSchedTable').fadeIn();
             data.students.section.section_subjects.forEach(function(student) {
                 $('#studentScheduleTable').append(tableDataElement(student, data.students.section));
+                $('#studentNameDiv').removeClass('d-none');
                 $('#studentName').text(data.students.name);
                 $('#studentNo').text(data.students.student_id_no);
-
                 $('#studentCourse').text(data.students.course.course_code);
-
                 $('#schoolYear').text('S.Y. ' + data.students.section.schoolyear.sy_from +' - '+ data.students.section.schoolyear.sy_to);
             });
         } else {
+            $('#studentNameDiv').addClass('d-none');
             $('#studentInfo').addClass('d-none');
             $('#studentScheduleTable').append(showNoDataAvalable());
             customToaster('No Record Found', 'We can\'t seems to find your record. Please try another ID number', 'info')
@@ -248,7 +320,7 @@ function loadScheduleRecord() {
 function tableDataElement(subject, section) {
     var elm = BLANK;
         elm += ' <tr class="bg-color-cust" height="70px"> ';
-        elm += '     <td class="vertical-center"><div><p class="mb-0">'+ subject.subject.subject_code +' </p><small>'+ subject.subject.subject+'</small></div></th> ';
+        elm += '     <td class="vertical-center"><div><p class="mb-0"><strong>'+ subject.subject.subject_code +' </strong></p><small>'+ subject.subject.subject+'</small></div></th> ';
         elm += '     <td class="vertical-center">'+ section.section_code +'</td> ';
         elm += '     <td class="vertical-center">'+ subject.generated_schedules[0].day +'</td> ';
         elm += '     <td class="vertical-center">'+ subject.generated_schedules[0].from +' - '+ subject.generated_schedules[0].to +'</td> ';
@@ -299,3 +371,32 @@ function loadSchoolyearRecordActive() {
         internalServerError();
     });
 }
+
+
+
+function runClock() {
+    setInterval(function() {
+        var date_obj = new Date();
+        var hour = date_obj.getHours();
+        var minute = date_obj.getMinutes();
+        // AM PM
+        var amPM = (hour > 11) ? "PM" : "AM";
+        // HOUR
+        if (hour > 12) {
+            hour -= 12;
+        } else if(hour == 0) {
+            hour = "12";
+        }
+        // MINUTE
+        if (minute < 10) {
+            minute = "0" + minute;
+        }
+
+        $('#time').html(BLANK);
+        $('#time').append('<span>'+ hour + ' : ' + minute + ' : '+ date_obj.getSeconds() + amPM+'<span>');
+        $('#date').text(date_obj.toDateString());
+        
+    }, 1000);
+
+  }
+  // END CLOCK SCRIPT
