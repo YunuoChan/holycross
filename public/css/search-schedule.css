@@ -528,7 +528,14 @@ input {
     cursor:pointer; 
 }
 
-.iconbutton{
+.fab-container-2{
+    position:fixed;
+    bottom:120px;
+    right:30px;
+    cursor:pointer; 
+}
+
+.iconbutton {
     width:75px;
     height:75px;
     border-radius: 100%;
@@ -538,6 +545,12 @@ input {
 }
         
 .button {
+    width:75px;
+    height:75px;
+    background:#47d4ff;
+}
+
+.button-2 {
     width:75px;
     height:75px;
     background:#47d4ff;

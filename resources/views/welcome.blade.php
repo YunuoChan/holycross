@@ -214,9 +214,15 @@
                         </div>
                     </div>
                           
-                    <div class="fab-container">
-                        <div class="button iconbutton" onclick="window.location.href='/login'">
-                            <i class="fas fa-users-cog"></i>
+                    
+                    <div class="fab-container" title="Login">
+                        <div class="button iconbutton" onclick="window.location.href='/login'" title="Login">
+                            <i class="fas fa-users-cog" title="Login"></i>
+                        </div>
+                    </div>
+                    <div class="fab-container-2" title="HCC Portal">
+                        <div class="button-2 iconbutton" title="HCC Portal">
+                            <a href="https://sisholycrosscollege.info" target="_blank"><img class="card-img-top" src="/img/logo-new.png" alt="HCC Portal" height="75px" width="200px"></a>
                         </div>
                     </div>
                 </div>
