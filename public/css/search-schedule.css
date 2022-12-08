@@ -520,3 +520,25 @@ input {
     transition: opacity 0.3s;
     opacity: 1;
 }
+
+.fab-container{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    cursor:pointer; 
+}
+
+.iconbutton{
+    width:75px;
+    height:75px;
+    border-radius: 100%;
+    background: #FF4F79;
+    box-shadow: 10px 10px 5px #aaaaaa;
+    font-size: 1.6em !important;
+}
+        
+.button {
+    width:75px;
+    height:75px;
+    background:#47d4ff;
+}

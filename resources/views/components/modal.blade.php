@@ -481,7 +481,7 @@
             <h4>Instruction</h4>
           </div>
           <ul>
-            <li><a class="btn btn-success" href="{{ route('download-samplecsv') }}">Download Sample CSV</a> File Template</li>
+            <li><a class="btn btn-success" href="{{ route('download-samplecsv.student') }}">Download Sample CSV</a> File Template</li>
             <li>Add all the fields needed (StudentId, Name, and SectionCode)</li>
             <li>Once done, browse the CSV file and import</li>
           </ul>
@@ -499,7 +499,7 @@
           </ul>
         </div>
 
-        <form action="{{ route('file-import') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('file-import.student') }}" method="POST" enctype="multipart/form-data">
           <h4>Import CSV</h4>
           @csrf
           <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
