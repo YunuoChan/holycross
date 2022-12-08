@@ -28,7 +28,7 @@
         @yield('head')
 
     </head>
-    <body>
+    <body class="bg-sy" style="background-image: url('/img/bgnew.jpeg');">
         <main style="height: 100vh;">
             <section class="p-0" id="content">
                 <div class="wrapper">

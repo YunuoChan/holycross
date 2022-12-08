@@ -86,6 +86,18 @@ class SchoolyearController extends Controller
                 $from   = $request->syto;
                 $to     = $request->syfrom;
             }
+
+            $syExist = Schoolyear::where('semester', $semester)
+                                ->where('sy_from', $from)
+                                ->where('sy_to', $to)
+                                ->where('status', 'ACT')
+                                ->count();
+            if ($syExist > 0) {
+                return response()->json([
+                    'status' => 66,
+                    'message' => 'School Year already exist in the record!'
+                ], 200);
+            }
             
             $schoolYear = new Schoolyear();
             $schoolYear->sy_from    = $from;

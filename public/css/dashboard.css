@@ -207,3 +207,11 @@ a.hover-a:hover, a.hover-a:focus {
     /* text-decoration: underline !important; */
     cursor: pointer !important;
 }
+.bg-sy {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+  
+    background-size: cover;
+  }
+  

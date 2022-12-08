@@ -76,6 +76,7 @@ a.text-deco-n.py-3.px-5.border-1-add-sy:hover {
 
 .bg-opacity-schoolyear {
   background-color: rgb(20 58 205 / 55%);
+  padding-bottom: 100px;
 }
 
 .color-white {
@@ -84,5 +85,5 @@ a.text-deco-n.py-3.px-5.border-1-add-sy:hover {
 
 .tableFixHead {
   overflow: auto;
-  height: 70vh
+  height: 500px !important;
 }

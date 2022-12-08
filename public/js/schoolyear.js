@@ -41,7 +41,7 @@ function loadSchoolyearRecord() {
 function syElement(data) {
 
     var s = '';
-    s +=    ' <div class="card border-success mb-3" style="max-width: 18rem;"> ';
+    s +=    ' <div class="card border-success mb-3 mx-3" style="max-width: 18rem;"> ';
     s +=    '     <div class="card-header"> ';
     if (data.semester == 1) {
         s +=    '                   <small class="mt-3 mb-0"><b>First Semester</b></small> ';
@@ -63,13 +63,17 @@ function syElement(data) {
     s +=    '               <small class="text-muted mb-0">'+ data.created_at +'</small> ';
     s +=    '           </div> ';
     s +=    '       </div> ';
-    if (data.is_active == 0) {
-        s +=    '       <div class="card-footer bg-transparent border-warning px-0 pb-0 text-right d-flex justify-content-between"> ';
-        s +=    '           <div class="d-flex justify-content-center flex-column"> ';
-        s +=    '               <button class="remove-sy border-n badge rounded-pill badge-remove" id="removeSYRecord-'+ data.id +'" data-id="'+ data.id +'"><i class="fas fa-trash-alt"></i> <span>Delete</span></button> ';
-        s +=    '           </div> ';
+    // if (data.is_active == 0) {
+        if (data.is_active == 0) {
+            s +=    '       <div class="card-footer bg-transparent border-warning px-0 pb-0 text-right d-flex justify-content-between"> ';
+            s +=    '           <div class="d-flex justify-content-center flex-column"> ';
+            s +=    '               <button class="remove-sy border-n badge rounded-pill badge-remove" id="removeSYRecord-'+ data.id +'" data-id="'+ data.id +'"><i class="fas fa-trash-alt"></i> <span>Delete</span></button> ';
+            s +=    '           </div> ';
+        } else {
+            s +=    '       <div class="card-footer bg-transparent border-warning px-0 pb-0 text-right d-flex justify-content-end"> ';
+        }
         s +=    '                <a class="select-sy btn btn-link m-0 text-reset text-deco-n" role="button" data-ripple-color="primary" id="proceedSYRecord-'+ data.id +'" data-id="'+ data.id +'">Proceed <i class="fas fa-arrow-right"></i></a>';
-    } 
+    // } 
     // else {
     //     s +=    '       <div class="card-footer bg-transparent border-warning px-0 pb-0 text-right d-flex justify-content-end"> ';
     //     s +=    '           <a class="select-sy btn btn-link m-0 text-reset text-deco-n" role="button" data-ripple-color="primary" id="proceedSYRecord-'+ data.id +'" data-id="'+ data.id +'">Proceed <i class="fas fa-arrow-right"></i></a>';
@@ -143,7 +147,7 @@ $('#addNewSchoolYearRecord').on('click', function() {
     console.log('modal call');
 
     var min = new Date().getFullYear(),
-    min1 = min-2;
+    min1 = min;
     max = min + 20,
     $('#sySelectFromPicker').html(BLANK);
 
@@ -155,7 +159,7 @@ $('#addNewSchoolYearRecord').on('click', function() {
     }
 
     var min = new Date().getFullYear(),
-    min1 = min-1;
+    min1 = min+1;
     max = min + 20,
     $('#sySelectToPicker').html(BLANK);
 
@@ -224,6 +228,14 @@ $('#saveNewSy').on('click', function() {
         console.log('fetchUsers: ', data);
         loadSchoolyearRecord();
         $('#addSchoolYearRecord').modal('hide');
+
+        if (data.status == 66) {
+            customToaster('Failed to Add!', data.message, 'warning')
+            resetStudentModal();
+            $('#addStudentRecord').modal('hide');
+            return false;
+        }
+
         $.toast({
             heading: 'Success!',
             text: 'Record successfully saved!',

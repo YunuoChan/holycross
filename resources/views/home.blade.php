@@ -8,21 +8,22 @@
 @stop
 
 @section('content')
-<div class="bg-sy" style="background-image: url('/img/hcc-bg.jpg');">
+{{-- <div class="bg-sy"> --}}
   <div class="bg-opacity">
-    <div class="container bg-opacity-schoolyear" style="height: 100vh;">
-        <div class="d-flex">
+    <div class="container bg-opacity-schoolyear">
+        <div class="d-flex justify-content-center">
           {{-- ACTIVE SHOOLYEAR --}}
-          <div class="col-lg-6">  
-            <div class="d-flex justify-content-center flex-column mt-5">
+          {{-- <div class="col-lg-6">   --}}
+            <div class="d-flex justify-content-center flex-column">
               <div class="d-flex justify-content-center">
-                <h3 class="mt-5 color-white">Active Schoolyear</h3>
+                <h3 class="mt-5 color-white">Active School Year</h3>
               </div>
               <div id="activeSY" class="d-flex justify-content-center">
               </div>  
             </div>
-          </div>
-          <div class="col-lg-6">
+        </div>
+          {{-- </div> --}}
+          <div class="d-flex justify-content-center flex-column">
             <div class="mt-5 ">
               {{-- ADD RECORD --}}
               <div class="d-flex justify-content-center mt-5 mb-4">
@@ -41,11 +42,10 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>
-</div>
+{{-- </div> --}}
 @endsection
 
 

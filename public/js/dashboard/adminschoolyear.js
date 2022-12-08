@@ -59,6 +59,14 @@ $('#saveNewSy').on('click', function() {
         console.log('fetchUsers: ', data);
         loadSchoolyearRecordAdmin();
         $('#addSchoolYearRecord').modal('hide');
+
+        if (data.status == 66) {
+            customToaster('Failed to Add!', data.message, 'warning')
+            resetStudentModal();
+            $('#addStudentRecord').modal('hide');
+            return false;
+        }
+        
         successSave();
     }).fail(function(error) {
         console.log('Backend Error', error);

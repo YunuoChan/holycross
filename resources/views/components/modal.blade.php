@@ -18,17 +18,17 @@
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label pt-0">School Year</label>
-            <div class="d-flex justify-content-between ml-3">
-              <div class="d-flex justify-content-start w-50 mr-2">
-                <div class="d-flex justify-content-center flex-column">
+            <div class="d-flex justify-content-between">
+              <div class="w-50 mr-2">
+                {{-- <div class="d-flex justify-content-center flex-column"> --}}
                   <label for="sySelectFromPicker" class="m-0 pr-2">From<span class="required-asterisk">*</span></label>
-                </div>
+                {{-- </div> --}}
                 <select class="form-control" id="sySelectFromPicker"></select>
               </div>
-              <div class="d-flex justify-content-start w-50 ml-2">
-                <div class="d-flex justify-content-center flex-column">
+              <div class="w-50 ml-2">
+                {{-- <div class="d-flex justify-content-center flex-column"> --}}
                   <label for="sySelectToPicker" class="m-0 pr-2">To<span class="required-asterisk">*</span></label>
-                </div>
+                {{-- </div> --}}
                 <select class="form-control" id="sySelectToPicker"></select>
               </div>
             </div> <div class="form-group w-75 mt-4">

@@ -33,7 +33,7 @@
         @yield('head')
 
     </head>
-    <body class="antialiased">
+    <body class="antialiased bg-sy" style="background-image: url('/img/hcc-bg.jpg');">
         @include('layouts/nav')
 
         <main style="height: 100vh;">
@@ -41,7 +41,7 @@
                 @yield('content')
             </section>
         </main>
-        @include('layouts/footer')
+        {{-- @include('layouts/footer') --}}
 
         {{-- INCLUDE FOOTER --}}
     </body>
