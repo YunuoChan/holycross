@@ -148,7 +148,7 @@ function tableElement(data) {
         elm += '     <td class="vertical-center">'+ data.course.course_code +'</td> ';
         elm += '     <td class="vertical-center">'+ data.professor_id_no +'</th> ';
         elm += '     <td class="vertical-center">'+ data.name +'</td> ';
-        elm += '     <td class="vertical-center">'+ data.status +'</td> ';
+        // elm += '     <td class="vertical-center">'+ data.status +'</td> ';
         elm += '     <td class="vertical-center"> ';
         elm += '        <div class="d-flex justify-content-start">'
         if (data.status == 'ACT') {

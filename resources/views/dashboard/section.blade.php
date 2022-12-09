@@ -46,7 +46,7 @@
                     <th width="15%" scope="col" class="vertical-center">Course</th>
                     <th width="10%"scope="col" class="vertical-center">Section Code</th>
                     <th width="10%" scope="col" class="vertical-center">Year Level</th>
-                    <th width="10%" scope="col" class="vertical-center">Status</th>
+                    {{-- <th width="10%" scope="col" class="vertical-center">Status</th> --}}
                     <th width="20%"scope="col" class="vertical-center">Control</th>
                   </tr>
                 </thead>

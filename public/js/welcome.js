@@ -67,6 +67,7 @@ function loadProfScheduleRecord() {
         $('#profScheduleTable').html(BLANK);
         if (data.professor.length > 0) {
             $('#profInfo').removeClass('d-none');
+            $('#profScheduleTable').show();
             if (data.professor[0].professor_subjects.length > 0) {
                 console.log(data.professor[0].professor_subjects);
                 data.professor[0].professor_subjects.forEach(function(prof) {

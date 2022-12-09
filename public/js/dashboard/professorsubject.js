@@ -161,7 +161,7 @@ function tableElement(data) {
             elm += '     <td class="vertical-center"><small>No assigned subject yet</small></td> ';
         }
 
-        elm += '     <td class="vertical-center">'+ data.status +'</td> ';
+        // elm += '     <td class="vertical-center">'+ data.status +'</td> ';
         elm += '     <td class="vertical-center"> ';
         elm += '        <div class="d-flex">'
         if (data.status == 'ACT') {

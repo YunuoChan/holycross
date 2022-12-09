@@ -125,7 +125,7 @@ function tableElement(subject) {
             elm += '     <td class="vertical-center">First Year</td> ';
         }
        
-        elm += '     <td class="vertical-center">'+ subject.status +'</td> ';
+        // elm += '     <td class="vertical-center">'+ subject.status +'</td> ';
         elm += '     <td class="vertical-center"> ';
         elm += '        <div class="d-flex justify-content-start">'
         // elm += '         <button type="button" class="btn btn-primary" id="viewSubject-'+ subject.id +'"><i class="fas fa-eye"></i>View</button> ';

@@ -31,7 +31,7 @@
               <tr>
                 <th width="10%" scope="col" class="vertical-center">Course Code</th>
                 <th width="10%" scope="col" class="vertical-center">Course</th>
-                <th width="10%" scope="col" class="vertical-center">Status</th>
+                {{-- <th width="10%" scope="col" class="vertical-center">Status</th> --}}
                 <th width="15%"scope="col" class="vertical-center">Control</th>
               </tr>
             </thead>

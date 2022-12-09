@@ -226,7 +226,7 @@ function tableElement(data) {
         } else {
             elm += '     <td class="vertical-center">First Year</td> ';
         }
-        elm += '     <td class="vertical-center">'+ data.status +'</td> ';
+        // elm += '     <td class="vertical-center">'+ data.status +'</td> ';
         elm += '     <td class="vertical-center"> ';
         elm += '        <div class="d-flex">'
         if (data.status == 'ACT') {

@@ -38,7 +38,7 @@
                     <th width="10%" scope="col" class="vertical-center">Department</th>
                     <th width="10%" scope="col" class="vertical-center">Prof ID No</th>
                     <th width="15%" scope="col" class="vertical-center">Name</th>
-                    <th width="10%" scope="col" class="vertical-center">Status</th>
+                    {{-- <th width="10%" scope="col" class="vertical-center">Status</th> --}}
                     <th width="15%"scope="col" class="vertical-center">Control</th>
                   </tr>
                 </thead>

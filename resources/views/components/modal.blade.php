@@ -505,11 +505,12 @@
           <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
               <div class="custom-file text-left">
                   <input type="file" name="file" class="custom-file-input" id="customFile">
-                  <label class="custom-file-label" for="customFile">Choose file</label>
+                  <label class="custom-file-label" for="customFile" id="customFileLabel">Choose file</label>
               </div>
           </div>
           <div class="d-flex justify-content-end">
-            <button class="btn btn-primary">Import data</button>
+            {{-- <button class="btn btn-primary">Import data</button> --}}
+            <button class="btn btn-primary" id="uploadCSVStudent" disabled>Import data</button>
           </div>
         </form>
       </div>
@@ -681,4 +682,114 @@
   </div>
 </div>
 
+<!-- CSV FOR PROFESSOR -->
 
+<div class="modal fade" id="professorImportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 50px">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-custom">
+        <h5 class="modal-title">Add Professor via CSV File</h5>
+        <button type="button" class="close white-color" data-dismiss="modal" aria-label="Close" data-bs-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-4">
+          <div class="d-flex">
+            <h4>Instruction</h4>
+          </div>
+          <ul>
+            <li><a class="btn btn-success" href="{{ route('download-samplecsv.professor') }}">Download Sample CSV</a> File Template</li>
+            <li>Add all the fields needed (ProfessorId, Name, and Department)</li>
+            <li>Once done, select the CSV file and import</li>
+          </ul>
+        </div>
+        <div class="mb-4">
+          <div class="d-flex">
+            <h5>#Note</h5>
+          </div>
+          <ul>
+            <li>Duplicated Professor Id will be ignored</li>
+            <li>Missing fields will also be ignore and will not be added on the database</li>
+            <li>Only matching data will be added</li>
+            <li>Based the Department to the course code in the course list</li>
+            <li>Do not remove any column in the CSV Template. Record will not be validated</li>
+            <li>Add the record accordingly in the CSV.</li>
+            <li>Do not remove the header.</li>
+          </ul>
+        </div>
+
+        <form action="{{ route('file-import.professor') }}" method="POST" enctype="multipart/form-data">
+          <h4>Import CSV</h4>
+          @csrf
+          <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
+              <div class="custom-file text-left">
+                  <input type="file" name="file" class="custom-file-input" id="customFileProf" accept="text/csv">
+                  <label class="custom-file-label" for="customFile" id="customFileProfLabel">Choose file</label>
+              </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" id="uploadCSVProfessor" disabled>Import data</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{{-- SECTION SUBJETC --}}
+<div class="modal fade" id="subjectImportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 50px">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-custom">
+        <h5 class="modal-title">Add Subject via CSV File</h5>
+        <button type="button" class="close white-color" data-dismiss="modal" aria-label="Close" data-bs-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-4">
+          <div class="d-flex">
+            <h4>Instruction</h4>
+          </div>
+          <ul>
+            <li><a class="btn btn-success" href="{{ route('download-samplecsv.subject') }}">Download Sample CSV</a> File Template</li>
+            <li>Add all the fields needed (ProfessorId, Name, and Department)</li>
+            <li>Once done, select the CSV file and import</li>
+          </ul>
+        </div>
+        <div class="mb-4">
+          <div class="d-flex">
+            <h5>#Note</h5>
+          </div>
+          <ul>
+            <li>Duplicated record will be ignored</li>
+            <li>Missing required(Section Code, Section Name, Course, Yearl Level, Time to Consume) fields will also be ignore and will not be added on the database</li>
+            <li>Only matching data will be added</li>
+            <li>Year level will based on counting(1,2,3,4)</li>
+            <li>Do not remove any column in the CSV Template. Record will not be validated</li>
+            <li>Add the record accordingly in the CSV.</li>
+            <li>Do not remove the header.</li>
+          </ul>
+        </div>
+
+        <form action="{{ route('file-import.subject') }}" method="POST" enctype="multipart/form-data">
+          <h4>Import CSV</h4>
+          @csrf
+          <div class="form-group mb-4" style="max-width: 500px; margin: 0 auto;">
+              <div class="custom-file text-left">
+                  <input type="file" name="file" class="custom-file-input" id="customFileSubj" accept="text/csv">
+                  <label class="custom-file-label" for="customFile" id="customFileSubjLabel">Choose file</label>
+              </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" id="uploadCSVSubject" disabled>Import data</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

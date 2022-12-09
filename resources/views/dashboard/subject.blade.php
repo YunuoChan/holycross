@@ -51,7 +51,7 @@
                     <th width="7%"scope="col" class="vertical-center">Unit</th>
                     <th width="12%" scope="col" class="vertical-center">Time to Consume</th>
                     <th width="10%" scope="col" class="vertical-center">Year Level</th>
-                    <th width="10%" scope="col" class="vertical-center">Status</th>
+                    {{-- <th width="10%" scope="col" class="vertical-center">Status</th> --}}
                     <th width="20%"scope="col" class="vertical-center">Control</th>
                   </tr>
                 </thead>
